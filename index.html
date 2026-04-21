@@ -1,65 +1,798 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tastin' France Taiwan - Dégustation de Vins</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tastin' France Taiwan — Démo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --sand: #E8DFD0;
+    --sand-dark: #C8B89A;
+    --terracotta: #C85A2A;
+    --terracotta-light: #E8A882;
+    --brown-dark: #3D2B1F;
+    --brown-mid: #8B6E5A;
+    --brown-light: #C4B09A;
+    --wine-bg: #140E08;
+    --wine-card: rgba(200,168,130,0.08);
+    --wine-border: rgba(200,168,130,0.25);
+    --gold: #C8A882;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--brown-dark); overflow-x: hidden; }
+
+  /* ─── PAGES ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background:
+      radial-gradient(ellipse 90% 70% at 62% 45%, #E8824A 0%, rgba(232,130,74,0) 60%),
+      radial-gradient(ellipse 60% 50% at 20% 75%, #C8D8C0 0%, rgba(200,216,192,0) 65%),
+      radial-gradient(ellipse 70% 60% at 10% 20%, #F0D8C8 0%, rgba(240,216,200,0) 55%),
+      radial-gradient(ellipse 50% 40% at 90% 15%, #EED0B8 0%, rgba(238,208,184,0) 60%),
+      radial-gradient(ellipse 45% 35% at 75% 90%, #B8C8B0 0%, rgba(184,200,176,0) 55%),
+      #F0E8DC;
+    padding: 1.75rem 1.5rem 2.75rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 340px;
+  }
+
+  /* coup de pinceau diagonal central */
+  .hero-brush1 {
+    position: absolute;
+    top: -15%; left: 25%;
+    width: 70%; height: 130%;
+    background: radial-gradient(ellipse 100% 80% at 50% 50%, rgba(210,100,50,0.38) 0%, rgba(220,120,60,0.18) 40%, transparent 70%);
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    transform: rotate(-18deg);
+    pointer-events: none;
+  }
+  /* touche vert-bleu bas gauche */
+  .hero-brush2 {
+    position: absolute;
+    bottom: -20%; left: -10%;
+    width: 55%; height: 65%;
+    background: radial-gradient(ellipse, rgba(160,195,175,0.45) 0%, rgba(140,180,160,0.2) 45%, transparent 70%);
+    border-radius: 40% 60% 45% 55% / 55% 45% 60% 40%;
+    transform: rotate(12deg);
+    pointer-events: none;
+  }
+  /* éclat lumineux haut droite */
+  .hero-brush3 {
+    position: absolute;
+    top: -10%; right: -5%;
+    width: 45%; height: 50%;
+    background: radial-gradient(ellipse, rgba(248,220,195,0.5) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-logos {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem;
+    position: relative; z-index: 2;
+  }
+  .hero-logo-badge {
+    background: rgba(255,255,255,0.82);
+    border-radius: 4px;
+    padding: 4px 9px;
+    font-size: 9px;
+    font-weight: 600;
+    color: #3D2B1F;
+    letter-spacing: 0.3px;
+    font-family: 'Montserrat', sans-serif;
+    backdrop-filter: blur(4px);
+  }
+  .hero-brand {
+    text-align: right;
+    margin-bottom: 1.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-brand-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 0.88;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 20px rgba(180,80,30,0.25);
+  }
+  .hero-brand-main span {
+    font-weight: 900;
+    font-size: 40px;
+    letter-spacing: 7px;
+    display: block;
+    margin-top: 8px;
+    color: #8B1818;
+    text-shadow: none;
+  }
+  .hero-ss {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 0px;
+    margin-bottom: 1.75rem;
+    position: relative; z-index: 2;
+    text-shadow: 0 2px 16px rgba(180,80,30,0.2);
+  }
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative; z-index: 2;
+  }
+  .hero-cta {
+    display: inline-block;
+    border: 1.5px solid rgba(80,40,20,0.55);
+    color: #5A2A10;
+    padding: 11px 28px;
+    border-radius: 50px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-decoration: underline;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 0.85rem;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+  }
+  .hero-cta:hover { background: rgba(255,255,255,0.38); }
+  .hero-note {
+    font-size: 13px;
+    color: rgba(60,30,10,0.78);
+    line-height: 1.7;
+    font-family: 'Montserrat', sans-serif;
+    text-align: right;
+  }
+
+  /* ─── NAV TABS ─── */
+  .nav-tabs {
+    display: flex;
+    background: #F5F0E6;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid #DDD4C2;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex: none;
+    padding: 14px 20px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: var(--brown-dark);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    font-family: 'Montserrat', sans-serif;
+    background: none; border-right: none; border-left: none; border-top: none;
+  }
+  .nav-tab.active { border-bottom-color: var(--terracotta); color: var(--terracotta); }
+
+  /* ─── LIST PAGE ─── */
+  .list-section { padding: 1.5rem; }
+  .list-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600;
+    text-align: center; margin-bottom: 6px; color: var(--brown-dark);
+  }
+  .list-subtitle {
+    font-size: 14px; color: var(--brown-mid);
+    text-align: center; margin-bottom: 1.5rem; letter-spacing: 0.3px;
+  }
+  .quick-btns {
+    display: flex; gap: 8px; justify-content: center;
+    margin-bottom: 1.25rem; flex-wrap: wrap;
+  }
+  .quick-btn {
+    border: 1.5px solid var(--brown-dark);
+    background: transparent; color: var(--brown-dark);
+    padding: 10px 18px; border-radius: 50px;
+    font-size: 13px; letter-spacing: 0.5px; font-weight: 500;
+    cursor: pointer; font-family: 'Montserrat', sans-serif;
+    transition: background 0.2s, color 0.2s;
+  }
+  .quick-btn:hover { background: var(--brown-dark); color: var(--cream); }
+
+  .filter-row {
+    display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px;
+    margin-bottom: 1.5rem; scrollbar-width: none;
+  }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    border: 1px solid var(--brown-mid); background: transparent;
+    color: var(--brown-mid); padding: 8px 16px; border-radius: 50px;
+    font-size: 12px; white-space: nowrap; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .filter-btn.active { background: var(--brown-dark); color: var(--cream); border-color: var(--brown-dark); }
+
+  .exposants-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .expo-card {
+    background: var(--sand);
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(61,43,31,0.08);
+  }
+  .expo-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(61,43,31,0.15); }
+  .expo-card:active { transform: scale(0.97); }
+  .expo-card-img {
+    background: #DDD4C2;
+    height: 110px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px;
+  }
+  .expo-logo-placeholder {
+    width: 76px; height: 76px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600; color: var(--brown-mid);
+    text-align: center; padding: 8px; line-height: 1.4;
+    font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px;
+  }
+  .expo-card-body { padding: 10px 14px 14px; }
+  .expo-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 600; color: var(--brown-dark);
+    margin-bottom: 4px; line-height: 1.3;
+  }
+  .expo-card-region { font-size: 11px; color: var(--brown-mid); margin-bottom: 3px; }
+  .expo-card-booth { font-size: 11px; color: var(--brown-light); font-weight: 500; }
+
+  .back-to-top {
+    text-align: center; margin-top: 2rem;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: #E8E0D0;
+    padding: 1.5rem;
+    font-size: 13px;
+    color: var(--brown-dark);
+    line-height: 1.9;
+  }
+  .footer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .footer-social { display: flex; gap: 10px; margin-top: 4px; }
+  .footer-icon {
+    width: 30px; height: 30px;
+    border: 1.5px solid var(--brown-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: var(--brown-dark);
+    font-family: 'Montserrat', sans-serif; cursor: pointer;
+  }
+  .footer-copy { font-size: 10px; color: var(--brown-mid); margin-top: 0.75rem; }
+
+  /* ─── WINERY PAGE ─── */
+  .winery-page { background: var(--wine-bg); }
+  .winery-topbar {
+    display: flex; align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--wine-border);
+  }
+  .winery-back {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--gold); font-size: 12px;
+    cursor: pointer; font-family: 'Montserrat', sans-serif;
+    font-weight: 500; letter-spacing: 0.5px;
+    background: none; border: none;
+  }
+  .winery-header { padding: 1.5rem 1.5rem 1rem; }
+  .winery-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300;
+    color: #fff; letter-spacing: 3px;
+    margin-bottom: 0.75rem;
+  }
+  .winery-regions {
+    font-size: 11px; color: var(--gold);
+    line-height: 2.2; letter-spacing: 0.5px;
+  }
+  .winery-logo-box {
+    margin: 1rem 1.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--wine-border);
+    border-radius: 14px;
+    padding: 2rem;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 120px;
+  }
+  .winery-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--gold); text-align: center;
+    letter-spacing: 3px;
+  }
+  .winery-logo-sub {
+    font-size: 10px; color: rgba(200,168,130,0.6);
+    text-align: center; letter-spacing: 1px; margin-top: 6px;
+  }
+  .winery-divider {
+    height: 1px; background: var(--wine-border);
+    margin: 0 1.5rem 1.25rem;
+  }
+  .winery-bio {
+    padding: 0 1.5rem 1rem;
+    font-size: 13px; color: #D4C4A8;
+    line-height: 1.9;
+  }
+  .winery-bio p { margin-bottom: 1rem; }
+  .wines-section { padding: 0 1.5rem 3rem; }
+  .wines-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+  .wines-label {
+    font-size: 10px; letter-spacing: 3px;
+    color: var(--gold); font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .wines-line { flex: 1; height: 1px; background: var(--wine-border); }
+  .wine-card {
+    background: var(--wine-card);
+    border: 1px solid var(--wine-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+  }
+  .wine-card:hover { background: rgba(200,168,130,0.13); }
+  .wine-num {
+    font-size: 10px; color: var(--gold);
+    margin-bottom: 4px; font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+  .wine-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; color: #fff; font-weight: 400;
+    margin-bottom: 5px; line-height: 1.3;
+  }
+  .wine-detail { font-size: 11px; color: #9A8470; line-height: 1.7; }
+  .wine-detail span {
+    display: inline-block;
+    margin-right: 6px;
+  }
+  .wine-detail span::after { content: '·'; margin-left: 6px; color: #6A5445; }
+  .wine-detail span:last-child::after { content: ''; }
+
+  /* ─── GALERIE ─── */
+  .galerie-section { padding: 1.5rem; }
+  .galerie-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600;
+    text-align: center; margin-bottom: 1.5rem;
+  }
+  .galerie-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .galerie-photo {
+    background: var(--sand); border-radius: 12px;
+    height: 140px; display: flex; align-items: center; justify-content: center;
+    color: var(--brown-mid); font-size: 11px; overflow: hidden;
+  }
+  .galerie-photo.tall { grid-row: span 2; height: auto; min-height: 290px; }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    background: linear-gradient(160deg, #C8734A 0%, #8B3A1E 50%, #6B2810 100%);
+    min-height: 100vh;
+    padding: 2rem 1.5rem;
+  }
+  .contact-deco {
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .contact-bottle { font-size: 48px; opacity: 0.6; }
+  .contact-intro { color: rgba(255,255,255,0.92); font-size: 14px; line-height: 1.8; }
+  .contact-form-box {
+    background: rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .contact-field { margin-bottom: 1rem; }
+  .contact-label { font-size: 11px; color: rgba(255,255,255,0.8); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
+  .contact-input {
+    width: 100%; padding: 12px 14px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px; color: #fff;
+    font-size: 13px; font-family: 'Montserrat', sans-serif;
+    outline: none;
+  }
+  .contact-input::placeholder { color: rgba(255,255,255,0.4); }
+  .contact-input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.2); }
+  textarea.contact-input { min-height: 90px; resize: vertical; }
+  .contact-submit {
+    width: 100%; padding: 14px;
+    background: var(--brown-dark); color: #fff;
+    border: none; border-radius: 8px;
+    font-size: 13px; font-weight: 600; letter-spacing: 1px;
+    cursor: pointer; font-family: 'Montserrat', sans-serif;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+  }
+  .contact-submit:hover { background: #2A1A10; }
+  .contact-note { font-size: 10px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 0.75rem; }
+  .contact-restriction { margin-top: 1.5rem; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.8; }
+</style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">TASTIN' FRANCE</div>
-        <ul>
-            <li><a href="#home">Accueil</a></li>
-            <li><a href="#exposants">Exposants</a></li>
-            <li><a href="#gallery">Galerie</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<!-- ══════════════════════════════════════
+     PAGE : ACCUEIL
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-brush1"></div>
+    <div class="hero-brush2"></div>
+    <div class="hero-brush3"></div>
+    <div class="hero-logos">
+      <div class="hero-logo-badge">BUREAU FRANÇAIS DE TAIPEI</div>
+      <div class="hero-logo-badge">Business France</div>
+      <div class="hero-logo-badge">Taste France™</div>
+    </div>
+    <div class="hero-brand">
+      <div class="hero-brand-main">Tastin'<span>FRANCE</span></div>
+    </div>
+    <div class="hero-ss">S/S<br>Collection</div>
+    <div class="hero-bottom">
+      <button class="hero-cta" onclick="goTo('page-list')">LIST OF WINERIES</button>
+      <div class="hero-note">
+        春夏季【法國綜合產區】品酒會<br>
+        Open to wine &amp; spirits importers on registration only.
+      </div>
+    </div>
+  </div>
 
-    <header id="home" class="hero">
-        <div class="hero-content">
-            <h1>Tastin' France Taiwan 2026</h1>
-            <p>Une immersion exclusive dans le vignoble français</p>
-            <a href="#exposants" class="btn">Découvrir les exposants</a>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="navTo('page-home', this)">ACCUEIL</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXPOSANTS</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">GALERIE</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+  </nav>
+
+  <div style="padding: 2rem 1.5rem; text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--brown-dark); margin-bottom:1rem;">Bienvenue / 歡迎</p>
+    <p style="font-size:12px; color:var(--brown-mid); line-height:1.9; max-width:380px; margin:0 auto;">
+      Tastin' France Taiwan brings together the finest French wine producers for an exclusive tasting event reserved for wine &amp; spirits importers.
+    </p>
+    <div style="margin-top:2rem;">
+      <button class="quick-btn" onclick="goTo('page-list')" style="padding:12px 32px; font-size:11px;">
+        VOIR LES EXPOSANTS →
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-row">
+      <div>
+        <div>Business France Taïwan – Bureau français de Taipei</div>
+        <div>Suite D, 39F, No. 7, Sec. 5, Xinyi Rd., Taipei 110</div>
+        <div>法國在臺協會商務處 110615台北市信義路五段7號39樓D室</div>
+        <div class="footer-social">
+          <div class="footer-icon">ig</div>
+          <div class="footer-icon">f</div>
+          <div class="footer-icon">in</div>
         </div>
-    </header>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 par Business France Taiwan.</div>
+  </div>
+</div>
 
-    <section id="exposants">
-        <h2>Nos 31 Exposants</h2>
-        <div class="grid-container">
-            <div class="exhibitor-card">
-                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x200');"></div>
-                <h3>Domaine de la Vallée</h3>
-                <p>Région : Bordeaux</p>
-                <a href="exposants/domaine-vallee.html" class="btn-alt">Voir les vins</a>
-            </div>
-            
-            <div class="exhibitor-card">
-                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x200');"></div>
-                <h3>Château Saint-Esprit</h3>
-                <p>Région : Provence</p>
-                <a href="exposants/chateau-st-esprit.html" class="btn-alt">Voir les vins</a>
-            </div>
-            </div>
-    </section>
+<!-- ══════════════════════════════════════
+     PAGE : LISTE EXPOSANTS
+══════════════════════════════════════ -->
+<div class="page" id="page-list">
+  <nav class="nav-tabs" style="position:sticky;top:0;z-index:10;">
+    <button class="nav-tab" onclick="navTo('page-home', this)">ACCUEIL</button>
+    <button class="nav-tab active" onclick="navTo('page-list', this)">EXPOSANTS</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">GALERIE</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+  </nav>
 
-    <section id="contact">
-        <h2>Contactez-nous</h2>
-        <p>Une question sur l'événement ? Business France Taiwan est à votre écoute.</p>
-        <form>
-            <input type="text" placeholder="Nom complet">
-            <input type="email" placeholder="Email">
-            <textarea placeholder="Votre message"></textarea>
-            <button type="submit" class="btn">Envoyer</button>
-        </form>
-    </section>
+  <div class="list-section">
+    <div class="list-title">【2026年 春夏季】酒莊名單</div>
+    <div class="list-subtitle">List of Exhibitors — Spring/Summer Collection 2026</div>
 
-    <footer>
-        <p>&copy; 2026 Business France Taiwan - Tastin' France</p>
-    </footer>
+    <div class="quick-btns">
+      <button class="quick-btn">展場地圖 | FLOOR PLAN</button>
+      <button class="quick-btn">參展商酒單 | WINE LIST</button>
+    </div>
 
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterExpo('ALL', this)">ALL</button>
+      <button class="filter-btn" onclick="filterExpo('CHAMPAGNE', this)">CHAMPAGNE</button>
+      <button class="filter-btn" onclick="filterExpo('LANGUEDOC', this)">LANGUEDOC</button>
+      <button class="filter-btn" onclick="filterExpo('RHÔNE', this)">RHÔNE VALLEY</button>
+      <button class="filter-btn" onclick="filterExpo('BORDEAUX', this)">BORDEAUX</button>
+      <button class="filter-btn" onclick="filterExpo('SPIRITS', this)">SPIRITS</button>
+    </div>
+
+    <div class="exposants-grid" id="exposantsGrid">
+      <!-- Les cartes sont générées par JS -->
+    </div>
+
+    <div class="back-to-top">
+      <button class="quick-btn" onclick="goTo('page-home')" style="margin-top:1rem;">↑ 回到選單 / Retour</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Business France Taïwan – Bureau français de Taipei</div>
+    <div class="footer-copy">© 2026 par Business France Taiwan.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : FICHE EXPOSANT
+══════════════════════════════════════ -->
+<div class="page winery-page" id="page-winery">
+  <div class="winery-topbar">
+    <button class="winery-back" onclick="goTo('page-list')">← Retour / 返回名單</button>
+  </div>
+  <div id="wineryContent"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : GALERIE
+══════════════════════════════════════ -->
+<div class="page" id="page-galerie">
+  <nav class="nav-tabs">
+    <button class="nav-tab" onclick="navTo('page-home', this)">ACCUEIL</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXPOSANTS</button>
+    <button class="nav-tab active" onclick="navTo('page-galerie', this)">GALERIE</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+  </nav>
+  <div class="galerie-section">
+    <div class="galerie-title">2025秋冬 Tastin'France 花絮回顧</div>
+    <div class="galerie-grid">
+      <div class="galerie-photo tall" style="background:#D4C4A8; color:var(--brown-mid); font-size:11px; justify-content:center; text-align:center;">
+        📸 Photo 1
+      </div>
+      <div class="galerie-photo" style="background:#C8B89A;">📸 Photo 2</div>
+      <div class="galerie-photo" style="background:#DDD4C2;">📸 Photo 3</div>
+      <div class="galerie-photo" style="background:#E8DFD0;">📸 Photo 4</div>
+      <div class="galerie-photo" style="background:#C8B89A;">📸 Photo 5</div>
+    </div>
+    <p style="font-size:11px; color:var(--brown-mid); text-align:center; margin-top:1.5rem;">
+      → Remplace les blocs "📸 Photo" par tes vraies images
+    </p>
+  </div>
+  <div class="footer">
+    <div>Business France Taïwan — © 2026</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : CONTACT
+══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <nav class="nav-tabs">
+    <button class="nav-tab" onclick="navTo('page-home', this)">ACCUEIL</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXPOSANTS</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">GALERIE</button>
+    <button class="nav-tab active" onclick="navTo('page-contact', this)">CONTACT</button>
+  </nav>
+  <div class="contact-section">
+    <div class="contact-intro" style="margin-bottom:1.5rem;">
+      <p style="font-size:15px; font-weight:600; margin-bottom:0.5rem;">此活動採取邀請制。</p>
+      <p>若您是酒類進口商並欲報名 Tastin'France，煩請先填妥以下資料，我們會盡快與您聯絡。</p>
+    </div>
+    <div class="contact-form-box">
+      <div class="contact-field">
+        <label class="contact-label">Name*</label>
+        <input type="text" class="contact-input" placeholder="Votre nom">
+      </div>
+      <div class="contact-field">
+        <label class="contact-label">Name of company*</label>
+        <input type="text" class="contact-input" placeholder="Votre société">
+      </div>
+      <div class="contact-field">
+        <label class="contact-label">Email address*</label>
+        <input type="email" class="contact-input" placeholder="email@example.com">
+      </div>
+      <div class="contact-field">
+        <label class="contact-label">Phone Number*</label>
+        <input type="tel" class="contact-input" placeholder="+886...">
+      </div>
+      <div class="contact-field">
+        <label class="contact-label">Message*</label>
+        <textarea class="contact-input" placeholder="Votre message..."></textarea>
+      </div>
+      <button class="contact-submit">SUBMIT</button>
+      <div class="contact-note">Vos informations ne seront pas partagées.</div>
+    </div>
+    <div class="contact-restriction">
+      ＊名額有限，僅限酒類進口商「事先報名」參加。<br>
+      ＊On invitation only, restricted to wine &amp; spirits importers only.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── DONNÉES EXPOSANTS ─── */
+const exposants = [
+  { id: 1, nom: "Drémont Marroy", region: "Champagne", regionCn: "香檳", booth: 1, filtre: "CHAMPAGNE",
+    bio: "Maison de Champagne familiale établie au cœur de la Montagne de Reims, Drémont Marroy perpétue un savoir-faire transmis de génération en génération.",
+    vins: [
+      { num:"01", nom:"Blanc de Blancs Brut", detail:"AOP Champagne · Blanc · NV · Chardonnay" },
+      { num:"02", nom:"Rosé de Saignée", detail:"AOP Champagne · Rosé · 2021 · Pinot Noir" },
+      { num:"03", nom:"Millésimé Extra Brut", detail:"AOP Champagne · Blanc · 2018 · Chardonnay, Pinot Noir" },
+    ]
+  },
+  { id: 2, nom: "Forget-Brimont", region: "Champagne", regionCn: "香檳", booth: 2, filtre: "CHAMPAGNE",
+    bio: "À Ludes, au cœur de la Montagne de Reims, Champagne Forget-Brimont est une maison de négoce familiale qui exprime la quintessence de son terroir.",
+    vins: [
+      { num:"01", nom:"Brut Premier Cru", detail:"AOP Champagne · Blanc · NV · Chardonnay, Pinot Noir, Meunier" },
+      { num:"02", nom:"Blanc de Noirs", detail:"AOP Champagne · Blanc · NV · Pinot Noir" },
+    ]
+  },
+  { id: 5, nom: "Vine Division", region: "Bugey · Bourgogne · Champagne", regionCn: "布傑 · 勃根地 · 香檳", booth: 5, filtre: "CHAMPAGNE",
+    bio: "Vine Division connects the finest French wines with importers, distributors, and hospitality groups worldwide. Specialists in the ASEAN market, based in Tokyo since 2019, we act as outsourced Export Managers providing full strategic support.",
+    bio2: "We represent passionate, family-owned producers who respect their terroir, offering exceptional wines from Burgundy, Champagne, Bugey, Bordeaux, and more.",
+    vins: [
+      { num:"01", nom:"Champagne Blanc de Blancs", detail:"AOP Champagne · Blanc · 2022 · Chardonnay" },
+      { num:"02", nom:"Champagne Blanc de Blancs Brut Nature", detail:"AOP Champagne · Blanc · 2022 · Chardonnay" },
+      { num:"03", nom:"Bugey Cerdon Méthode Ancestrale", detail:"AOP Bugey Cerdon · Rosé · NV · Gamay, Poulsard" },
+      { num:"04", nom:"Pouilly-Fuissé Domaine Vaupré", detail:"AOP Pouilly-Fuissé · Blanc · 2021 · Chardonnay" },
+      { num:"05", nom:"Bourgogne Château Chardon", detail:"AOP Bourgogne · Blanc · 2022 · Chardonnay" },
+    ]
+  },
+  { id: 10, nom: "Domaine de la Janasse", region: "Rhône Valley", regionCn: "隆河谷地", booth: 10, filtre: "RHÔNE",
+    bio: "Situé à Courthézon, le Domaine de la Janasse est l'une des références incontournables de Châteauneuf-du-Pape, alliant tradition et précision.",
+    vins: [
+      { num:"01", nom:"Châteauneuf-du-Pape Blanc", detail:"AOP Châteauneuf-du-Pape · Blanc · 2022 · Clairette, Grenache Blanc" },
+      { num:"02", nom:"Châteauneuf-du-Pape Tradition", detail:"AOP Châteauneuf-du-Pape · Rouge · 2021 · Grenache, Syrah, Mourvèdre" },
+      { num:"03", nom:"Châteauneuf-du-Pape Cuvée Chaupin", detail:"AOP Châteauneuf-du-Pape · Rouge · 2020 · Grenache" },
+    ]
+  },
+  { id: 15, nom: "Domaine Gayda", region: "Languedoc", regionCn: "朗格多克", booth: 15, filtre: "LANGUEDOC",
+    bio: "Niché dans les contreforts des Pyrénées, Domaine Gayda explore le potentiel extraordinaire du Languedoc avec des vins de terroir expressifs et modernes.",
+    vins: [
+      { num:"01", nom:"Figure Libre Freestyle Blanc", detail:"IGP Pays d'Oc · Blanc · 2023 · Grenache Blanc, Viognier" },
+      { num:"02", nom:"Figure Libre Freestyle Rouge", detail:"IGP Pays d'Oc · Rouge · 2022 · Syrah, Grenache" },
+      { num:"03", nom:"Clos de la Source", detail:"AOP Malepère · Rouge · 2021 · Cabernet Franc, Merlot" },
+    ]
+  },
+  { id: 20, nom: "Château Haut-Brion", region: "Bordeaux", regionCn: "波爾多", booth: 20, filtre: "BORDEAUX",
+    bio: "Premier Grand Cru Classé depuis 1855, Château Haut-Brion incarne l'excellence bordelaise avec des vins d'une complexité et d'une longévité exceptionnelles.",
+    vins: [
+      { num:"01", nom:"Le Clarence de Haut-Brion", detail:"AOP Pessac-Léognan · Rouge · 2020 · Merlot, Cabernet Sauvignon" },
+      { num:"02", nom:"La Clartée de Haut-Brion", detail:"AOP Pessac-Léognan · Blanc · 2021 · Sémillon, Sauvignon Blanc" },
+    ]
+  },
+  { id: 28, nom: "The Wine Merchant Bordeaux", region: "Bordeaux", regionCn: "波爾多", booth: 28, filtre: "BORDEAUX",
+    bio: "Sélectionneur indépendant basé à Bordeaux, The Wine Merchant propose une sélection rigoureuse de châteaux confidentiels et de grandes propriétés.",
+    vins: [
+      { num:"01", nom:"Château Pichon Baron", detail:"AOP Pauillac · Rouge · 2019 · Cabernet Sauvignon, Merlot" },
+      { num:"02", nom:"Château Palmer", detail:"AOP Margaux · Rouge · 2018 · Merlot, Cabernet Sauvignon" },
+    ]
+  },
+  { id: 29, nom: "Vignobles Bouillac", region: "Bordeaux", regionCn: "波爾多", booth: 29, filtre: "BORDEAUX",
+    bio: "Aux racines du terroir, Vignobles Bouillac perpétue un héritage familial dans le Bordelais, produisant des vins authentiques et généreux.",
+    vins: [
+      { num:"01", nom:"Château Bouillac Rouge", detail:"AOP Bordeaux · Rouge · 2021 · Merlot, Cabernet Sauvignon" },
+      { num:"02", nom:"Château Bouillac Blanc", detail:"AOP Bordeaux · Blanc · 2022 · Sauvignon Blanc" },
+    ]
+  },
+  { id: 30, nom: "ABK6 Family Estate", region: "Cognac · Spirits", regionCn: "干邑 · 烈酒", booth: 30, filtre: "SPIRITS",
+    bio: "ABK6 est un Cognac familial indépendant, élaboré selon des méthodes artisanales dans la Grande Champagne, la région la plus noble du Cognac.",
+    vins: [
+      { num:"01", nom:"ABK6 VS Single Estate", detail:"Cognac · Eaux-de-vie · Grande Champagne" },
+      { num:"02", nom:"ABK6 VSOP Single Estate", detail:"Cognac · Eaux-de-vie · Grande Champagne · 4 ans minimum" },
+      { num:"03", nom:"ABK6 XO Single Estate", detail:"Cognac · Eaux-de-vie · Grande Champagne · 10 ans minimum" },
+    ]
+  },
+  { id: 31, nom: "Domaine du Chêne", region: "Spirits", regionCn: "烈酒", booth: 31, filtre: "SPIRITS",
+    bio: "Domaine du Chêne élabore des spiritueux d'exception issus de terroirs préservés, avec un soin particulier apporté à la distillation artisanale.",
+    vins: [
+      { num:"01", nom:"Armagnac XO Hors d'Âge", detail:"AOP Armagnac · Eau-de-vie · Folle Blanche · 20 ans" },
+      { num:"02", nom:"Floc de Gascogne Blanc", detail:"AOP Floc de Gascogne · Mistelle · Blanc · Colombard" },
+    ]
+  },
+];
+
+/* ─── NAVIGATION ─── */
+function goTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function navTo(pageId, btn) {
+  goTo(pageId);
+  if (btn) {
+    btn.closest('.nav-tabs').querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+}
+
+/* ─── GRILLE EXPOSANTS ─── */
+function renderGrid(filtre) {
+  const grid = document.getElementById('exposantsGrid');
+  const liste = filtre === 'ALL' ? exposants : exposants.filter(e => e.filtre === filtre);
+  grid.innerHTML = liste.map(e => `
+    <div class="expo-card" onclick="showWinery(${e.id})">
+      <div class="expo-card-img">
+        <div class="expo-logo-placeholder">${e.nom.toUpperCase()}</div>
+      </div>
+      <div class="expo-card-body">
+        <div class="expo-card-name">${e.nom}</div>
+        <div class="expo-card-region">Region: ${e.region} | ${e.regionCn}</div>
+        <div class="expo-card-booth">Booth: ${e.booth}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterExpo(filtre, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderGrid(filtre);
+}
+
+/* ─── FICHE EXPOSANT ─── */
+function showWinery(id) {
+  const e = exposants.find(x => x.id === id);
+  if (!e) return;
+  const vinsHtml = e.vins.map(v => `
+    <div class="wine-card">
+      <div class="wine-num">${v.num}</div>
+      <div class="wine-name">${v.nom}</div>
+      <div class="wine-detail">${v.detail.split(' · ').map(s => `<span>${s}</span>`).join('')}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('wineryContent').innerHTML = `
+    <div class="winery-header">
+      <div class="winery-name">${e.nom.toUpperCase()}</div>
+      <div class="winery-regions">${e.region.split(' · ').map(r => r + ' | ' + (e.regionCn.split(' · ')[e.region.split(' · ').indexOf(r)] || '')).join('<br>')}</div>
+      <div class="winery-logo-box">
+        <div>
+          <div class="winery-logo-text">${e.nom.toUpperCase()}</div>
+          <div class="winery-logo-sub">Booth ${e.booth}</div>
+        </div>
+      </div>
+    </div>
+    <div class="winery-divider"></div>
+    <div class="winery-bio">
+      <p>${e.bio}</p>
+      ${e.bio2 ? `<p>${e.bio2}</p>` : ''}
+    </div>
+    <div class="wines-section">
+      <div class="wines-header">
+        <div class="wines-label">WINE LIST / 酒單</div>
+        <div class="wines-line"></div>
+      </div>
+      ${vinsHtml}
+    </div>
+  `;
+  goTo('page-winery');
+}
+
+/* ─── INIT ─── */
+renderGrid('ALL');
+</script>
 </body>
 </html>
