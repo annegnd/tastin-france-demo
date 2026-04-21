@@ -1,0 +1,76 @@
+:root {
+    --gold: #c5a059;
+    --dark-red: #630d16;
+    --light-grey: #f4f4f4;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2 { font-family: 'Playfair Display', serif; }
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 5%;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav ul { display: flex; list-style: none; }
+nav ul li { margin-left: 20px; }
+nav ul li a { text-decoration: none; color: #333; font-weight: bold; }
+
+.hero {
+    height: 80vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 50px 5%;
+}
+
+.exhibitor-card {
+    background: var(--light-grey);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.exhibitor-card:hover { transform: translateY(-10px); }
+
+.card-img { height: 200px; background-size: cover; border-radius: 5px; margin-bottom: 15px; }
+
+.btn {
+    background: var(--dark-red);
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.btn-alt {
+    border: 1px solid var(--dark-red);
+    color: var(--dark-red);
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
