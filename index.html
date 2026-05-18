@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tastin' France Taiwan — Démo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --sand: #E8DFD0;
+    --sand-dark: #C8B89A;
+    --terracotta: #C85A2A;
+    --terracotta-light: #E8A882;
+    --brown-dark: #3D2B1F;
+    --brown-mid: #8B6E5A;
+    --brown-light: #C4B09A;
+    --wine-bg: #140E08;
+    --wine-card: rgba(200,168,130,0.08);
+    --wine-border: rgba(200,168,130,0.25);
+    --gold: #C8A882;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--brown-dark); overflow-x: hidden; }
+
+  /* ─── PAGES ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background:
+      radial-gradient(ellipse 90% 70% at 62% 45%, #E8824A 0%, rgba(232,130,74,0) 60%),
+      radial-gradient(ellipse 60% 50% at 20% 75%, #C8D8C0 0%, rgba(200,216,192,0) 65%),
+      radial-gradient(ellipse 70% 60% at 10% 20%, #F0D8C8 0%, rgba(240,216,200,0) 55%),
+      radial-gradient(ellipse 50% 40% at 90% 15%, #EED0B8 0%, rgba(238,208,184,0) 60%),
+      radial-gradient(ellipse 45% 35% at 75% 90%, #B8C8B0 0%, rgba(184,200,176,0) 55%),
+      #F0E8DC;
+    padding: 1.75rem 1.5rem 2.75rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 340px;
+  }
+
+  /* coup de pinceau diagonal central */
+  .hero-brush1 {
+    position: absolute;
+    top: -15%; left: 25%;
+    width: 70%; height: 130%;
+    background: radial-gradient(ellipse 100% 80% at 50% 50%, rgba(210,100,50,0.38) 0%, rgba(220,120,60,0.18) 40%, transparent 70%);
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    transform: rotate(-18deg);
+    pointer-events: none;
+  }
+  /* touche vert-bleu bas gauche */
+  .hero-brush2 {
+    position: absolute;
+    bottom: -20%; left: -10%;
+    width: 55%; height: 65%;
+    background: radial-gradient(ellipse, rgba(160,195,175,0.45) 0%, rgba(140,180,160,0.2) 45%, transparent 70%);
+    border-radius: 40% 60% 45% 55% / 55% 45% 60% 40%;
+    transform: rotate(12deg);
+    pointer-events: none;
+  }
+  /* éclat lumineux haut droite */
+  .hero-brush3 {
+    position: absolute;
+    top: -10%; right: -5%;
+    width: 45%; height: 50%;
+    background: radial-gradient(ellipse, rgba(248,220,195,0.5) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-logos {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem;
+    position: relative; z-index: 2;
+  }
+  .hero-logo-badge {
+    background: rgba(255,255,255,0.82);
+    border-radius: 4px;
+    padding: 4px 9px;
+    font-size: 9px;
+    font-weight: 600;
+    color: #3D2B1F;
+    letter-spacing: 0.3px;
+    font-family: 'Montserrat', sans-serif;
+    backdrop-filter: blur(4px);
+  }
+  .hero-brand {
+    text-align: right;
+    margin-bottom: 1.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-brand-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 0.88;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 20px rgba(180,80,30,0.25);
+  }
+  .hero-brand-main span {
+    font-weight: 900;
+    font-size: 40px;
+    letter-spacing: 7px;
+    display: block;
+    margin-top: 8px;
+    color: #8B1818;
+    text-shadow: none;
+  }
+  .hero-ss {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 0px;
+    margin-bottom: 1.75rem;
+    position: relative; z-index: 2;
+    text-shadow: 0 2px 16px rgba(180,80,30,0.2);
+  }
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative; z-index: 2;
+  }
+  .hero-cta {
+    display: inline-block;
+    border: 1.5px solid rgba(80,40,20,0.55);
+    color: #5A2A10;
+    padding: 11px 28px;
+    border-radius: 50px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-decoration: underline;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 0.85rem;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+  }
+  .hero-cta:hover { background: rgba(255,255,255,0.38); }
+  .hero-note {
+    font-size: 13px;
+    color: rgba(60,30,10,0.78);
+    line-height: 1.7;
+    font-family: 'Montserrat', sans-serif;
+    text-align: right;
+  }
+
+  /* ─── NAV TABS ─── */
+  .nav-tabs {
+    display: flex;
+    background: #F5F0E6;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid #DDD4C2;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex: none;
+    padding: 14px 20px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: var(--brown-dark);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    font-family: 'Montserrat', sans-serif;
+    background: none; border-right: none; border-left: none; border-top: none;
+  }
+  .nav-tab.active { border-bottom-color: var(--terracotta); color: var(--terracotta); }
+
+  /* ─── LIST PAGE ─── */
+  .list-section { padding: 1.5rem; }
+  .list-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600;
+    text-align: center; margin-bottom: 6px; color: var(--brown-dark);
+  }
+  .list-subtitle {
+    font-size: 14px; color: var(--brown-mid);
+    text-align: center; margin-bottom: 1.5rem; letter-spacing: 0.3px;
+  }
+  .quick-btns {
+    display: flex; gap: 8px; justify-content: center;
+    margin-bottom: 1.25rem; flex-wrap: wrap;
+  }
+  .quick-btn {
+    border: 1.5px solid var(--brown-dark);
+    background: transparent; color: var(--brown-dark);
+    padding: 10px 18px; border-radius: 50px;
+    font-size: 13px; letter-spacing: 0.5px; font-weight: 500;
+    cursor: pointer; font-family: 'Montserrat', sans-serif;
+    transition: background 0.2s, color 0.2s;
+  }
+  .quick-btn:hover { background: var(--brown-dark); color: var(--cream); }
+
+  .filter-row {
+    display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px;
+    margin-bottom: 1.5rem; scrollbar-width: none;
+  }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    border: 1px solid var(--brown-mid); background: transparent;
+    color: var(--brown-mid); padding: 8px 16px; border-radius: 50px;
+    font-size: 12px; white-space: nowrap; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .filter-btn.active { background: var(--brown-dark); color: var(--cream); border-color: var(--brown-dark); }
+
+  .exposants-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .expo-card {
+    background: var(--sand);
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(61,43,31,0.08);
+  }
+  .expo-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(61,43,31,0.15); }
+  .expo-card:active { transform: scale(0.97); }
+  .expo-card-img {
+    background: #ffffff;
+    height: 130px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px;
+    border-bottom: 1px solid rgba(61,43,31,0.06);
+  }
+  .expo-logo {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  .expo-logo-placeholder {
+    width: 100%; height: 100%;
+    background: rgba(200,168,130,0.08);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; color: var(--brown-mid);
+    text-align: center; padding: 10px; line-height: 1.4;
+    font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px;
+  }
+  .expo-card-body { padding: 10px 14px 14px; }
+  .expo-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 600; color: var(--brown-dark);
+    margin-bottom: 4px; line-height: 1.3;
+  }
+  .expo-card-region { font-size: 11px; color: var(--brown-mid); margin-bottom: 3px; }
+  .expo-card-booth { font-size: 11px; color: var(--brown-light); font-weight: 500; }
+
+  .back-to-top {
+    text-align: center; margin-top: 2rem;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: #E8E0D0;
+    padding: 1.5rem;
+    font-size: 13px;
+    color: var(--brown-dark);
+    line-height: 1.9;
+  }
+  .footer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .footer-social { display: flex; gap: 10px; margin-top: 4px; }
+  .footer-icon {
+    width: 30px; height: 30px;
+    border: 1.5px solid var(--brown-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: var(--brown-dark);
+    font-family: 'Montserrat', sans-serif; cursor: pointer;
+  }
+  .footer-copy { font-size: 10px; color: var(--brown-mid); margin-top: 0.75rem; }
+
+  /* ─── WINERY PAGE ─── */
+  .winery-page { background: #F5F0E8; }
+  .winery-topbar {
+    display: flex; align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: #F5F0E8;
+    border-bottom: 1px solid #DDD0BE;
+  }
+  .winery-back {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--terracotta); font-size: 12px;
+    cursor: pointer; font-family: 'Montserrat', sans-serif;
+    font-weight: 600; letter-spacing: 0.5px;
+    background: none; border: none;
+  }
+  .winery-header {
+    padding: 1.5rem 1.5rem 1rem;
+    background: #F5F0E8;
+  }
+  .winery-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px; font-weight: 700;
+    color: var(--brown-dark); letter-spacing: 2px;
+    margin-bottom: 0.4rem; line-height: 1.15;
+  }
+  .winery-regions {
+    font-size: 11px; color: var(--terracotta);
+    line-height: 1.8; letter-spacing: 0.5px;
+    font-weight: 500; margin-bottom: 0.5rem;
+  }
+  .winery-logo-box {
+    margin: 1rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid #DDD0BE;
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 140px;
+    box-shadow: 0 2px 8px rgba(61,43,31,0.07);
+  }
+  .winery-logo-img {
+    max-width: 100%;
+    max-height: 160px;
+    width: auto; height: auto;
+    object-fit: contain; display: block;
+  }
+  .winery-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--brown-dark); text-align: center;
+    letter-spacing: 3px;
+  }
+  .winery-logo-sub {
+    font-size: 10px; color: var(--brown-mid);
+    text-align: center; letter-spacing: 1px; margin-top: 6px;
+  }
+  .winery-meta-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 0.75rem 1.5rem;
+    background: #EDE5D8;
+    border-top: 1px solid #DDD0BE;
+    border-bottom: 1px solid #DDD0BE;
+  }
+  .winery-meta-chip {
+    background: #fff;
+    border: 1px solid #DDD0BE;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: var(--brown-dark);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .winery-meta-chip span { color: var(--terracotta); font-weight: 600; }
+  .winery-marketplace-btn {
+    display: flex; align-items: center; gap: 8px;
+    margin: 0.75rem 1.5rem;
+    background: var(--terracotta);
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(200,90,42,0.3);
+  }
+  .winery-marketplace-btn svg { flex-shrink: 0; }
+  .winery-divider {
+    height: 1px; background: #DDD0BE;
+    margin: 0 1.5rem 1.25rem;
+  }
+  .winery-bio {
+    padding: 1rem 1.5rem;
+    font-size: 13px; color: #5A4030;
+    line-height: 1.9;
+    background: #F5F0E8;
+    border-bottom: 1px solid #DDD0BE;
+  }
+  .winery-bio p { margin-bottom: 0.85rem; }
+  .wines-section { padding: 1rem 1.5rem 3rem; background: #F5F0E8; }
+  .wines-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+  .wines-label {
+    font-size: 10px; letter-spacing: 3px;
+    color: var(--terracotta); font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    white-space: nowrap;
+  }
+  .wines-line { flex: 1; height: 1px; background: #DDD0BE; }
+  .wine-card {
+    background: #fff;
+    border: 1px solid #DDD0BE;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(61,43,31,0.06);
+    transition: box-shadow 0.2s;
+  }
+  .wine-card:hover { box-shadow: 0 4px 12px rgba(61,43,31,0.12); }
+  .wine-num {
+    font-size: 10px; color: var(--terracotta);
+    margin-bottom: 4px; font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+  .wine-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; color: var(--brown-dark); font-weight: 600;
+    margin-bottom: 5px; line-height: 1.3;
+  }
+  .wine-detail { font-size: 11px; color: var(--brown-mid); line-height: 1.7; }
+  .wine-detail span { display: inline-block; margin-right: 6px; }
+  .wine-detail span::after { content: '·'; margin-left: 6px; color: var(--brown-light); }
+  .wine-detail span:last-child::after { content: ''; }
+  .wine-awards { font-size: 10px; color: #8B5A20; margin-top: 5px; font-style: italic; }
+
+
+  /* ─── GALERIE MOSAÏQUE ─── */
+  .mosaic {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .mosaic-item {
+    overflow: hidden;
+    border-radius: 10px;
+    background: #111;
+  }
+  .mosaic-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Portrait gauche, 2 paysages empilés à droite */
+  .mosaic-row1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .mosaic-row1 .portrait {
+    grid-row: span 2;
+  }
+  .mosaic-row1-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  /* Ligne 2 : paysage large + portrait */
+  .mosaic-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* ─── GALERIE ─── */
+  .galerie-section { padding: 1.5rem; }
+  .galerie-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600;
+    text-align: center; margin-bottom: 1.5rem;
+  }
+  .galerie-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .galerie-photo {
+    background: var(--sand); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--brown-mid); font-size: 11px; overflow: hidden;
+  }
+  .galerie-photo.tall { grid-row: span 2; height: auto; min-height: 290px; }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    background: linear-gradient(160deg, #C8734A 0%, #8B3A1E 50%, #6B2810 100%);
+    min-height: 100vh;
+    padding: 2rem 1.5rem;
+  }
+  .contact-deco {
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .contact-bottle { font-size: 48px; opacity: 0.6; }
+  .contact-intro { color: rgba(255,255,255,0.92); font-size: 14px; line-height: 1.8; }
+  .contact-form-box {
+    background: rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .contact-field { margin-bottom: 1rem; }
+  .contact-label { font-size: 11px; color: rgba(255,255,255,0.8); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
+  .contact-input {
+    width: 100%; padding: 12px 14px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px; color: #fff;
+    font-size: 13px; font-family: 'Montserrat', sans-serif;
+    outline: none;
+  }
+  .contact-input::placeholder { color: rgba(255,255,255,0.4); }
+  .contact-input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.2); }
+  textarea.contact-input { min-height: 90px; resize: vertical; }
+  .contact-submit {
+    width: 100%; padding: 14px;
+    background: var(--brown-dark); color: #fff;
+    border: none; border-radius: 8px;
+    font-size: 13px; font-weight: 600; letter-spacing: 1px;
+    cursor: pointer; font-family: 'Montserrat', sans-serif;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+  }
+  .contact-submit:hover { background: #2A1A10; }
+  .contact-note { font-size: 10px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 0.75rem; }
+  .contact-restriction { margin-top: 1.5rem; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.8; }
+
+  /* ─── MARKETPLACE PAGE ─── */
+  .mkt-hero {
+    background: linear-gradient(160deg, #1B3A5C 0%, #2C5282 50%, #1A365D 100%);
+    padding: 2.5rem 1.5rem 2.25rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .mkt-hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -20%;
+    width: 80%; height: 130%;
+    background: radial-gradient(ellipse, rgba(255,215,0,0.18) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .mkt-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40%; left: -15%;
+    width: 70%; height: 100%;
+    background: radial-gradient(ellipse, rgba(232,168,130,0.15) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .mkt-hero-inner { position: relative; z-index: 2; }
+  .mkt-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .mkt-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.6rem;
+  }
+  .mkt-hero-zh {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+  .mkt-hero-tagline {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1.5rem;
+  }
+  .mkt-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #1B3A5C;
+    padding: 13px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    transition: transform 0.2s;
+  }
+  .mkt-hero-cta:hover { transform: translateY(-2px); }
+  .mkt-hero-cta svg { width: 14px; height: 14px; }
+
+  .mkt-section { padding: 1.75rem 1.5rem; }
+  .mkt-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--brown-dark);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.5px;
+  }
+  .mkt-section-title-line {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+  .mkt-section-title-line .label {
+    font-size: 10px; letter-spacing: 3px;
+    color: var(--terracotta); font-weight: 700;
+    white-space: nowrap;
+  }
+  .mkt-section-title-line .line { flex: 1; height: 1px; background: #DDD0BE; }
+
+  .mkt-feature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .mkt-feature {
+    background: #fff;
+    border: 1px solid #DDD0BE;
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    box-shadow: 0 2px 8px rgba(61,43,31,0.06);
+  }
+  .mkt-feature-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2C5282 0%, #1B3A5C 100%);
+    color: #fff;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 700;
+  }
+  .mkt-feature-body { flex: 1; }
+  .mkt-feature-title {
+    font-size: 14px; font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 4px;
+  }
+  .mkt-feature-text {
+    font-size: 12px;
+    color: var(--brown-mid);
+    line-height: 1.7;
+  }
+
+  .mkt-info-box {
+    background: var(--sand);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 1.5rem;
+  }
+  .mkt-info-box p {
+    font-size: 13px;
+    color: var(--brown-dark);
+    line-height: 1.85;
+    margin-bottom: 0.75rem;
+  }
+  .mkt-info-box p:last-child { margin-bottom: 0; }
+  .mkt-info-box strong { color: var(--terracotta); font-weight: 700; }
+
+  .mkt-cta-block {
+    background: linear-gradient(135deg, #C85A2A 0%, #8B3A1E 100%);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .mkt-cta-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .mkt-cta-block-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.25rem;
+    line-height: 1.7;
+  }
+  .mkt-cta-block-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--terracotta);
+    padding: 12px 26px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: transform 0.2s;
+  }
+  .mkt-cta-block-btn:hover { transform: translateY(-2px); }
+
+  /* ─── OCCITANIE PAGE ─── */
+  .occ-hero {
+    background:
+      radial-gradient(ellipse 70% 50% at 70% 30%, rgba(232,168,130,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(170,40,30,0.25) 0%, transparent 60%),
+      linear-gradient(160deg, #4A1418 0%, #6B1A20 50%, #2A0A0C 100%);
+    padding: 2.25rem 1.5rem 2rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .occ-hero-inner { position: relative; z-index: 2; }
+  .occ-eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #F5D6A8;
+    font-weight: 600;
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+    border: 1px solid rgba(245,214,168,0.45);
+    border-radius: 50px;
+    padding: 5px 14px;
+  }
+  .occ-hero-title-zh {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+    letter-spacing: 3px;
+  }
+  .occ-hero-title-zh .accent { color: #F5D6A8; display: block; font-size: 28px; margin-top: 0.1rem; }
+  .occ-hero-title-fr {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 1rem;
+    letter-spacing: 1.5px;
+    font-style: italic;
+  }
+  .occ-hero-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+  .occ-meta-chip {
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(245,214,168,0.35);
+    border-radius: 50px;
+    padding: 7px 14px;
+    font-size: 11px;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .occ-meta-chip svg { width: 12px; height: 12px; opacity: 0.9; }
+
+  .occ-section { padding: 1.75rem 1.5rem; background: var(--cream); }
+  .occ-section.dark { background: #F5EFE6; }
+  .occ-intro {
+    font-size: 13.5px;
+    color: var(--brown-dark);
+    line-height: 1.95;
+    margin-bottom: 1rem;
+  }
+  .occ-intro strong { color: var(--terracotta); font-weight: 700; }
+
+  .occ-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 1.25rem 0 0.5rem;
+  }
+  .occ-highlight {
+    background: #fff;
+    border: 1px solid #DDD0BE;
+    border-radius: 12px;
+    padding: 12px 6px;
+    text-align: center;
+  }
+  .occ-highlight-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--terracotta);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .occ-highlight-label {
+    font-size: 10px;
+    color: var(--brown-mid);
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+  }
+
+  .occ-resource-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #6B1A20 0%, #4A1418 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin: 1rem 0 1.25rem;
+    box-shadow: 0 4px 14px rgba(74,20,24,0.25);
+    transition: transform 0.2s;
+  }
+  .occ-resource-btn:hover { transform: translateY(-2px); }
+  .occ-resource-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    background: rgba(245,214,168,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .occ-resource-text { flex: 1; }
+  .occ-resource-title {
+    font-size: 13px; font-weight: 700;
+    margin-bottom: 2px;
+    letter-spacing: 0.3px;
+  }
+  .occ-resource-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+  .occ-resource-arrow { font-size: 18px; opacity: 0.9; flex-shrink: 0; }
+
+  /* Menu structuré (carte papier) */
+  .menu-card {
+    background:
+      radial-gradient(ellipse 70% 100% at 50% 0%, rgba(245,214,168,0.18) 0%, transparent 60%),
+      #FBF6EC;
+    border: 1px solid #E0D2BC;
+    border-radius: 14px;
+    padding: 1.75rem 1.25rem 1.25rem;
+    box-shadow:
+      0 2px 10px rgba(61,43,31,0.06),
+      inset 0 0 0 6px rgba(255,255,255,0.4),
+      inset 0 0 0 7px rgba(200,168,130,0.25);
+    position: relative;
+  }
+  .menu-course {
+    padding: 1.25rem 0;
+    border-bottom: 1px dashed rgba(139,110,90,0.28);
+  }
+  .menu-course:first-child { padding-top: 0.25rem; }
+  .menu-course:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+  /* Plat sans vins associés (entrée, dessert) : pas de séparateur après */
+  .menu-course:not(:has(.menu-wines)) { border-bottom: none; }
+
+  .menu-course-head {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .menu-course-zh {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--brown-dark);
+    letter-spacing: 4px;
+    line-height: 1.2;
+    padding-right: 0; /* compense letter-spacing */
+  }
+  .menu-course-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--brown-mid);
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+  .menu-course-desc {
+    font-size: 12px;
+    color: var(--brown-dark);
+    margin-top: 8px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+  }
+
+  .menu-wines {
+    margin-top: 0.85rem;
+  }
+  .menu-wine {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 4px;
+    border-bottom: 1px dotted rgba(200,168,130,0.4);
+  }
+  .menu-wine:last-child { border-bottom: none; }
+  .menu-wine-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--terracotta);
+    flex-shrink: 0;
+    min-width: 38px;
+    letter-spacing: 0.5px;
+  }
+  .menu-wine-body { flex: 1; min-width: 0; }
+  .menu-wine-domain {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--brown-dark);
+    line-height: 1.25;
+    letter-spacing: 0.3px;
+  }
+  .menu-wine-cuvee {
+    font-size: 12px;
+    color: var(--brown-mid);
+    font-style: italic;
+    margin-top: 3px;
+    line-height: 1.45;
+  }
+  .menu-wine-aop {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-top: 4px;
+  }
+
+  /* ─── COOKIE CONSENT BANNER ─── */
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, rgba(45,30,25,0.97) 0%, rgba(61,43,31,0.97) 100%);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 16px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    z-index: 9999;
+    display: none;
+    animation: slideUp 0.4s ease-out;
+  }
+  .cookie-banner.show { display: block; }
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .cookie-banner-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cookie-banner-text {
+    flex: 1;
+    min-width: 250px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.95);
+  }
+  .cookie-banner-text strong {
+    color: #F5D6A8;
+    font-weight: 600;
+  }
+  .cookie-banner-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .cookie-btn {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .cookie-btn-accept {
+    background: linear-gradient(135deg, #C85A2A 0%, #8B3A1E 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(200,90,42,0.4);
+  }
+  .cookie-btn-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(200,90,42,0.5);
+  }
+  .cookie-btn-refuse {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+  .cookie-btn-refuse:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     PAGE : ACCUEIL
+══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-brush1"></div>
+    <div class="hero-brush2"></div>
+    <div class="hero-brush3"></div>
+    <div class="hero-logos">
+      <div class="hero-logo-badge"><img src="images/img_01.png" alt="Bureau Français de Taipei" style="height:28px;width:auto;display:block;"></div>
+      <div class="hero-logo-badge"><img src="images/img_02.png" alt="Business France" style="height:28px;width:auto;display:block;"></div>
+          </div>
+    <div class="hero-brand">
+      <img src="images/img_03.png" alt="Tastin'France" style="height:90px;width:auto;display:block;margin-left:auto;">
+    </div>
+    <div class="hero-ss">S/S<br>Collection</div>
+    <div class="hero-bottom">
+      <button class="hero-cta" onclick="goTo('page-list')">LIST OF WINERIES</button>
+      <div class="hero-note">
+        春夏季【法國綜合產區】品酒會<br>
+        Open to wine &amp; spirits importers on registration only.
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="navTo('page-home', this)">HOME</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXHIBITORS</button>
+    <button class="nav-tab" onclick="navTo('page-marketplace', this)">MARKETPLACE</button>
+    <button class="nav-tab" onclick="navTo('page-occitanie', this)">OCCITANIE DINNER</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">EVENT PHOTOS</button>
+  </nav>
+
+  <div style="padding: 2rem 1.5rem; text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--brown-dark); margin-bottom:1rem;">Bienvenue / 歡迎</p>
+    <p style="font-size:12px; color:var(--brown-mid); line-height:1.9; max-width:380px; margin:0 auto;">
+      Tastin' France Taiwan brings together the finest French wine producers for an exclusive tasting event reserved for wine &amp; spirits importers.
+    </p>
+    <div style="margin:1.75rem auto 0; max-width:360px;">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:10px; font-weight:400; letter-spacing:2.5px; text-transform:uppercase; color:var(--brown-mid); text-align:center; margin-bottom:10px;">Practical Info · 活動資訊</div>
+      <div style="display:flex; gap:8px;">
+        <div style="flex:1; background:var(--sand); border-radius:10px; padding:12px 10px; display:flex; flex-direction:column; align-items:center; gap:5px;">
+          <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid var(--brown-mid); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#3D2B1F" stroke-width="1.4" stroke-linecap="round"><rect x="1" y="3" width="14" height="11" rx="1.5"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/></svg>
+          </div>
+          <span style="font-size:11px; font-weight:600; color:var(--brown-dark); text-align:center; line-height:1.3;">19 mai 2026</span>
+          <span style="font-size:9px; color:var(--brown-mid); text-align:center; letter-spacing:0.3px;">Date · 日期</span>
+        </div>
+        <div style="flex:1; background:var(--sand); border-radius:10px; padding:12px 10px; display:flex; flex-direction:column; align-items:center; gap:5px;">
+          <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid var(--brown-mid); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#3D2B1F" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><polyline points="8,4.5 8,8.5 11,10"/></svg>
+          </div>
+          <span style="font-size:11px; font-weight:600; color:var(--brown-dark); text-align:center; line-height:1.3;">12h00 – 16h30</span>
+          <span style="font-size:9px; color:var(--brown-mid); text-align:center; letter-spacing:0.3px;">Hours · 時間</span>
+        </div>
+        <div style="flex:1; background:var(--sand); border-radius:10px; padding:12px 10px; display:flex; flex-direction:column; align-items:center; gap:5px;">
+          <div style="width:26px; height:26px; border-radius:50%; border:1.5px solid var(--brown-mid); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#3D2B1F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.5-2-4.5-4.5-4.5z"/><circle cx="8" cy="6" r="1.5" fill="#3D2B1F" stroke="none"/></svg>
+          </div>
+          <span style="font-size:11px; font-weight:600; color:var(--brown-dark); text-align:center; line-height:1.3;">Regent Taipei</span>
+          <span style="font-size:9px; color:var(--brown-mid); text-align:center; letter-spacing:0.3px;">Venue · 地點</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:2rem;">
+      <button class="quick-btn" onclick="goTo('page-list')" style="padding:12px 32px; font-size:11px;">
+        參展商名單 →
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-row">
+      <div>
+        <div>Business France Taiwan</div>
+        <div>法國在台協會商務處</div>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/businessfrance_taiwan/?hl=en" target="_blank" rel="noopener" style="display:block;"><div class="footer-icon" style="border:none;padding:0;width:auto;height:auto;">
+            <img src="images/img_04.png" alt="Instagram" style="height:30px;width:30px;display:block;">
+          </div></a>
+          <a href="https://www.facebook.com/BusinessFranceTw/" target="_blank" rel="noopener" style="display:block;"><div class="footer-icon" style="border:none;padding:0;width:auto;height:auto;">
+            <img src="images/img_05.png" alt="Facebook" style="height:30px;width:30px;display:block;">
+          </div></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 par Business France Taiwan.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : LISTE EXPOSANTS
+══════════════════════════════════════ -->
+<div class="page" id="page-list">
+  <nav class="nav-tabs" style="position:sticky;top:0;z-index:10;">
+    <button class="nav-tab" onclick="navTo('page-home', this)">HOME</button>
+    <button class="nav-tab active" onclick="navTo('page-list', this)">EXHIBITORS</button>
+    <button class="nav-tab" onclick="navTo('page-marketplace', this)">MARKETPLACE</button>
+    <button class="nav-tab" onclick="navTo('page-occitanie', this)">OCCITANIE DINNER</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">EVENT PHOTOS</button>
+  </nav>
+
+  <div class="list-section">
+    <div class="list-title">【2026年 春夏季】酒莊名單</div>
+    <div class="list-subtitle">List of Exhibitors — Spring/Summer Collection 2026</div>
+
+    <div class="quick-btns">
+      <button class="quick-btn" onclick="document.getElementById('floorplanOverlay').style.display='flex'">展場地圖 | FLOOR PLAN</button>
+    </div>
+
+    <div id="floorplanOverlay" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(30,15,8,0.82); align-items:center; justify-content:center; padding:1rem;" onclick="if(event.target===this)this.style.display='none'">
+      <div style="position:relative; max-width:100%; max-height:90vh; border-radius:12px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,0.5);">
+        <button onclick="document.getElementById('floorplanOverlay').style.display='none'" style="position:absolute; top:10px; right:10px; z-index:10; background:rgba(255,255,255,0.9); border:none; border-radius:50%; width:32px; height:32px; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+        <img src="plan_de_salle.png" alt="Plan de salle" style="display:block; max-width:100%; max-height:85vh; object-fit:contain;">
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterExpo('ALL', this)">ALL</button>
+      <button class="filter-btn" onclick="filterExpo('AQUITAINE', this)">AQUITAINE</button>
+      <button class="filter-btn" onclick="filterExpo('BEAUJOLAIS', this)">BEAUJOLAIS</button>
+      <button class="filter-btn" onclick="filterExpo('BORDEAUX', this)">BORDEAUX</button>
+      <button class="filter-btn" onclick="filterExpo('BOURGOGNE', this)">BOURGOGNE</button>
+      <button class="filter-btn" onclick="filterExpo('BUGEY', this)">BUGEY</button>
+      <button class="filter-btn" onclick="filterExpo('CAHORS', this)">CAHORS</button>
+      <button class="filter-btn" onclick="filterExpo('CHAMPAGNE', this)">CHAMPAGNE</button>
+      <button class="filter-btn" onclick="filterExpo('LANGUEDOC', this)">LANGUEDOC</button>
+      <button class="filter-btn" onclick="filterExpo('LOIRE', this)">LOIRE VALLEY</button>
+      <button class="filter-btn" onclick="filterExpo('RHONE', this)">RHÔNE VALLEY</button>
+      <button class="filter-btn" onclick="filterExpo('ROUSSILLON', this)">ROUSSILLON</button>
+      <button class="filter-btn" onclick="filterExpo('SOUTHWEST', this)">SOUTH WEST</button>
+      <button class="filter-btn" onclick="filterExpo('SPIRITS', this)">SPIRITS</button>
+    </div>
+
+    <div class="exposants-grid" id="exposantsGrid">
+      <!-- Les cartes sont générées par JS -->
+    </div>
+
+    <div class="back-to-top">
+      <button class="quick-btn" onclick="goTo('page-home')" style="margin-top:1rem;">↑ 回到選單 / Retour</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Business France Taïwan – Bureau français de Taipei</div>
+    <div class="footer-copy">© 2026 par Business France Taiwan.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : FICHE EXPOSANT
+══════════════════════════════════════ -->
+<div class="page winery-page" id="page-winery">
+  <div class="winery-topbar" style="display:flex; align-items:center; justify-content:space-between;">
+    <button class="winery-back" onclick="goTo('page-list')">← Retour / 返回名單</button>
+    <button onclick="copyWineryLink()" id="shareLinkBtn" style="background:transparent; border:1px solid var(--terracotta); color:var(--terracotta); border-radius:50px; padding:6px 14px; font-size:10px; letter-spacing:1px; font-weight:600; cursor:pointer; font-family:'Montserrat',sans-serif;">🔗 SHARE</button>
+  </div>
+  <div id="wineryContent"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : GALERIE
+══════════════════════════════════════ -->
+<div class="page" id="page-galerie">
+  <nav class="nav-tabs">
+    <button class="nav-tab" onclick="navTo('page-home', this)">HOME</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXHIBITORS</button>
+    <button class="nav-tab" onclick="navTo('page-marketplace', this)">MARKETPLACE</button>
+    <button class="nav-tab" onclick="navTo('page-occitanie', this)">OCCITANIE DINNER</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+    <button class="nav-tab active" onclick="navTo('page-galerie', this)">EVENT PHOTOS</button>
+  </nav>
+  <div class="galerie-section">
+    <div class="galerie-title">2025秋冬 Tastin'France 花絮回顧</div>
+    <div class="mosaic-wrapper">
+      <!-- Rangée 1 : portrait gauche + 2 paysages empilés à droite -->
+      <div class="mosaic-row1">
+        <div class="mosaic-item portrait" style="aspect-ratio:2/3; border-radius:10px; overflow:hidden; background:#111;">
+          <img src="images/img_06.jpg" alt="Tastin France" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="mosaic-row1-right">
+          <div class="mosaic-item" style="aspect-ratio:3/2; border-radius:10px; overflow:hidden; background:#111;">
+            <img src="images/img_07.jpg" alt="Tastin France" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="mosaic-item" style="aspect-ratio:3/2; border-radius:10px; overflow:hidden; background:#111;">
+            <img src="images/img_08.jpg" alt="Tastin France" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+        </div>
+      </div>
+      <!-- Rangée 2 : paysage + portrait -->
+      <div class="mosaic-row2">
+        <div class="mosaic-item" style="aspect-ratio:3/2; border-radius:10px; overflow:hidden; background:#111;">
+          <img src="images/img_09.jpg" alt="Tastin France" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="mosaic-item" style="aspect-ratio:2/3; border-radius:10px; overflow:hidden; background:#111;">
+          <img src="images/img_10.jpg" alt="Tastin France" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+      </div>
+    </div></div>
+  <div class="footer">
+    <div>Business France Taïwan — © 2026</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : MARKETPLACE BUSINESS FRANCE
+══════════════════════════════════════ -->
+<div class="page" id="page-marketplace">
+  <nav class="nav-tabs" style="position:sticky;top:0;z-index:10;">
+    <button class="nav-tab" onclick="navTo('page-home', this)">HOME</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXHIBITORS</button>
+    <button class="nav-tab active" onclick="navTo('page-marketplace', this)">MARKETPLACE</button>
+    <button class="nav-tab" onclick="navTo('page-occitanie', this)">OCCITANIE DINNER</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">EVENT PHOTOS</button>
+  </nav>
+
+  <div class="mkt-hero">
+    <div class="mkt-hero-inner">
+      <div class="mkt-eyebrow">Business France · 線上採購平台</div>
+      <div class="mkt-hero-title">Marketplace</div>
+      <div class="mkt-hero-zh">法國商品線上採購平台</div>
+      <div class="mkt-hero-tagline">
+        匯集數千家具備出口能量的優質法國供應商，<br>
+        為全球進口商開啟法國採購新窗口。
+      </div>
+      <a href="https://www.marketplace.businessfrance.fr/?at_medium=Sponsored%20links&at_campaign=TFTW26&at_creation=&at_format=site" target="_blank" rel="noopener" class="mkt-hero-cta">
+        前往 Marketplace
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="mkt-section">
+    <div class="mkt-section-title-line">
+      <span class="label">ABOUT</span>
+      <div class="line"></div>
+    </div>
+    <div class="mkt-info-box">
+      <p>
+        <strong>Business France Marketplace</strong> 是由 Business France 官方營運的 B2B 線上採購平台，集結了 <strong>數千家經過篩選</strong> 的法國優質生產商與出口廠商。
+      </p>
+      <p>
+        平台提供 <strong>免費註冊</strong> 服務予全球進口商，讓您足不出戶即可探索法國最具代表性的食品、飲品、葡萄酒、烈酒、生活風格等多元產品線。
+      </p>
+    </div>
+
+    <div class="mkt-section-title-line">
+      <span class="label">FEATURES · 平台功能</span>
+      <div class="line"></div>
+    </div>
+
+    <div class="mkt-feature-grid">
+      <div class="mkt-feature">
+        <div class="mkt-feature-icon">1</div>
+        <div class="mkt-feature-body">
+          <div class="mkt-feature-title">瀏覽產品資訊</div>
+          <div class="mkt-feature-text">
+            完整查看數千項法國產品的詳細規格、品牌故事、認證標章與出口資訊，協助您精準篩選符合市場需求的商品。
+          </div>
+        </div>
+      </div>
+
+      <div class="mkt-feature">
+        <div class="mkt-feature-icon">2</div>
+        <div class="mkt-feature-body">
+          <div class="mkt-feature-title">線上索取樣品</div>
+          <div class="mkt-feature-text">
+            直接透過平台向心儀的供應商申請產品樣品，加快選品評估流程，降低採購決策的時間與成本。
+          </div>
+        </div>
+      </div>
+
+      <div class="mkt-feature">
+        <div class="mkt-feature-icon">3</div>
+        <div class="mkt-feature-body">
+          <div class="mkt-feature-title">直接聯繫廠商</div>
+          <div class="mkt-feature-text">
+            一鍵與法國原廠建立聯繫，無中間商加價，由 Business France 協助雙方商談合作細節，建立長期夥伴關係。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mkt-cta-block">
+      <div class="mkt-cta-block-title">免費註冊<br>立即開啟法國採購之旅</div>
+      <div class="mkt-cta-block-text">
+        Inscription gratuite pour les importateurs étrangers
+      </div>
+      <a href="https://www.marketplace.businessfrance.fr/customer/account/create/?at_medium=Sponsored%20links&at_campaign=TFTW26&at_creation=&at_format=site" target="_blank" rel="noopener" class="mkt-cta-block-btn">
+        立即註冊帳號
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Business France Taïwan – Bureau français de Taipei</div>
+    <div class="footer-copy">© 2026 par Business France Taiwan.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : OCCITANIE DINNER
+══════════════════════════════════════ -->
+<div class="page" id="page-occitanie">
+  <nav class="nav-tabs" style="position:sticky;top:0;z-index:10;">
+    <button class="nav-tab" onclick="navTo('page-home', this)">HOME</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXHIBITORS</button>
+    <button class="nav-tab" onclick="navTo('page-marketplace', this)">MARKETPLACE</button>
+    <button class="nav-tab active" onclick="navTo('page-occitanie', this)">OCCITANIE DINNER</button>
+    <button class="nav-tab" onclick="navTo('page-contact', this)">CONTACT</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">EVENT PHOTOS</button>
+  </nav>
+
+  <div class="occ-hero">
+    <div class="occ-hero-inner">
+      <span class="occ-eyebrow">歐西坦尼餐酒晚宴 · INVITATION ONLY</span>
+      <div class="occ-hero-title-zh">
+        一席粵饌
+        <span class="accent">萬千風土</span>
+      </div>
+      <div class="occ-hero-title-fr">Cuisine Cantonaise &times; Vins d'Occitanie</div>
+      <div class="occ-hero-meta">
+        <div class="occ-meta-chip">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="3" width="14" height="11" rx="1.5"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/></svg>
+          5 月 19 日（晚間）
+        </div>
+        <div class="occ-meta-chip">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.5-2-4.5-4.5-4.5z"/><circle cx="8" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg>
+          晶華軒 Silks Regent
+        </div>
+        <div class="occ-meta-chip">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L4 6h8L8 2z M4 6v8h8V6"/><line x1="8" y1="9" x2="8" y2="13"/></svg>
+          15 款歐西坦尼酒款
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="occ-section">
+    <div class="mkt-section-title-line">
+      <span class="label">EVENT · 活動介紹</span>
+      <div class="line"></div>
+    </div>
+
+    <div class="occ-intro">
+      一場 <strong>專屬邀請制</strong> 的私密晚宴，由 Business France 攜手 <strong>晶華軒</strong> 粵菜團隊精心呈獻——獻給對 <strong>歐西坦尼大區（Occitanie）</strong> 多元風土深感興趣的台灣酒類進口商。
+    </div>
+
+    <div class="occ-intro">
+      歐西坦尼位於法國南部，自地中海延伸至庇里牛斯山脈，匯集 <strong>15 個 AOP / IGP 法定產區</strong>，孕育出極為豐富多樣的葡萄酒風格。本次晚宴將精選 <strong>15 款代表性酒款</strong>，依香氣結構與單寧層次，與一道道精緻粵菜進行細膩的餐酒搭配，引領來賓踏上一場由舌尖出發的法南風土之旅。
+    </div>
+
+    <div class="occ-highlights">
+      <div class="occ-highlight">
+        <div class="occ-highlight-num">15</div>
+        <div class="occ-highlight-label">精選酒款<br>Cuvées</div>
+      </div>
+      <div class="occ-highlight">
+        <div class="occ-highlight-num">7</div>
+        <div class="occ-highlight-label">道地粵饌<br>Plats</div>
+      </div>
+      <div class="occ-highlight">
+        <div class="occ-highlight-num">1</div>
+        <div class="occ-highlight-label">難忘夜晚<br>Soirée</div>
+      </div>
+    </div>
+
+    <a href="https://france365-my.sharepoint.com/:f:/g/personal/pinshuo_chen_businessfrance_fr/IgDsh0UD4q2DRpFWBHDSEKawAezXQ_KfbQrMj7GwUpZV0PY?e=MuJ9Q9" target="_blank" rel="noopener" class="occ-resource-btn">
+      <div class="occ-resource-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5D6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+      </div>
+      <div class="occ-resource-text">
+        <div class="occ-resource-title">下載活動完整資料</div>
+        <div class="occ-resource-sub">歐西坦尼產區介紹 + 15 款酒款詳細資訊</div>
+      </div>
+      <span class="occ-resource-arrow">↗</span>
+    </a>
+  </div>
+
+  <div class="occ-section dark">
+    <div class="mkt-section-title-line">
+      <span class="label">MENU · 餐酒搭配菜單</span>
+      <div class="line"></div>
+    </div>
+
+    <div class="occ-intro" style="margin-bottom:1.25rem;">
+      由晶華軒主廚與 Business France 葡萄酒團隊聯手規劃，將粵菜經典與歐西坦尼風土逐一對話。<br>
+      共 7 道粵饌、15 款 AOP / IGP 酒款，依香氣結構與單寧層次細膩搭配。
+    </div>
+
+    <div class="menu-card">
+      <!-- 開胃菜 -->
+      <div class="menu-course">
+        <div class="menu-course-head">
+          <div class="menu-course-zh">晶華御品集</div>
+          <div class="menu-course-en">Appetizer</div>
+          <div class="menu-course-desc">蜜汁叉燒 · 雲耳陳醋蜇頭 · 江南素菜餃 · 蘿蔔絲酥餅 · 涼拌拾香菜</div>
+        </div>
+      </div>
+
+      <!-- 鱈蟹西施泡飯 -->
+      <div class="menu-course">
+        <div class="menu-course-head">
+          <div class="menu-course-zh">鱈蟹西施泡飯</div>
+          <div class="menu-course-en">Empress Lobster Stock with King Crab Meat</div>
+        </div>
+        <div class="menu-wines">
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°1</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Aubert &amp; Mathieu</div>
+              <div class="menu-wine-cuvee">« Hautes Pistes Chardonnay » 2025</div>
+              <div class="menu-wine-aop">IGP Pays d'Oc</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°2</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Domaine de Petit Roubié</div>
+              <div class="menu-wine-cuvee">« Château du Petit Roubié » 2024</div>
+              <div class="menu-wine-aop">AOP Picpoul de Pinet</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°3</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Les Caves Richemer</div>
+              <div class="menu-wine-cuvee">« Cépage Viognier » 2025</div>
+              <div class="menu-wine-aop">IGP Pays d'Oc</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°4</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Les Vignerons de Tavel et Lirac</div>
+              <div class="menu-wine-cuvee">« Cuvée Royale » 2025</div>
+              <div class="menu-wine-aop">AOP Tavel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 廣式片皮鴨 -->
+      <div class="menu-course">
+        <div class="menu-course-head">
+          <div class="menu-course-zh">廣式片皮鴨</div>
+          <div class="menu-course-en">Roasted Duck</div>
+        </div>
+        <div class="menu-wines">
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°5</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Vignobles David</div>
+              <div class="menu-wine-cuvee">« Mourre de l'Ile » 2024</div>
+              <div class="menu-wine-aop">AOP Côtes-du-Rhône</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°6</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Mas Carlot</div>
+              <div class="menu-wine-cuvee">« Hommage à Paul Blanc » 2023</div>
+              <div class="menu-wine-aop">AOP Costières de Nîmes</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°7</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Château Mourgues du Grès</div>
+              <div class="menu-wine-cuvee">« Terre de Feu » 2022</div>
+              <div class="menu-wine-aop">AOP Costières de Nîmes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 豆鼓銀牙伊比利豬 -->
+      <div class="menu-course">
+        <div class="menu-course-head">
+          <div class="menu-course-zh">豆鼓銀牙伊比利豬</div>
+          <div class="menu-course-en">Pan-fried Iberico Bellota Pork &amp; Sauteed Bean Sprouts</div>
+        </div>
+        <div class="menu-wines">
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°8</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Château Grezan</div>
+              <div class="menu-wine-cuvee">« Schistes Dorés » 2022</div>
+              <div class="menu-wine-aop">AOP Faugères</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°9</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Vignobles Vellas</div>
+              <div class="menu-wine-cuvee">« Heritage de Laurens — Terre de Schiste » 2024</div>
+              <div class="menu-wine-aop">AOP Faugères</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 鎮江香醋骨 -->
+      <div class="menu-course">
+        <div class="menu-course-head">
+          <div class="menu-course-zh">鎮江香醋骨</div>
+          <div class="menu-course-en">Deep-Fried Pork Ribs with Chinkiang Vinegar</div>
+        </div>
+        <div class="menu-wines">
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°10</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Calmel et Joseph</div>
+              <div class="menu-wine-cuvee">« La Planette » 2023</div>
+              <div class="menu-wine-aop">AOP Minervois – La Livinière</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°11</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Maison Ventenac</div>
+              <div class="menu-wine-cuvee">« Réserve de Jeanne » 2023</div>
+              <div class="menu-wine-aop">AOP Cabardès</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°12</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Domaine La Cendrillon</div>
+              <div class="menu-wine-cuvee">« Essentielle » 2021</div>
+              <div class="menu-wine-aop">AOP Corbières</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 翡翠松仁牛柳粒 -->
+      <div class="menu-course">
+        <div class="menu-course-head">
+          <div class="menu-course-zh">翡翠松仁牛柳粒</div>
+          <div class="menu-course-en">Wok-Fried Beef with Green Vegetables &amp; Pine Nuts</div>
+        </div>
+        <div class="menu-wines">
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°13</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Château de L'Ou</div>
+              <div class="menu-wine-cuvee">« Château Rouge » 2023</div>
+              <div class="menu-wine-aop">AOP Côtes du Roussillon</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°14</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">Château La Caminade</div>
+              <div class="menu-wine-cuvee">« Commandery-Cy » 2020</div>
+              <div class="menu-wine-aop">AOP Cahors</div>
+            </div>
+          </div>
+          <div class="menu-wine">
+            <span class="menu-wine-num">N°15</span>
+            <div class="menu-wine-body">
+              <div class="menu-wine-domain">VICA</div>
+              <div class="menu-wine-cuvee">« Saveurs Autrefois Rouge Semi-Dry » 2024</div>
+              <div class="menu-wine-aop">IGP Pays d'Oc</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 雪蓮清檸香茅凍 -->
+      <div class="menu-course">
+        <div class="menu-course-head">
+          <div class="menu-course-zh">雪蓮清檸香茅凍</div>
+          <div class="menu-course-en">Lemongrass Crystal Jelly with Lime Sorbet &amp; Lotus Seeds</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Business France Taïwan – Bureau français de Taipei</div>
+    <div class="footer-copy">© 2026 par Business France Taiwan.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE : CONTACT
+══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <nav class="nav-tabs">
+    <button class="nav-tab" onclick="navTo('page-home', this)">HOME</button>
+    <button class="nav-tab" onclick="navTo('page-list', this)">EXHIBITORS</button>
+    <button class="nav-tab" onclick="navTo('page-marketplace', this)">MARKETPLACE</button>
+    <button class="nav-tab" onclick="navTo('page-occitanie', this)">OCCITANIE DINNER</button>
+    <button class="nav-tab active" onclick="navTo('page-contact', this)">CONTACT</button>
+    <button class="nav-tab" onclick="navTo('page-galerie', this)">EVENT PHOTOS</button>
+  </nav>
+  <div class="contact-section">
+    <div class="contact-intro" style="margin-bottom:1.5rem;">
+      <p style="font-size:15px; font-weight:600; margin-bottom:0.5rem;">此活動採取邀請制。</p>
+      <p>若您是酒類進口商並欲報名 Tastin'France，煩請先填妥以下資料，我們會盡快與您聯絡。</p>
+    </div>
+    <form name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact">
+      <div class="contact-form-box">
+        <div class="contact-field">
+          <label class="contact-label">Name*</label>
+          <input type="text" name="name" class="contact-input" placeholder="Votre nom" required>
+        </div>
+        <div class="contact-field">
+          <label class="contact-label">Name of company*</label>
+          <input type="text" name="company" class="contact-input" placeholder="Votre société" required>
+        </div>
+        <div class="contact-field">
+          <label class="contact-label">Email address*</label>
+          <input type="email" name="email" class="contact-input" placeholder="email@example.com" required>
+        </div>
+        <div class="contact-field">
+          <label class="contact-label">Phone Number*</label>
+          <input type="tel" name="phone" class="contact-input" placeholder="+886...">
+        </div>
+        <div class="contact-field">
+          <label class="contact-label">Message*</label>
+          <textarea name="message" class="contact-input" placeholder="Votre message..." required></textarea>
+        </div>
+        <div class="contact-field" style="display:flex; align-items:flex-start; gap:10px; margin-top:0.5rem;">
+          <input type="checkbox" name="rgpd" id="rgpd" required style="margin-top:3px; flex-shrink:0;">
+          <label for="rgpd" style="font-size:10px; color:rgba(255,255,255,0.7); line-height:1.6; cursor:pointer;">
+            本人同意 Business France Taiwan 蒐集並使用本人之個人資料，且該資料僅用於處理本人參加 Tastin'France 之報名申請。依據個人資料保護相關法規，本人得隨時行使查閱、更正及刪除個人資料之權利，如需行使上述權利，請聯繫：<a href="mailto:taipei@businessfrance.fr" style="color:rgba(255,255,255,0.85);">taipei@businessfrance.fr</a>。
+          </label>
+        </div>
+        <input type="submit" class="contact-submit" value="SUBMIT">
+        <div class="contact-note">Vos informations ne seront utilisées qu'aux fins décrites ci-dessus.</div>
+      </div>
+    </form>
+    <div class="contact-restriction">
+      ＊名額有限，僅限酒類進口商「事先報名」參加。<br>
+      ＊On invitation only, restricted to wine &amp; spirits importers only.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── DONNÉES EXPOSANTS ─── */
+const exposants = [{"id":1,"booth":1,"societe":"CHAMPAGNE DREMONT-MARROY","region":"Champagne","site":"www.champagnedremontmarroy.com","bio":"Mélanie & Jean-Rémi Drémont ✨ In 2018, at under 30 years old, my brother and I took over the vineyard. We became the 4th generation of vine-growers and the 1st of winemakers to produce our own Champagnes. We are a true family estate, authentic and passionate, and we are committed to sharing the values of simplicity and joie de vivre that have been passed down to us. We are grateful to our parents, who planted most of the vineyard, increasing it from 1 hectare to 7.5 hectares. Thanks to their support, we built our cellar and began vinification. Today, we can discover the wines from our 24 plots and better understand our complex terroir, located at the far western edge of Champagne, in one of the largest meanders of the Marne River. 🌿 Certified organic since the 2022 harvest, our aim is to let each plot express its own character while protecting the biodiversity of our terroir. We work some of our parcels with our own draft horse, Bijou. 🍇 Each plot is vinified and aged separately in the vessel best suited to reveal it: small tanks in stainless steel, concrete eggs (egg-shaped tanks made from raw clay-based concrete), and barrels of 350L to 600L (demi-muids with gentle convection toasting, crafted from French oak grown on granitic terroir). In line with our philosophy, we intervene as little as possible in the winemaking process. To preserve freshness and liveliness, we do not carry out malolactic fermentation, and we age the wines for 11 months on lees before bottling. This gives us a wide and expressive aromatic palette, allowing us to be free and creative when blending our wines. The bottles are then aged on lees for 3 to 5 years. ✨ Our Champagnes are divided into three ranges: \"Les Origines\" are extra-brut blended cuvées, named after old Champagne terms (Le Triau, La Lierie, Les Rosiers). These wines tell the story of our vineyard and the know-how passed down through generations, with an authentic and lively style. \"Les Méandres\" expresses our terroir — one of the largest meanders of the Marne River — through two complex cuvées: one from black grapes (Noir de Méandre), one mainly from white (Blanc de Méandre). \"Les Éclosions\" are vintage, single-varietal, brut-nature wines, vinified and aged in ovoid concrete tanks (eggs), revealing pure fruit, linearity of the vintage, and soil clarity. Éclosion: the act of emerging from the egg. 🍾 Our Champagnes, with low or no dosage, share a common identity: purity, precision and generosity.","bottles":"40 000","pays":"USA, Austria, Norway, China, Germany, Netherlands, Danemark, Italy, Belgium","filtre":"CHAMPAGNE","vins":[{"name":"Le Triau","detail":"Champagne · AOC Champagne Extra-brut, 3 grapes varieties blend, 30% barrel-aged · White · 2022 · 50% Meunier, 30% Chardonnay, 20% Pinot-Noir","awards":"Les meilleurs Vins Bios de France, La revue du vin de France 88/100"},{"name":"La Lierie","detail":"Champagne · AOC Champagne Extra-brut, Pinot-Noir & Chardonnay, 30% barrel-aged · White · 2021 & 2020 · 60% Chardonnay, 40% Pinot-Noir","awards":"Sommelier international décembre 2025, Gault&millau : 91/100, La revue du vin de France : 90/100, La revue du vin de France : Prix des lecteur «Gold 2024», Falstaff : 91/100"},{"name":"Les Rosiers","detail":"Champagne · AOC Champagne Extra-brut, vieilles vignes «Les Princes sous le bois» 1968 & «Sur Saint Faron» 1976 · Rosé · 2022 · 20% Meunier; 80% Pinot Noir","awards":"Gault&millau : 89/100, La revue du vin de France : 88/100"},{"name":"Noir de Méandre","detail":"Champagne · AOC Champagne Extra-brut, Blanc de noirs, 50% barrel-aged · White · 2020 · 50% Meunier, 50% Pinot Noir","awards":"La revue du vin de France : 89/100"},{"name":"Blanc de Méandre","detail":"Champagne · AOC Champagne Extra-brut, Chardonnay & Meunier, 15% barrel-aged & 15% concrete-egg-aged · White · 2022 · 80% Chardonnay, 20% Meunier","awards":"La revue du vin de France : 89/100"},{"name":"Eclosion Meunier","detail":"Champagne · AOC Champagne Brut-Nature, 100% Meunier, 60% concrete-egg-aged & 40% barrel-aged · White · 2021 · Meunier","awards":"Sommelier international décembre 2025, Gault&millau : 91/100, La revue du vin de France : 92/100, Falstaff : 93/100"},{"name":"Eclosion Pinot Noir","detail":"Champagne · AOC Champane Brut-Nature, 100% Pinot-Noir, 60% concrete-egg-aged & 40% barrel-aged · White · 2022 · Pinot Noir","awards":"Gault&millau : 89/100, La revue du vin de France 93/100"},{"name":"Eclosion Chardonnay","detail":"Champagne · AOC Champagne Brut-Nature, Blanc de Blancs, 100% Chardonnay, 60% concrete-egg-aged & 40% barrel-aged · White · 2020 · Chardonnay","awards":"Gault&millau 90/100, La revue du vin de France 92/100, Falstaff 93/10"},{"name":"Ratafia","detail":"Champagne · Ratafia · White · Solera · Meunier, Pinot-noir, Chardonay","awards":"Conventional"},{"name":"Le Guinguet","detail":"Champagne · AOC Coteaux Champenois Rosé, 100% Pinot-Noir, vinified and then aged in barrels for 12 months · Rosé · 2024 · Pinot Noir","awards":"Organic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/3777/","ha":"7.5 ha","filtres":["CHAMPAGNE"],"uid":1},{"id":2,"booth":2,"societe":"CHAMPAGNE FORGET-BRIMONT","region":"Champagne","site":"www.champagne-forget-brimont.fr","bio":"We are based in Ludes, a small village with Premier Cru classification in the heart of the Montagne de Reims in the Champagne region. We work 25 hectares essentially with Grand Cru (Mailly-Champagne, Verzenay) or Premier Cru (Chigny-les-Roses, Ludes, Montbré, Sermiers, Taissy, Villers-Allerand) classification. We have worked the vines since the 19th century and made our first sparkling Champagnes in 1929. To ensure the best possible expression of our terroir in our cuvées, we have adopted a sustainable viticulture method which is respectful of the soil and the vine. All fertilisers we use are natural and treatment is targeted and kept to a minimum. We only intervene where absolutely necessary to keep our vines strong and healthy. The care we take in cultivating the vine is extended to the vinification of our wines, for which we use as natural a process as possible. We have adopted a non-interventionist approach to allow full expression to our terroirs and grape varieties. Our wines contain no enzymes and we do not use a fining agent to preserve the consistency and aromas. We mature our wines on their lees in thermoregulated tanks before bottling. Blending with 40% to 50% reserve wines adds depth and complexity. Our Champagnes then undergo a lengthy second fermentation 15 metres underground where it is then left to mellow for between 30 months and 10 years, depending on the cuvée. After dosage, our wines are laid down for an additional two to six months before shipment. Our standards exceed the minimum requirements of the Champagne Appellation.","bottles":"250 000","pays":"Canada, United Kingdom, Japan, Italy, Australia","filtre":"CHAMPAGNE","vins":[{"name":"Blanc de Blancs","detail":"Champagne · AOC Champagne · White · NV · 100% Chardonnay","awards":"Wine Enthusiast : 93/100, James Suckling : 91/100"},{"name":"Extra Brut","detail":"Champagne · AOC Champagne · White · NV · 50% Pinot Noir, 30% Meunier, 20% Chardonnay","awards":"Wine Enthusiast : 92/100, James Suckling : 91/100"},{"name":"Brut Terroir","detail":"Champagne · AOC Champagne · White · NV · 40% Pinot Noir, 40% Meunier, 20% Chardonnay","awards":"Wine Spectator : 92/100, Robert Parker : 90/100, James Suckling : 90/100"},{"name":"Rosé","detail":"Champagne · AOC Champagne · Rosé · NV · 40% Pinot Noir, 40% Meunier, 20% Chardonnay","awards":"James Suckling : 91/100"},{"name":"Rosé de Saigne Extra Brut","detail":"Champagne · AOC Champagne · Rosé · NV · 100% Pinot Noir","awards":"Wine Enthusiast : 90/100"},{"name":"Blanc de Noirs Extra Brut","detail":"Champagne · AOC Champagne · White · NV · 100% Pinot Noir","awards":"Wine Enthusiast : 90/100, James Suckling : 90/100"},{"name":"Brut Nature","detail":"Champagne · AOC Champagne · White · NV · 40% Pinot Noir, 40% Meunier, 20% Chardonnay","awards":"James Suckling : 92/100"},{"name":"Blanc de Blancs Granc Cru","detail":"Champagne · AOC Champagne · White · NV · 100% Chardonnay","awards":"Wine Enthusiast : 93/100, Vinum : 17,5/20"},{"name":"Vintage 2016","detail":"Champagne · AOC Champagne · White · NV · 50% Chardonnay, 50% Pinot Noir","awards":"93 Wine Enthusiast"},{"name":"Demi-Sec","detail":"Champagne · AOC Champagne · White · NV · 40% Pinot Noir, 40% Meunier, 20% Chardonnay","awards":"Sustainable"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/3784/","ha":"25 ha","filtres":["CHAMPAGNE"],"uid":2},{"id":3,"booth":3,"societe":"VIGNOBLES VERDIER","region":"Loire Valley / Bourgogne / Beaujolais","site":"","bio":"Vignobles Verdier represent talented, independent winemakers from the Loire Valley and Burgundy — two iconic French regions internationally recognized for elegance, precision, and ageing potential. I carefully select estates with strong identities, often organic or sustainably farmed, producing authentic and expressive wines suited to international markets. Burgundy Chardonnay and Pinot Noir, Loire Chenin Blanc, Sauvignon Blanc, and Cabernet Franc: my portfolio offers a coherent and complementary range, covering both premium positioning and high-value niche segments. My role goes beyond commercial representation. I provide a turnkey logistical solution through a grouping and consolidation service. Wines from several estates can be combined into one shipment with a single invoice. This optimizes freight costs, simplifies administrative and customs procedures, and ensures secure supply.","bottles":"N/A","pays":"Denmark, USA, Canada","filtre":"RHONE","vins":[{"name":"Nicolas Millet Domaine des Côtes Blanches","detail":"Loire Valley · AOP Sancerre Blanc · White · 2024 · Sauvignon Blanc","awards":"91 points Wine Enthusiast"},{"name":"Nicolas Millet Le Chêne Marchand","detail":"Loire Valley · AOP Sancerre Blanc · White · 2023 · Sauvignon Blanc","awards":"Organic"},{"name":"Nicolas Millet Les Rimbardes","detail":"Loire Valley · AOP Sancerre Rouge · Red · 2023 · Pinot Noir","awards":"91 points Wine Enthusiast"},{"name":"Aurélie Petit Le Petit Marin","detail":"Loire Valley · AOP Pouilly Fumé · White · 2025 · Sauvignon Blanc","awards":"Sustainable"},{"name":"Aurélie Petit Silex","detail":"Loire Valley · AOP Pouilly Fumé · White · 2024 · Sauvignon Blanc","awards":"Sustainable"},{"name":"Comte de Valroy Pinot Noir","detail":"Bourgogne · AOP Bourgogne Pinot Noir · Red · 2024 · Pinot Noir","awards":"Sustainable"},{"name":"Comte de Valroy Chardonnay","detail":"Bourgogne · AOP Bourgogne · Chardonnay · White · 2024","awards":"Chardonnay"},{"name":"Domaine Grachet Duchemin Saint Aubin 1er Cru","detail":"Bourgogne · AOP Saint Aubin 1er Cru · White · 2023 · Chardonnay","awards":"Sustainable"},{"name":"Domaine Grachet Duchemin Bourgogne Hautes Côtes de Beaune","detail":"Bourgogne · AOP Bourgogne Hautes Côtes de Beaune · Red · 2023 · Pinot Noir","awards":"Sustainable"},{"name":"La Petite Maison Blanche","detail":"Loire Valley · IGP Val de Loire Sauvignon Blanc · White · 2025 · Sauvignon Blanc","awards":"Sustainable"},{"name":"La Grange Bourbon Ode To Joy","detail":"Beaujolais · AOP Brouilly · Red · 2024 · Gamay","awards":"Organic"},{"name":"La Grange Bourbon Les Charmes","detail":"Beaujolais · AOP Morgon · Red · 2024 · Gamay","awards":"Organic"}],"marketplace":"","ha":"N/A","filtres":["BEAUJOLAIS","BOURGOGNE","LOIRE"],"uid":3},{"id":4,"booth":4,"societe":"VINE DIVISION","region":"Champagne / Bugey / Bourgogne","site":"www.vinedivision.com","bio":"Vine Division connects the finest French wines with importers, distributors, and hospitality groups worldwide. We represent passionate, family-owned producers who respect their terroir, offering exceptional wines from Burgundy, Champagne, Bugey, Bordeaux, and more.\n\nSpecialists in the ASEAN market, we spent 10 years in Hong Kong and have been based in Tokyo since 2019. We are not agents: we act as outsourced Export Managers, providing full strategic support and tailored logistics solutions to simplify export and maximize the visibility of each winery.\n\nWe are proud to introduce, for the first time in this region, three prestigious names:\n\n• Champagne — Adam Jaeger: Adam-Jaeger is a family-owned estate located in the heart of the Champagne region, driven by the desire to pass on an authentic and demanding savoir-faire. Deeply connected to its terroir and to the purest expression of its individual plots, the house crafts Champagnes that reflect the diversity of their soils and subsoils, marked by the mineral character of each cuvée.\n\n• Bugey — Cellier Lingot Martin: The LINGOT-MARTIN Estate, established in 1970 by three families (Lingot, Martin and Bolliet) in the heart of the Cerdon vineyards, now manages 40 hectares of vines spread over several villages.\n\n• Pouilly-Fuissé — Domaine Vaupré: The estate is located in the centre of the picturesque village of Solutré-Pouilly, the very heart beat of Pouilly Fuissé AOP.\n\n• Bourgogne — Domaine Château Chardon: The estate comprises 60 hectares of vines in production across the Mâcon-La Roche-Vineuse, Mâcon-Milly-Lamartine, Mâcon-Verzé, Mâcon-Villages, and Bourgogne appellations, and even a small portion in Saint-Véran.","bottles":"N/A","pays":"Asia Pacific","filtre":"CHAMPAGNE","vins":[{"name":"Champagne Blanc de Blancs","detail":"Champagne · AOP Champagne · White · 2022 · Chardonnay","awards":""},{"name":"Champagne Blanc de Blancs Brut Nature","detail":"Champagne · AOP Champagne · White · 2022 · Chardonnay","awards":""},{"name":"Champagne Réserve","detail":"Champagne · AOP Champagne · White · 2022 · Chardonnay","awards":""},{"name":"Champagne Rosé","detail":"Champagne · AOP Champagne · Rosé · 2022 · Chardonnay, Pinot Noir, Pinot Meunier","awards":""},{"name":"Bugey Cerdon Méthode Ancestrale Cuvée Classic","detail":"Bugey · AOP Bugey · Rosé · 2025 · Gamay","awards":""},{"name":"Bugey Cerdon Méthode Ancestrale Cuvée Sec","detail":"Bugey · AOP Bugey · Rosé · 2025 · Gamay","awards":""},{"name":"Bugey Cerdon Méthode Ancestrale Cuvée Intense","detail":"Bugey · AOP Bugey · Red · 2025 · Gamay","awards":""},{"name":"Petnat Rosé","detail":"Bugey · VDF Vin de France · Rosé · 2024 · Gamay","awards":""},{"name":"Pouilly-Fuissé «Bêlemnite»","detail":"Bourgogne · AOP Bourgogne · White · 2024 · Chardonnay","awards":"Organic"},{"name":"Mâcon-Solutré-Pouilly \"Agrumes\" 2024","detail":"Bourgogne · AOP Mâcon-Solutré-Pouilly · White · 2024 · Chardonnay","awards":"Organic"},{"name":"Pouilly Fuissé «Sur la Rochette» 2024","detail":"Bourgogne · AOP Pouilly-Fuissé · White · 2024 · Chardonnay","awards":"Organic"},{"name":"Domaine Château Chardon Bourgogne Chardonnay 2025","detail":"Bourgogne · AOP Bourgogne · White · 2025 · Chardonnay","awards":"Sustainable"},{"name":"Domaine Château Chardon Mâcon-La-Roche-Vineuse 2024","detail":"Bourgogne · AOP Mâcon-La-Roche-Vineuse · White · 2025 · Chardonnay","awards":"Gold Medal Concours Général Agricole Paris 2025 — Sustainable"},{"name":"Domaine Château Chardon Bourgogne Pinot Noir 2024","detail":"Bourgogne · AOP Bourgogne · Red · 2024 · Pinot Noir","awards":"Silver Medal Concours Général Agricole Paris 2026 — Sustainable"},{"name":"Domaine Château Chardon Bourgogne Pinot Noir Fût de Chêne 2024","detail":"Bourgogne · AOP Bourgogne · Red · 2024 · Pinot Noir","awards":"Sustainable"}],"marketplace":"","ha":"N/A","filtres":["CHAMPAGNE","BUGEY","BOURGOGNE"],"uid":4},{"id":5,"booth":5,"societe":"DOMAINE DE L'ODYLEE","region":"Rhône Valley","site":"www.lodylee.com","bio":"L'Odylée was born in 2015. Based in Violès in Vaucluse, it is an organic and HVE-certified estate with a 17-hectare vineyard that produces outstanding Côtes du Rhône AOP Premium wines in red, rosé and white, as well as sparkling wines in all three colors and small 25cl bottles.","bottles":"200 hl","pays":"Brazil, USA, Belgium, Denmark","filtre":"RHONE","vins":[{"name":"Domaine de l'Odylee Talentueuse 2021 CDR Red","detail":"Rhône Valley · AOC Côtes du Rhône · Red · 2021 · Grenache, Syrah, Carignan","awards":"Organic"},{"name":"Domaine de l'Odylee Impetueuse 2022 CDR Red","detail":"Rhône Valley · AOC Côtes du Rhône · Red · 2022 · Grenache, Syrah","awards":"Organic"},{"name":"Domaine de l'Odylee Prometteuse 2023 CDR White","detail":"Rhône Valley · AOC Côtes du Rhône · White · 2023 · Grenache Blanc, Viognier, Roussanne, Clairette","awards":"Organic"},{"name":"Domaine de l'Odylee Renversante2023 CDR White","detail":"Rhône Valley · AOC Côtes du Rhône · White · 2023 · Grenache Blanc, Viognier, Roussanne, Clairette","awards":"Organic"},{"name":"Domaine de l'Odylee Preambulles 2023 Sparkling","detail":"Rhône Valley · IGP · White · 2023 · Clairette","awards":"Organic"},{"name":"Domaine de l'Odylee Genereuse 2020 CDR Red","detail":"Rhône Valley · AOC Côtes du Rhône · Red · 2020 · Grenache, Syrah, Carignan","awards":"Organic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/2486/","ha":"17 ha","filtres":["RHONE"],"uid":5},{"id":6,"booth":6,"societe":"MAISON VENTENAC","region":"Languedoc","site":"www.maisonventenac.fr","bio":"Nestled in the foothills of the Black Mountain, with the Pyrenees unfolding on the horizon and Carcassonne just a few kilometres away, Maison Ventenac revolutionised its vineyard practices and winemaking philosophy in the early 2010s. This transformative shift created the perfect conditions to preserve the integrity of each grape variety's unique aromatic profile. We leave no stone unturned in our pursuit of authenticity, capturing the essence of the varietals and sense of place in every glass. That means minimal — or no — sulphur in our wild ferment winemaking process, little to no oak maturation that might overshadow the pure fruit characters and almost no external inputs. Simply grapes. Concrete or stainless steel tanks. Amphorae. Human care. A touch of elbow grease… and nothing else. Countless hours of work, perseverance and trial and error go into realising our goal: to deliver the purest expression of enjoyment. Wines that are instantly approachable, irresistibly expressive, unmistakably Maison Ventenac.","bottles":"1.5 M","pays":"Germany, Netherlands, Belgium, USA","filtre":"LANGUEDOC","vins":[{"name":"Marie 2025","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · 100% Colombard","awards":"Organic"},{"name":"Cassandre 2025","detail":"Languedoc · VDF · White · 2025 · 100% Rolle","awards":"Organic"},{"name":"Préjugés 2025","detail":"Languedoc · VDF · White · 2025 · 100% Chardonnay","awards":"Conventional"},{"name":"Diane 2025","detail":"Languedoc · AOC Cabardès · Rosé · 2025 · Syrah 30%, Grenache 30%, Cabernet Sauvignon 20%, Cabernet Franc 20%","awards":"Conventional"},{"name":"Eve 2025","detail":"Languedoc · IGP Pays d'Oc · Red · 2025 · 100% Syrah","awards":"Organic"},{"name":"Paria 2025","detail":"Languedoc · VDF · Red · 2025 · 100% Grenache","awards":"Organic"},{"name":"Muse 2025","detail":"Languedoc · VDF · Red · 2025 · 100% Syrah","awards":"Organic"},{"name":"Jeanne 2023","detail":"Languedoc · AOC Cabardès · Red · 2023 · 60% Cabernet Franc, 40% Syrah","awards":"Organic"},{"name":"Jules 2021","detail":"Languedoc · AOC Cabardès · Red · 2021 · Syrah 40%, Cabernet Sauvignon 35%, Cabernet Franc 25%","awards":"Organic"},{"name":"Paul 2021","detail":"Languedoc · VDF · Red · 2021 · 100% Cabernet Franc","awards":"Conventional"}],"marketplace":"","ha":"130 ha","filtres":["LANGUEDOC"],"uid":6},{"id":7,"booth":7,"societe":"BSWINE","region":"South West / Languedoc / Loire Valley","site":"","bio":"BSWINE, located in the heart of the Corbières vineyard, is dedicated to the creation and production of wines crafted from carefully selected terroirs across the Languedoc, in close collaboration with local winegrowers. Its approach focuses on the quality of the grapes, precise winemaking, and thoughtful blending in order to reveal the full richness and authenticity of Mediterranean grape varieties. Each cuvée is designed to express the identity of its terroir while meeting the expectations of both French and international markets. Through this philosophy, BSWINE develops wines with character that are modern and approachable, highlighting regional winemaking expertise and contributing to the international recognition of Languedoc wines.","bottles":"2M","pays":"Europe, China, Thailand, VIETNAM, USA, Canada","filtre":"LANGUEDOC","vins":[{"name":"Domaine de Joy l'Eclat Blanc","detail":"South West · IGP Côtes de Gascogne · White · 2025 · Colombard, Ugni Blanc, Gros Manseng, Sauvignon Blanc","awards":"Conventional"},{"name":"Domaine de Joy Saint André Blanc Moelleux","detail":"South West · IGP Côtes de Gascogne · White · 2024 · Gros Manseng","awards":"Conventional"},{"name":"Domaine de Joy Envie Blanc","detail":"South West · IGP Côtes de Gascogne · White · 2024 · Colombard, Ugni Blanc, Gros Manseng","awards":"Conventional"},{"name":"Domaine de Joy La vie en Joy Rouge","detail":"South West · IGP Côtes de Gascogne · Red · 2024 · Sauvignon Blanc, Gros Manseng","awards":"Conventional"},{"name":"Domaine de Joy Naturellement Rouge","detail":"South West · IGP Côtes de Gascogne · Red · 2024 · Merlot, Cabernet Sauvignon","awards":"Organic"},{"name":"Domaine de Joy Naturellement Blanc","detail":"South West · IGP Côtes de Gascogne · White · 2025 · Sauvignon Blanc, Gros Manseng","awards":"Organic"},{"name":"Domaine de Joy VSOP","detail":"South West · AOP Armagnac · NV · Ugni Blanc, Colombard · Conventional","awards":""},{"name":"Domaine de Joy XO","detail":"South West · AOP Armagnac · NV · Ugni Blanc, Colombard · Conventional","awards":""},{"name":"Domaine de Joy Millésime 1996","detail":"South West · AOP Armagnac · 1996 · Ugni Blanc, Colombard · Conventional","awards":""},{"name":"Château de l'Ou Rouge","detail":"Languedoc · AOP Côtes du Roussillon · Red · 2023 · Syrah, Grenache, Mourvèdre","awards":"Biodynamic"},{"name":"Château de l'Ou Blanc","detail":"Languedoc · AOP Côtes du Roussillon · White · 2024 · Grenache Blanc, Grenache Gris, Roussanne","awards":"Biodynamic"},{"name":"Château de l'Ou Infiniment Blanc","detail":"Languedoc · IGP Côtes Catalanes · White · 2023 · Chardonnay","awards":"Biodynamic"},{"name":"Château de l'Ou Grenache Rhapsody","detail":"Languedoc · IGP Côtes Catalanes · Red · 2020 · Grenache","awards":"Biodynamic"},{"name":"Château de l'Ou Secret de Schite","detail":"Languedoc · IGP Côtes Catalanes · Red · 2022 · Syrah","awards":"Biodynamic"},{"name":"Château de l'Ou Ipso Facto","detail":"Languedoc · IGP Côtes Catalanes · Red · 2019 · Syrah","awards":"Biodynamic"},{"name":"Domaine de la Grenaudière Oysterman","detail":"Loire Valley · AOC Muscadet · White · 2025 · Melon de Bourgogne","awards":"Conventional"},{"name":"Domaine de la Grenaudière Don't be Shellfish","detail":"Loire Valley · AOC Muscadet · White · 2025 · Melon de Bourgogne","awards":"Conventional"},{"name":"Domaine de la Grenaudière Muscadet Sur lie","detail":"Loire Valley · AOC Muscadet sur lie · White · 2024 · Melon de Bourgogne","awards":"Conventional"},{"name":"Domaine de la Grenaudière Château Thébaud","detail":"Loire Valley · AOC Château Thébaud · White · 2022 · Melon de Bourgogne","awards":"Conventional"},{"name":"Domaine de la Grenaudière Clisson","detail":"Loire Valley · AOC Clisson · White · 2020 · Melon de Bourgogne","awards":"Conventional"}],"marketplace":"","ha":"400 ha","filtres":["LOIRE","LANGUEDOC","SOUTHWEST"],"uid":7,"wines":[{"name":"Domaine de la Grenaudière Clisson","detail":"Loire Valley · AOC Clisson · White · 2020 · Melon de Bourgogne","awards":"Conventional"}]},{"id":8,"booth":8,"societe":"DOMAINE LA CENDRILLON","region":"Languedoc","site":"www.lacendrillon.fr","bio":"The history of the estate, located at the place called La Cendrillon in Ornaisons (15 min from Narbonne), begins in the mid-18th century when it became the property of the Joyeux family. In the 2000s, Robert Joyeux displayed the ambition to produce great wines, convinced of the qualitative potential of the Corbières. Today, Hubert Joyeux brings a modern style to La Cendrillon's wines. He vinifies the emblematic grape varieties of the Languedoc — but also more original varieties. With a marked desire to elaborate wines that are fresh, well balanced, and elegant, this style brings a breath of fresh air to the Corbières! This signature is also found in a modern viticulture practice: organic farming since 2013. Recognized by the press and critics, Domaine La Cendrillon produces several ranges of wines (Reds, whites and rosé): 7 AOP Corbières wines, 4 IGP Pays d'Oc wines, 3 Vin de France. The wines are sold in France and for export and are currently looking for new distributors towards new horizons.","bottles":"180000","pays":"Belgium, UK, USA, Canada","filtre":"LANGUEDOC","vins":[{"name":"Domaine la Cendrillon La Coume 2022 AOP Corbières","detail":"Languedoc · AOP Corbières · Red · 2022 · Grenache","awards":"17,5/20 Jancis Robinson Oct 2025, 91/100 Silver Decanter WWA 25"},{"name":"Domaine la Cendrillon Inédite 2018 AOP Corbières","detail":"Languedoc · AOP Corbières · Red · 2018 · Syrah, Grenache","awards":"17/20 Jancis Robinson Oct2025, Gold Medal Millésime Bio 25"},{"name":"Domaine la Cendrillon Essentielle 2021 AOP Corbières","detail":"Languedoc · AOP Corbières · Red · 2021 · Syrah, Grenache, Mourvèdre","awards":"16,5/20 Jancis Robinson Oct 2025"},{"name":"Domaine la Cendrillon Nuance 2024 Vin de France","detail":"Languedoc · VDF · White · 2024 · Petit Manseng, Albariño, Verdejo","awards":"16/20 Jancis Robinson Oct 2025"},{"name":"La Cendrillon Joyeux Drilles Syrah 2022 Vin de France","detail":"Languedoc · VDF · Red · 2022 · Syrah","awards":"Organic"},{"name":"La Cendrillon Joyeux Drilles Albariño 2025 Vin de France","detail":"Languedoc · VDF · White · 2025 · Albariño","awards":"Organic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/2160/","ha":"45 ha","filtres":["LANGUEDOC"],"uid":8},{"id":9,"booth":9,"societe":"VIGNOBLES VELLAS","region":"Languedoc/ Rhône Valley","site":"www.vignobles-vellas.com","bio":"Vignobles Vellas, a family story that began 4 generations ago in the heart of the Languedoc appellations. The main family property and the center of our activities, Domaine du Mas du Pont, is a place of culture and traditions, around the vine, wine, gastronomy and bulls. It is located in the cities of Teyran and Crès, near Montpellier, between the Pic Saint-Loup and the Mediterranean Sea. On the estate, you can discover the vineyard, the tasting cellar, the \"Manade Vellas\" (breeding of Camargue bulls), a café-theatre, a gourmet restaurant, an equestrian center, some lodgings and a large room for your events. Respect for our land and the environment are part of our way of life. This is why most of our vineyards are organically farmed and represent an area of 300 hectares, which are spread over 12 properties.","bottles":"3 M","pays":"EU, China, USA, South Korea, Singapore, Vietnam, Thailand","filtre":"LANGUEDOC","vins":[{"name":"Bad Angel Cabernet Sauvignon IGP Pays d'Oc","detail":"Languedoc · IGP Pays d'Oc · Red · Cabernet Sauvignon · Conventional","awards":""},{"name":"Chai d'œuvre Chardonnay","detail":"Languedoc · IGP Pays d'Oc · White · Chardonnay · Conventional","awards":""},{"name":"C'est pas la mer boire Chardonnay (sparkling)","detail":"Languedoc · Vin de France · White · Chardonnay · Conventional","awards":""},{"name":"Poison Rosée Pinot Noir IGP Pays d'Oc","detail":"Languedoc · IGP Pays d'Oc · Rosé · Pinot Noir · Conventional","awards":""},{"name":"L'Euzière 0 Alcool Merlot","detail":"Languedoc · Red · Merlot · Conventional","awards":""},{"name":"Héritage de Laurens Terret Blanc IGP Pays d'Oc","detail":"Languedoc · IGP Pays d'Oc · White · Terret Blanc · Conventional","awards":""},{"name":"The Black & White Cabernet Franc","detail":"Petit Manseng IGP Pays d'Oc · Languedoc · IGP Pays d'Oc · Red · Cabernet Franc, Petit Manseng","awards":"Organic"},{"name":"Manoir d'Auréa AOP Côtes du Rhône","detail":"Rhône Valley · AOP Côtes du Rhône · Red · Syrah, Grenache · Conventional","awards":""},{"name":"Le Grand Méchant Loup AOP Pic Saint Loup","detail":"Languedoc · AOP Pic Saint Loup · Red · Syrah, Grenache, Mourvèdre · Parker 90+","awards":"Conventional"},{"name":"Les Taillades AOP Châteauneuf-du-Pape","detail":"Rhône Valley · AOP Châteauneuf-du-Pape · Red · Syrah, Grenache · Conventional","awards":""}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/2591/","ha":"350 ha","filtres":["RHONE","LANGUEDOC"],"uid":9},{"id":10,"booth":10,"societe":"DOMAINE DE PETIT ROUBIÉ","region":"Languedoc / Loire Valley","site":"www.petit-roubie.com","bio":"Nestled in the heart of Languedoc, in the Occitanie region and just a stone's throw from the Thau Lagoon, Domaine de Petit Roubié has been a pioneer in organic farming, proudly certified by ECOCERT since 1985. Spanning 80 hectares across the villages of Pinet, Florensac, Marseillan, Castelnau de Guers, and Mèze, the estate is deeply committed to protecting the rich biodiversity that plays a vital role in preserving our natural environment. \"Its terroir is the sea\" — the emblematic slogan of the Picpoul de Pinet appellation perfectly captures the soul of this crisp white wine. It conjures up the image of delicate, honeyed white blossoms blooming at the foot of the Piquepoul vines, mingling with aromas of citrus and white peach, all carried inland on the salty, sea-kissed breeze rising from the Mediterranean and sweeping across the upper shores of the Thau Lagoon. The result is a vibrant collection of wines that are fresh, expressive, and bursting with character.","bottles":"600 000","pays":"England, Germany, Belgium, Canada","filtre":"LANGUEDOC","vins":[{"name":"Château Petit Roubié","detail":"Languedoc · AOC Picpoul de Pinet · White · 2024 · Piquepoul","awards":"Silver Medal Concours Général Agricole 2025"},{"name":"Viognier","detail":"Languedoc · IGP Pays d'Hérault · White · 2024 · Viognier","awards":"Gold Medal Challenge Millésime Bio 2025"},{"name":"Tannat","detail":"Languedoc · IGP Pays d'Hérault · Red · 2023 · Tannat","awards":"Organic"},{"name":"Le P'tit Roubié","detail":"Languedoc · IGP Pays d'Hérault · Red · 2024 · Cabernet, Merlot, Syrah","awards":"Organic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/9860/","ha":"80 ha","filtres":["LANGUEDOC"],"uid":10},{"id":10,"booth":10,"societe":"CAVE DE SANCERRE","region":"Loire Valley","site":"www.vins-sancerre.com","marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/5060/","ha":"270 ha","bio":"Our cooperative was created in 1963. Today nearly 76 winegrowers who represent 250 hectares of vines are partners of the company. These vines are growing in all the villages and in the most beautiful terroirs of the area: stony slopes of the hills which overlook the Loire River (the longest river of France). This vineyard is a real unique palette, rich in potential and diversity where the Sauvignon Blanc and Pinot Noir grape varieties find the best elements to grow. The wines produced in our perfectly equipped cellars, with the passion and know-how of our winemakers, show the best and the variety of the Sancerre appellation: richness, aromatic intensity, finesse and balance. Leading producer of the AOC, nearly 1.6 million bottles leave our cellars every year for the happiness of our customers around the world.","bottles":"1.8 M","pays":"USA, Canada, Belgium, United Kingdom, Italy, Japan","filtre":"LOIRE","filtres":["LOIRE"],"vins":[{"name":"L'Étincelle","detail":"Loire Valley · AOC Sancerre · White · 2024 · Sauvignon Blanc","awards":"Conventional"},{"name":"L'Étincelle","detail":"Loire Valley · AOC Sancerre · Red · 2023 · Pinot Noir","awards":"Conventional"},{"name":"NM Rosé","detail":"Loire Valley · AOC Sancerre · Rosé · NV · Pinot Noir","awards":"Conventional"},{"name":"Le Clos du Roy","detail":"Loire Valley · AOC Sancerre · White · 2023 · Sauvignon Blanc","awards":"Conventional"}],"uid":11},{"id":11,"booth":11,"societe":"DOMAINE CALMEL & JOSEPH","region":"Languedoc","site":"www.calmel-joseph.com","bio":"Founded in 1995, Calmel & Joseph is first and foremost a human adventure driven by encounters, passions, and a deep love for the land. After traveling the world, we decided to settle in La Madone, just a stone's throw from the medieval City of Carcassonne, in one of the most continental domains of the Corbières appellation. It is here, in this sun-drenched land where the vine draws all its energy, that our roots took hold, right in the heart of Languedoc-Roussillon. This region, a true viticultural paradise, is a place of infinite possibilities — a land that welcomes those who, like us, believe in its exceptional potential. Languedoc-Roussillon offers a wealth of terroirs and grape varieties, allowing for endless creative freedom from vineyard to bottle. At Calmel & Joseph, the winemaking adventure is a daily commitment. We don't just produce wines — we shape, craft, blend, and age them with a constant drive to express the purest character of each terroir. Each bottle is the result of this meticulous and passionate work: every wine tells a story — the story of its land, its climate, its people, and its time. Today, Calmel & Joseph is recognized for the quality and distinctiveness of its wines, its commitment to excellence, and its role in promoting the terroirs of Languedoc.","bottles":"N/A","pays":"Germany, Belgium, England, Netherlands, Canada","filtre":"LANGUEDOC","vins":[{"name":"Amstramgram L'Epicurius","detail":"Languedoc · IGP Pays d'Oc · Red — 2025 · Petit Verdot, Malbec · 2023 Gold Terre de Vins 2024, 16.5/20 Jancis Robinson 2025","awards":"Conventionnel"},{"name":"Amstramgram Altitude","detail":"Languedoc · IGP Pays d'Oc · White · 2024 · Chardonnay","awards":"Jancis Robinson April 2024 16/20"},{"name":"Amstramgram Le Roi Cinsault","detail":"Languedoc · VDF Vin de France · Red · 2024 · Cinsault","awards":"2023 86/100 La Tulipe Rouge 2024, 2024 90/100 Decanter 2025"},{"name":"Amstramgram La Reine Carignan(ne)","detail":"Languedoc · VDF Vin de France · White · 2024 · Carignan","awards":"2024 16/20 Jancis Robinson 2025, 2024 91/100 Decanter 2025"},{"name":"Amstramgram Pet Nat a ptille","detail":"Languedoc · VDF Vin de France · White · NV · Terret blanc 60%, Colombard 40%","awards":"Conventionnel"},{"name":"Villa Blanche Syrah","detail":"Languedoc · IGP Pays d'Oc · Red · 2025 · Syrah","awards":"2021 Silver Syrah du Monde 2023, 2024 Gold Syrah du Monde 2025"},{"name":"Villa Blanche Pinot Noir","detail":"Languedoc · IGP Pays d'Oc · Red — 2024 · Pinot Noir · 89/100 Falstaff Pinot Noir Trophy 2021, 15/20 Jancis Robinson Oct 2022, 15/20 Jancis Robinson Oct 2022","awards":"Conventionnel"},{"name":"Villa Blanche Chardonnay","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Chardonnay","awards":"Gold Chardonnay du Monde 2024, Gold Chardonnay du Monde 2025, 16/20 Jancis Robinson 2025, Highly Commended The Wine Merchant Top 100 2025"},{"name":"Villa Blanche Marselan","detail":"Languedoc · IGP Pays d'Oc · Red — 2025 · Marselan · Sélection Meilleurs vins de France, La Tulipe Rouge 2022, 15.5/20 Jancis Robinson Oct 2022, 16/20 Jancis Robinson 2025","awards":"Conventionnel"},{"name":"Villa Blanche Sauvignon Blanc","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Sauvignon Blanc","awards":"2022 Silver Concours national des vins IGP 2023"},{"name":"Blanquette de Limoux Brut","detail":"Languedoc · AOP Blanquette de Limoux · White · NV · Mauzac 90%, Chardonnay 10%","awards":"Gold Concours des Effervescents du Monde 2025 — Conventionnel"},{"name":"Crémant Brut","detail":"Languedoc · AOP Crémant de Limoux · White · NV","awards":"Jeb Dunnuck 2025, 90/100 Jancis Robinson, 16/20 Effervescents du Monde 2019"},{"name":"La Pointe Corbières","detail":"Languedoc · AOP Corbières · Red · 2023 · Grenache Noir 55%, Syrah 45%","awards":"91/100 International Wine Report, 17/20 Jancis Robinson 2025 — AB"},{"name":"La Marquise","detail":"Languedoc · IGP Aude Val de Dagne · White · 2023 · Roussanne 70%, Grenache Gris 30%","awards":"17+/20 Tamlyn Currin 2025 — AB"},{"name":"Vieux Carignan La Fabrique","detail":"Languedoc · IGP Côtes du Brian · Red · 2024 · Carignan","awards":"94/100 The Tasting Panel Magazine, 15/20 Jancis Robinson — AB"},{"name":"Crus Saint Chinian Le St Festin","detail":"Languedoc · AOP Saint Chinian · White · 2023 · Grenache Blanc, Vermentino, Roussanne, Viognier","awards":"89/100 La Tulipe Rouge 2024, 17/20 Jancis Robinson 2025 — AB"},{"name":"Caramany La Folie Douce","detail":"Languedoc · AOP CDRV · Red · 2023 · Carignan, Grenache, Syrah","awards":"Gold Bettane & Desseauve 2024 — Conventionnel"},{"name":"Cuvées Rares La Planette","detail":"Languedoc · AOP La Livinière · Red · 2023 · Syrah 60%, Grenache 20%, Mourvèdre 20%","awards":"Silver Decanter 2022, 91/100 James Suckling 2023 — AB"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/3720/","ha":"N/A","filtres":["LANGUEDOC"],"uid":12},{"id":12,"booth":12,"societe":"CHÂTEAU GRÉZAN","region":"Languedoc","site":"www.grezan.fr","marketplace":"","ha":"110 ha","bio":"My family's winegrowing history began five generations ago, in 1877, on a tiny plot of Carignan between Autignac and Laurens. It was run with the help of a donkey and a horse, and the harvest was made into wine at the back of the family home by Jules-Anatole Cros, known as Costant, and his wife Anna, the first winemaker of the family. From this family history we have inherited know-how in the vineyards, with knowledge of our soils, our grape varieties, certain cultivation practices and expertise in winemaking. My father, Jean-Louis, arrived at the lead of Château Grézan nearly thirty years ago. History continues and with it the know-how continuously improves allowing us to better satisfy those who follow us and love our wines. We continue to make progress while respecting ancestral wine-making traditions and be open to modernity, where the environment plays an essential role. The vineyard is a family-run business, split 50/50 between the Faugères AOP and the Pays d'OC IGP. Faugères AOP grape varieties: Syrah, Grenache, Cinsault, Mourvèdre, Carignan, Roussanne, Rolle. Our Pays d'OC IGP grape varieties: Chardonnay, Sauvignon Blanc, Viognier, Merlot, Rolle, Muscat.","bottles":"1 000 000","pays":"Europe / Japan","filtre":"LANGUEDOC","vins":[{"name":"Les Vignes Grézan par Famille Cros Pujol","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Vermentino, Grenache Blanc","awards":"Conventional"},{"name":"Grézan Chardonnay par Famille Cros Pujol","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Chardonnay","awards":"Conventional"},{"name":"Coqcitan Grézan par Famille Cros Pujol","detail":"Languedoc · IGP Pays d'Oc · Red · 2025 · Cinsault, Grenache","awards":"Conventional"},{"name":"Les Vignes Grézan par Famille Cros Pujol","detail":"Languedoc · IGP Pays d'Oc · Red · 2024 · Merlot, Syrah, Carignan","awards":"Conventional"},{"name":"Grézan Rouge par Famille Cros Pujol","detail":"Languedoc · AOP Faugères · Red · 2024 · Grenache, Syrah, Carignan","awards":"Conventional"},{"name":"Schistes Dorés","detail":"Languedoc · AOP Faugères · Red · 2023 · Syrah, Mourvèdre","awards":"Conventional"}],"filtres":["LANGUEDOC"],"uid":13},{"id":12,"booth":12,"societe":"FAMILLE D'EXÉA","region":"Languedoc","site":"https://chateau-deserame.fr/en/home.html/","marketplace":"","ha":"600 ha (dont 200 ha de vignes)","bio":"The property, founded on a Gallo-Roman site and bordered by the Canal du Midi, belonged to several Languedoc families prior to being taken over by Antoine de Niquet, the successor to Paul Riquet in the construction of the Canal du Midi and a collaborator of Vauban. For the family, the story began when Jean Barthélémy d'Exéa, a Knight in the service of Louis de France, acquired this ancient seigneury comprising four adjoining properties – Château de Sérame, Château d'Argens, Château Tour de Montrabech and the Abbey Church of Leingoust – from the descendants of the Niquet family on 18 Vendémiaire, year 12 of the French Republican calendar (October 11, 1803).","bottles":"600 000","pays":"Belgium, Canada, Netherlands, Germany, Finland, Japan","filtre":"LANGUEDOC","vins":[{"name":"Le Petit Jardin Rouge IGP Pays d'Oc 2024","detail":"Languedoc · IGP Pays d'Oc · Red · 2024 · Grenache Noir, Syrah, Cabernet Sauvignon","awards":"Organic"},{"name":"Le Petit Jardin Rosé IGP Pays d'Oc 2025","detail":"Languedoc · IGP Pays d'Oc · Rosé · 2025 · Cinsault, Grenache Gris, Syrah, Souvignier","awards":"Organic"},{"name":"Le Petit Jardin Blanc IGP Pays d'Oc 2025","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Sauvignon, Chardonnay, Viognier","awards":"Organic"},{"name":"Jardin de Corbières Rouge AOP Corbières 2023","detail":"Languedoc · AOP Corbières · Red · 2023 · Syrah, Carignan, Grenache Noir","awards":"Organic"},{"name":"Jardin de Corbières Blanc AOP Corbières 2023","detail":"Languedoc · AOP Corbières · White · 2023 · Roussane, Grenache Blanc, Rolle","awards":"Organic"},{"name":"Chant de Lune Rouge AOP Minervois 2022","detail":"Languedoc · AOP Minervois · Red · 2022 · Syrah, Grenache, Mourvèdre","awards":"Gold Medal Concours Mondial de Bruxelles 2025 — Organic"},{"name":"Jus de raisin La Syrah Rouge 2025","detail":"Languedoc · Red · 2025 · Syrah","awards":"Organic"},{"name":"Jus de raisin Le Grenache Rosé 2025","detail":"Languedoc · Rosé · 2025 · Grenache","awards":"Organic"},{"name":"Jus de raisin Le Chardonnay Blanc 2025","detail":"Languedoc · White · 2025 · Chardonnay","awards":"Organic"}],"filtres":["LANGUEDOC"],"uid":14},{"id":13,"booth":13,"societe":"LES CAVES RICHEMER","region":"Languedoc","site":"www.richemer.fr","bio":"The Caves Richemer vineyard today covers an area of 1000 hectares with typical grape varieties including Terret, Marselan and Piquepoul. On these clay-limestone soils, it is the whites which dominate, they represent 65% of the production. Whites which benefit from the addition of sea spray. The wines are also rosé and red in IGP Pays d'Oc or IGP Côtes de Thau.","bottles":"65000HL","pays":"Sweden, UK, Belgium, Netherlands, Germany, USA, Poland","filtre":"LANGUEDOC","vins":[{"name":"Richemer IGP Pays d'Oc Chardonnay","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Chardonnay","awards":"Conventional"},{"name":"Richemer IGP Pays d'Oc Sauvignon Blanc","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Sauvignon Blanc","awards":"Conventional"},{"name":"Richemer IGP Côtes de Thau Piquepoul","detail":"Languedoc · IGP Côtes de Thau · White · 2025 · Piquepoul","awards":"Conventional"},{"name":"Richemer Terre & Mer Terret Sparkling","detail":"Languedoc · VDF Mousseux · White · NV · Terret","awards":"Conventional"},{"name":"Richemer Hippocampe Blanc","detail":"Languedoc · IGP Côtes de Thau · White · 2024 · Chardonnay, Viognier, Sauvignon Blanc","awards":"Conventional"},{"name":"Richemer Hippocampe Rouge","detail":"Languedoc · IGP Côtes de Thau · Red · 2024 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"Richemer Cap d'Agde Souvenir Rosé","detail":"Languedoc · IGP Côtes de Thau Cap d'Agde · Rosé · 2025 · Grenache","awards":"Conventional"},{"name":"Richemer Cap d'Agde Souvenir Rouge","detail":"Languedoc · IGP Côtes de Thau Cap d'Agde · Red · 2025 · Cabernet Sauvignon","awards":"Conventional"},{"name":"Richemer Cave du Port Rouge","detail":"Languedoc · IGP Côtes de Thau · Red · 2024 · Pinot Noir","awards":"Conventional"},{"name":"Richemer Tempête de Saveurs Rouge","detail":"Languedoc · IGP Côtes de Thau · Red · 2023 · Syrah, Merlot, Cabernet Sauvignon","awards":"Conventional"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/5073/","ha":"1000 ha","filtres":["LANGUEDOC"],"uid":15},{"id":14,"booth":14,"societe":"AUBERT & MATHIEU","region":"Languedoc","site":"www.aubertetmathieu.com","bio":"Aubert & Mathieu is a B Corp–certified French winery founded with the ambition of combining high quality standards with a contemporary brand vision. We craft expressive, balanced and accessible wines designed to reflect both their origin and the expectations of today's consumers. In six years, we have expanded into 40 international markets, working alongside leading distributors such as SAQ, Enotria & Coe and Delta Wines. For the second consecutive year, we are ranked among Europe's Fastest Growing Companies by the Financial Times, the only wine company included in the ranking, confirming the strength and consistency of our development. Our wines follow a coherent and sustainable approach: single-varietal wines highlighting freshness, balance and aromatic purity, supported by a strong visual identity; premium AOP cuvées rated up to 97 points by Decanter; an award-winning 0.0% sparkling range, aligned with evolving consumer trends. We look forward to presenting our wines to you.","bottles":"700 000 btles","pays":"Canada, Netherlands, UK, Norway, Switzerland","filtre":"LANGUEDOC","vins":[{"name":"Aubert & Mathieu Hautes Pistes Chardonnay","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Chardonnay","awards":"Sustainable"},{"name":"Aubert & Mathieu Hautes Pistes Pinot Noir","detail":"Languedoc · IGP Pays d'Oc · Red · 2025 · Pinot Noir","awards":"Previous vintage: 90pts Suckling"},{"name":"Aubert & Mathieu Hautes Pistes Syrah","detail":"Languedoc · IGP Pays d'Oc · Red · 2025 · Syrah","awards":"Previous vintage: 92pts Suckling"},{"name":"Aubert & Mathieu Palooza Blanc","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Grenache, Vermentino, Viognier","awards":"Previous vintage: 90pts Suckling"},{"name":"Aubert & Mathieu Palooza Rouge","detail":"Languedoc · IGP Pays d'Oc · Red · 2025 · Syrah, Grenache","awards":"Previous vintage: 91pts Suckling"},{"name":"Aubert & Mathieu Kate Sauvignon Blanc","detail":"Languedoc · IGP Pays d'Oc · White · 2025 · Sauvignon Blanc","awards":"Organic"},{"name":"Aubert & Mathieu Nuba","detail":"Languedoc · VDF · Red · 2025 · Cinsault, Grenache","awards":"Previous vintage: 90pts Suckling, 90 Best Buy Wine Enthusiast"},{"name":"Aubert & Mathieu Marie Antoinette Corbières","detail":"Languedoc · AOP Corbières · Red · 2024 · Syrah, Grenache","awards":"Organic"},{"name":"Aubert & Mathieu Baburu","detail":"Languedoc · AOP Crémant de Limoux · White · NV · Chardonnay, Chenin","awards":"90 Best Buy Wine Enthusiast"},{"name":"Aubert & Mathieu Kisumé Rosé 0.0% Non Alcoholic Sparkling","detail":"Languedoc · Rosé · NV · Grenache · Awarded Best No/Low 2025 (Netherlands)","awards":"Sustainable"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/3680/","ha":"N/A","filtres":["LANGUEDOC"],"uid":16},{"id":15,"booth":15,"societe":"VICA","region":"Roussillon","site":"www.vica.fr","bio":"VICA is a union of six cooperative wineries. Its mission is to promote the wines of the Pyrénées-Orientales throughout France and beyond. VICA is proud to uphold its commitment to enhancing the value of the region's vineyards: innovating, strengthening its quality-driven initiatives, and increasing the visibility and reputation of Pyrénées-Orientales wines.","bottles":"12 M btles","pays":"Germany, Benelux, Denmark, UKraine, China","filtre":"LANGUEDOC","vins":[{"name":"Rafale Cabernet Sauvignon 2025","detail":"Roussillon · IGP Pays d'Oc · Red · 2025 · Cabernet Sauvignon","awards":"Conventional"},{"name":"Rafale Chardonnay 2025","detail":"Roussillon · IGP Pays d'Oc · White · 2025 · Chardonnay","awards":"Conventional"},{"name":"La Mer 2025","detail":"Roussillon · IGP Côtes Catalanes · Rosé · 2025 · Grenache, Cinsault","awards":"Conventional"},{"name":"Contre Jour 2025","detail":"Roussillon · IGP Côtes Catalanes · White · 2025 · Grenache Noir","awards":"Conventional"},{"name":"Saveurs Autrefois Rouge Semi-Dry 2024","detail":"Roussillon · IGP Pays d'Oc · Red · 2024 · Cabernet, Syrah","awards":"Conventional"},{"name":"Casa Saint Pierre Grenache Noir 2024","detail":"Roussillon · IGP Côtes Catalanes · Red · 2024 · Grenache Noir","awards":"Conventional"},{"name":"Éphémère 2022","detail":"Roussillon · AOP Côtes du Roussillon Villages · Red · 2022 · Syrah, Carignan, Grenache Noir","awards":"DoubleGold Medal and 90 pts Gilbert et Gaillard"},{"name":"Communales Caramany Les Chemins Secrets 2023","detail":"Roussillon · AOP Côtes du Roussillon Villages · Red · 2023 · Syrah, Carignan","awards":"Conventional"},{"name":"Château Montner Premium Rouge 2023","detail":"Roussillon · AOP Côtes du Roussillon Villages · Red · 2023 · Syrah, Carignan, Grenache Noir","awards":"Conventional"},{"name":"Grande Appellation Muscat de Rivesaltes NM","detail":"Roussillon · AOP Muscat de Rivesaltes · White · NV · Muscat Petit Grain, Muscat d'Alexandrie","awards":"90 pts Decanter, 1 star Guide Hachette, Silver Medal Concours Mondial de Bruxelles"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/9833/","ha":"N/A","filtres":["ROUSSILLON"],"uid":17},{"id":16,"booth":16,"societe":"CHÂTEAU LA CAMINADE","region":"South West / Cahors","site":"www.chateaulacaminade.fr","bio":"The Château La Caminade estate came into the Ressès family in 1895. Run by four generations, it took the name \"Château La Caminade\" and gradually established itself as one of the leading estates of the appellation, winning numerous medals and awards. In 1973, following the official recognition of the Cahors Appellation d'Origine Contrôlée (AOC), Antonin Ressès, his son Marcel, and his grandson Léonce abandoned bulk wine production and decided to bottle their entire output. This marked the birth of the traditional cuvée called Château La Caminade. In the early 1980s, Dominique and Richard, brothers of the fourth generation, took over the estate, significantly improving its quality. Starting in 2021, the brothers sought a successor capable of continuing the business with the same respect for the land and the same pursuit of excellence. In 2022, they were contacted by two friends who had been nurturing the dream of acquiring and running a vineyard for fifteen years. Xavier Gravelat and Hervé Chauvin took over the estate in August 2023, joined by Dominique, his wife Frédérique, and Richard. The wines are primarily made from Malbec, the emblematic grape variety originating from the Cahors region. We practice sustainable agriculture under the \"High Environmental Value\" label. Our vines, with an average age of 45 years, are planted on the second and third terraces of the Lot River.","bottles":"120 000 btles","pays":"USA Belgium Germany Morocco New Caledonia","filtre":"SOUTHWEST","vins":[{"name":"Château La Caminade Commandery 2020","detail":"South West · AOP Cahors · Red · 2020 · Malbec","awards":"90 Wine Enthousiast, Gold Medal Sélection Mondiale Canada"},{"name":"Haute Voltige 2023","detail":"South West · AOP Cahors · Red · 2023 · Malbec","awards":"Gold Medal South West Wines Awards 2024, 2 stars Guide Hachette 2026"},{"name":"Oleti Rouge 2024","detail":"South West · AOP Cahors · Red · 2024 · Malbec, Merlot","awards":"New product, award competition in progress"},{"name":"Oleti Rosé","detail":"South West · IGP Côtes du Lot · Rosé · 2025 · Malbec","awards":"For 2025 vintage: award competition in progress, For Vintage 2023: 2 stars Guide Hachette 2025"}],"marketplace":"","ha":"25 ha","filtres":["SOUTHWEST","CAHORS"],"uid":18},{"id":17,"booth":17,"societe":"LES VIGNERONS DE TAVEL ET LIRAC","region":"Rhône Valley","site":"www.cave-tavel-lirac.fr","bio":"Created in 1937, the Cave des Vignerons de Tavel is listed as a 'Historic Monument.' The winemakers are involved every day in the life of their cellar to produce award-winning wines that are regularly rated in guides. Concerned with respecting the environment and committed to sustainable development, the Cave des Vignerons de Tavel is also certified 'Committed Winemakers' ISO 26000. The vineyards are spread across the Galets Roulés, Lauzes, and Sables terroirs. The harvests are carried out by winemakers who are careful to respect their environment, from pruning the vines to picking the grapes.","bottles":"N/A","pays":"Northern Europe, USA, Canada and Sweden","filtre":"RHONE","vins":[{"name":"Tavel Cuvée Royale","detail":"Rhône Valley · AOC Tavel · Rosé · 2025 · Grenache, Syrah, Mourvèdre, Cinsault, Carignan, Clairette, Bourboulenc, Picpoul","awards":"Sustainable"},{"name":"Tavel Lauzeraies","detail":"Rhône Valley · AOC Tavel · Rosé · 2025 · Grenache, Syrah, Mourvèdre, Cinsault, Carignan, Clairette, Bourboulenc, Picpoul","awards":"Sustainable"},{"name":"Lirac Acantalys","detail":"Rhône Valley · AOC Lirac · Red · 2024 · Grenache, Syrah, Mourvèdre","awards":"Sustainable"},{"name":"Lirac Arcane","detail":"Rhône Valley · AOC Lirac · Red · 2024 · Grenache, Syrah, Mourvèdre","awards":"Sustainable"},{"name":"Lirac Acantalys","detail":"Rhône Valley · AOC Lirac · White · 2025 · Grenache, Clairette, Roussanne, Viognier","awards":"Sustainable"},{"name":"Lirac Jean XXII","detail":"Rhône Valley · AOC Lirac · Red · 2023 · Grenache, Syrah, Mourvèdre","awards":"Sustainable"},{"name":"Lirac Arcane","detail":"Rhône Valley · AOC Lirac · White · 2024 · Grenache, Clairette, Roussanne, Viognier","awards":"Sustainable"},{"name":"Laudun Domaine La Croix du Verger","detail":"Rhône Valley · AOC Laudun · Red · 2024 · Grenache, Syrah","awards":"Sustainable"},{"name":"Laudun La Sauvagine","detail":"Rhône Valley · AOC Laudun · White · 2025 · Grenache, Clairette, Viognier","awards":"Sustainable"},{"name":"Côtes du Rhône Rouge Acantalys","detail":"Rhône Valley · AOC Côtes du Rhône · Red · 2024 · Grenache, Syrah, Carignan","awards":"Sustainable"},{"name":"Côtes du Rhône Blanc Acantalys","detail":"Rhône Valley · AOC Côtes du Rhône · White · 2024 · Grenache, Clairette, Bourboulenc","awards":"Sustainable"},{"name":"Costières de Nîmes Générations","detail":"Rhône Valley · AOC Costières de Nîmes · Red · 2023 · Grenache, Syrah, Mourvèdre","awards":"Biodynamic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/9744/","ha":"900 ha","filtres":["RHONE"],"uid":19},{"id":18,"booth":18,"societe":"VIGNOBLES DAVID & MAISON ALBERA","region":"Roussillon / Rhône Valley / Bourgogne","site":"www.maison-albera.comwww.vignoblesdavid.plugwine.com/vins","bio":"Maison Albera is a family-owned business. Alexandre and Fabrice Rieu, two brothers from a long-standing winemaking tradition on both sides of the Pyrénées, took up the mantle in the early 2000s to craft wines from the exceptional high-altitude terroirs of Roussillon. Their mission is to produce fresh wines with perfect balance — an exercise that has become an art in a region experiencing increasing climate warming over the past two decades. Their wines will surprise you with their unexpected balance, harmoniously combining fruit and acidity with moderate alcohol levels.","bottles":"100 000 btles","pays":"UK, USA, Belgium","filtre":"LANGUEDOC","vins":[{"name":"Platja","detail":"Roussillon · IGP Côtes Catalanes · White · 2024 · Grenache Blanc, Chardonnay, Vermentino","awards":"Conventional"},{"name":"Ostrea","detail":"Roussillon · IGP Côtes Catalanes · White · 2024 · Grenache Gris, Grenache Blanc","awards":"Conventional"},{"name":"Chardonnay","detail":"Roussillon · IGP Côtes Catalanes · White · 2024 · Chardonnay","awards":"Conventional"},{"name":"Platja","detail":"Roussillon · IGP Côtes Catalanes · Red · 2024 · Grenache Noir, Syrah","awards":"Conventional"},{"name":"Mourvèdre","detail":"Roussillon · IGP Côtes Catalanes · Red · 2024 · Mourvèdre","awards":"Conventional"},{"name":"Grenache","detail":"Roussillon · IGP Côtes Catalanes · Red · 2024 · Grenache Noir","awards":"Conventional"},{"name":"Fleur de Sel Chardonnay","detail":"Rhône Valley · IGP Pays d'Oc · White · 2024 · Chardonnay","awards":"Organic"},{"name":"Lilas Blanc","detail":"Rhône Valley · IGP Pays d'Oc · White · 2025 · Rolle, Vermentino","awards":"Sustainable"},{"name":"Le Petit David","detail":"Rhône Valley · AOC Côtes du Rhône · Red · 2023 · Grenache, Syrah, Mourvèdre","awards":"Organic"},{"name":"Le Mourre de l'Isle","detail":"Rhône Valley · AOC Côtes du Rhône · Red · 2024 · Syrah, Mourvèdre, Grenache, Cinsault","awards":"Organic"},{"name":"Les Masques Red","detail":"Rhône Valley · AOC Châteauneuf-du-Pape · Red · 2022 · Grenache, Syrah, Mourvèdre, Cinsault","awards":"Organic"},{"name":"Bourgogne Tonnerre Chardonnay 2023","detail":"Bourgogne · AOC Bourgogne Tonnerre · White · 2023 · Chardonnay","awards":"Organic"},{"name":"Chablis Montcelot 2021","detail":"Bourgogne · AOC Chablis · White · 2021 · Chardonnay","awards":"Organic"},{"name":"Chablis Premier Cru les Fourneaux 2021","detail":"Bourgogne · AOC Chablis Premier Cru les Fourneaux · White · 2021 · Chardonnay","awards":"Organic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/6992/","ha":"100 ha","filtres":["BOURGOGNE","ROUSSILLON","RHONE"],"uid":20},{"id":19,"booth":19,"societe":"CHÂTEAU MOURGUES DU GRES","region":"Rhône Valley","site":"www.mourguesdugres.com","bio":"Fresh Rhône wines by the sea. Biodynamic estate on the seaside part of the Rhône Valley, meticulous winemaking, great prices. Distinct balance due to the cooling influence of the Mediterranean Sea: fresh, light and juicy. Working vegan, with native yeasts and with low sulfites, regular acclamation from the French and international press: Wine Enthusiast, Decanter, James Suckling, Hachette, Revue du Vin de France. Recognized for decades amongst connoisseurs for crafting joyful, balanced cuvées with approachable prices, François Collard has set benchmarks for the Rhône Valley's Seaside. Especially for the last 5 years, working biodynamic with his son Romain: our wines have never been so sharp and the finishes so focused. The profile of Mourgues du Grès' wines will surprise you: white wines are zappy, saline and mouth-watering; rosés show lots of personality and a mineral kick on the finish; reds are juicy and vibrant with their fresh tannins. From gastronomy fine wines to festive Vin de France, it's a different take on the Rhône varietals and terroir, worth the discovery for their purity of fruit and uncommon salinity.","bottles":"350 000 btles","pays":"Canada, USA","filtre":"RHONE","vins":[{"name":"Château Mourgues du Grès Cuvée Galets Rouges 2023","detail":"Rhône Valley · AOP Costières de Nîmes · Red · 2023 · Syrah, Grenache, Marselan, Mourvèdre","awards":"91/100 A pioneer of the qualitative revival of the Costières de Nîmes appellation, this estate has established itself as a benchmark thanks to the richness and diversity of its terroirs"},{"name":"Château Mourgues du Grès Cuvée Galets Dorés 2025","detail":"Rhône Valley · AOP Costières de Nîmes · White · 2025 · Grenache, Roussanne, Vermentino","awards":"Biodynamic"},{"name":"Vignoble Anne Collard Cuvée Côte du Rhône 2022","detail":"Rhône Valley · AOP Côtes du Rhône · Red · 2022 · Grenache, Syrah, Mourvèdre, Marselan","awards":"Gold Medal World Contest for Organic Wine"},{"name":"Château Mourgues du Grès Cuvée Terre d'Argence Rouge 2022","detail":"Rhône Valley · AOP Costières de Nîmes · Red · 2022 · Syrah, Grenache","awards":"Biodynamic"},{"name":"Vignoble Anne Collard Cuvée SHI FU MI","detail":"Rhône Valley · VDF · White · Grenache · Biodynamic","awards":""},{"name":"Château Mourgues du Grès Cuvée Terre de Feu 2022","detail":"Rhône Valley · AOP Costières de Nîmes · Red · 2022 · Grenache, Syrah","awards":"Biodynamic"},{"name":"Château Mourgues du Grès Cuvée Terre d'Argence Blanc 2024","detail":"Rhône Valley · IGP Pont du Gard · White · 2024 · Viognier, Petit Manseng, Vermentino","awards":"Biodynamic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/4083/","ha":"65 ha","filtres":["RHONE"],"uid":21},{"id":20,"booth":20,"societe":"MAS DES BRESSADES & MAS CARLOT","region":"Rhône Valley","site":"www.mascarlot,fr","bio":"","bottles":"300 000 btles","pays":"USA, Canada, Netherlands, Germany, Denmark, Australia, etc","filtre":"RHONE","vins":[{"name":"Mas Carlot Générations White 2025","detail":"Rhône Valley · AOC Costières de Nîmes · White · 2025 · Roussanne, Marsanne, Viognier, Clairette","awards":"Organic"},{"name":"Mas Carlot Générations Rosé 2025","detail":"Rhône Valley · AOC Costières de Nîmes · Rosé · 2025 · Grenache Noir, Syrah, Cinsault","awards":"91/100 Wine Advocate · Organic"},{"name":"Mas Carlot Générations Red 2023","detail":"Rhône Valley · AOC Costières de Nîmes · Red · 2023 · Grenache Noir, Syrah, Mourvèdre","awards":"Organic"},{"name":"Mas Carlot Hommage à Paul Blanc Red 2023","detail":"Rhône Valley · AOC Costières de Nîmes · Red · 2023 · Syrah, Mourvèdre","awards":"Organic"},{"name":"Mas Carlot Les Enfants Terribles Red 2023","detail":"Rhône Valley · AOC Costières de Nîmes · Red · 2023 · Mourvèdre, Syrah","awards":"Organic"},{"name":"Mas des Bressades Tradition White 2025","detail":"Rhône Valley · AOC Costières de Nîmes · White · 2025 · Grenache Blanc, Roussanne, Marsanne, Viognier","awards":"Organic"},{"name":"Mas des Bressades Tradition Red 2023","detail":"Rhône Valley · AOC Costières de Nîmes · Red · 2023 · Grenache Noir, Syrah, Cinsault","awards":"Organic"},{"name":"Mas des Bressades Excellence Red 2023","detail":"Rhône Valley · AOC Costières de Nîmes · Red · 2023 · Syrah","awards":"Organic"},{"name":"Mas des Bressades Excellence White 2024","detail":"Rhône Valley · AOC Costières de Nîmes · White · 2024 · Roussanne, Viognier","awards":"Organic"},{"name":"Mas des Bressades Les vignes de mon père 2022","detail":"Rhône Valley · VDF · Red · 2022 · Cabernet Sauvignon, Syrah","awards":"Organic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/4061/","ha":"60 ha","filtres":["RHONE"],"uid":22},{"id":21,"booth":21,"societe":"CHÂTEAU D'ARCHE","region":"Aquitaine","site":"www.Chateau-Arche.fr","bio":"Château d'Arche, a Grand Cru classé in 1855, is a magnificent 50-hectares estate producing great Sauternes wines as well as a dry white wine and a sparkling using the traditional method. Located at the gateway to Sauternes, its new cellar is at the cutting edge of sustainable development and symbolises the owners' commitment to reducing their ecological footprint. In the vineyard, as in the cellar, innovation is at the heart of all projects in order to move towards a precise viticulture in line with its values: Purity, Naturalness and Ecology. Thanks to its hotel located in the heart of the 17th century chartreuse, Château d'Arche is a place to live and meet, a refuge that is both modern and historic, warm and intimate.","bottles":"100 000","pays":"USA, Europe","filtre":"BORDEAUX","vins":[{"name":"Château d'Arche Grand Cru Classé 1855 Millésime 2017","detail":"Aquitaine · AOP Sauternes · White · 2017 · Sauvignon, Sémillon","awards":"Yves Beck 96, James Suckling 94, Wine Enthusiast 91, Jancis Robinson 17/20, Bettane et Desseauve 18/20"},{"name":"Soleil d'Arche 2023","detail":"Aquitaine · AOP Sauternes · White · 2023 · Sauvignon, Sémillon, Muscadelle","awards":"James Suckling 90, Gold Concours International de Lyon, Gold Terre de Vins, Double Gold / Best in Class / Best dessert Wine Los Angeles Invitational Wines and Spirits Challenge, Silver 90 Decanter WWA"},{"name":"A de Château d'Arche Blanc 2022","detail":"Aquitaine · AOP Bordeaux Blanc · White · 2022 · Sauvignon, Sémillon","awards":"Decanter 92, Wine Enthusiast 90, James Suckling 90, Yves Beck 90, Gold Bruxelles, Gold Sakura Japon, Silver 93 Decanter WWA, Silver Bordeaux"},{"name":"A de Château d'Arche Rouge 2022","detail":"Aquitaine · AOP Graves Rouge · Red · 2022 · Merlot, Cabernet Sauvignon","awards":"Wine Enthusiast 91, Guide Hachette 1 star, Gold Concours International de Lyon"},{"name":"Arche Perlée Blanc de Blanc NM","detail":"Aquitaine · VDF Vin de France · White · NV · Sauvignon, Sémillon","awards":"Gold Concours International de Lyon, Silver Los Angeles Invitational Wines and Spirits Challenge"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/2611","ha":"50 ha","filtres":["AQUITAINE"],"uid":23},{"id":22,"booth":22,"societe":"AMBROSIA","region":"Bordeaux","site":"www.ambrosia.fr","bio":"Located at the gateway to the Médoc, in Macau, Ambrosia has been producing wines since 1875 and operating as a wine merchant since 1990.\n\nOur vineyard estates extend over 140 hectares and are managed by a young, cohesive and highly skilled team, driven by precision, consistency and a deep commitment to quality.\n\nOriginally established to promote wines from the family's estates, Ambrosia has progressively broadened its range to meet the evolving expectations of international markets. Today, we offer a comprehensive portfolio covering nearly all Bordeaux appellations — including family estates and Classified Growths — as well as carefully selected wines from some of France's finest wine regions.\n\nWith a 2,000 m² warehouse, we guarantee optimal storage conditions, efficient order preparation and consolidated shipments through a single, streamlined logistics hub.","bottles":"500 000","pays":"Canada, USA, Australia, Finland, UK","filtre":"BORDEAUX","vins":[{"name":"Rives de Laronde 2020","detail":"Bordeaux · AOC Bordeaux Rouge · Red · 2020 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"Château Terrefort Lescalle 2023","detail":"Bordeaux · AOC Bordeaux Rouge · Red · 2023 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"Château Lescalle 2020","detail":"Bordeaux · AOC Bordeaux Supérieur Rouge · Red · 2020 · Merlot, Cabernet Sauvignon, Cabernet Franc, Petit Verdot","awards":"Gold Bruxelles, Silver Bordeaux"},{"name":"Clos de May 2013","detail":"Bordeaux · AOC Haut-Medoc · Red · 2013 · Merlot","awards":"Conventional"},{"name":"Château Dasvin 2016","detail":"Bordeaux · AOC Haut-Medoc Cru Bourgeois · Red · 2016 · Merlot, Cabernet Sauvignon, Cabernet Franc, Malbec","awards":"91 Wine Enthusiast, 1*Guide Hachette"},{"name":"Château Maucamps 2016","detail":"Bordeaux · AOC Haut-Medoc Cru Bourgeois · Red · 2016 · Cabernet Sauvignon, Merlot, Petit Verdot","awards":"92 Wine Enthusiast, 17Jancis Robinson, 2* Guide Hachette, Silver International Wine Challenge, Silver Terre de Vins"},{"name":"Château du Moulin Noir 2016","detail":"Bordeaux · AOC Lussac Saint-Emilion · Red · 2016 · Merlot, Cabernet Franc","awards":"Guide Hachette, Gold Canada, Silver Terre de Vins, Bronze Decanter, Crus' Cup 2022 : Great Laureate"},{"name":"Château Piche Leibre 2013","detail":"Bordeaux · AOC Margaux · Red · 2013 · Cabernet Sauvignon","awards":"Conventional"},{"name":"Château d'Arricaud 2019","detail":"Bordeaux · AOC Graves Rouge · Red · 2019 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"Château d'Arricaud 2021","detail":"Bordeaux · AOC Graves Blanc · White · 2021 · Sauvignon Blanc, Sémillon","awards":"Conventional"},{"name":"Château Beau-Site Haut-Vignoble 2016","detail":"Bordeaux · AOC Saint Estèphe · Red · 2016 · Cabernet Sauvignon, Merlot, Petit Verdot","awards":"90 Wine Enthusiast — Conventional"},{"name":"Château Mélin Cuvée «RéVinTho» 2023","detail":"Bordeaux · AOC Saint-Emilion Grand Cru · Red · 2023 · Merlot","awards":"Conventional"},{"name":"Château du Gazin 2022","detail":"Bordeaux · AOC Canon-Fronsac · Red · 2022 · Merlot, Cabernet Franc, Malbec","awards":"92 James Suckling, Gold Bordeaux — Conventional"},{"name":"Clos Colombu 2023","detail":"Corse · AOC Corse-Calvi · Red · 2023 · Sciaccarellu, Nielluciu, Syrah, Minustellu, Carcaghjolu Neru","awards":"Organic"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/3661/","ha":"140 ha","filtres":["BORDEAUX"],"uid":24},{"id":23,"booth":23,"societe":"BORDEAUX VINS SELECTION","region":"Bordeaux","site":"www.bvswine.com","bio":"France Fortress is the official representative of 230 hectares of vineyards between two very distinct terroirs of Bordeaux:\n\n2 historic \"Cru Bourgeois\" classified estates in the Médoc region:\n— Vieux Château Landon, small family estate dating back to 1607.\n— Château Bessan Ségur, prestigious ancient estate of the Ségur family (once owners of Château Latour, Château Mouton Rothschild, Château Lafite Rothschild, Château Calon-Ségur) and the Wertheimer family of Chanel.\n\nAnd 2 magnificent terroirs in the Entre-deux-mers region:\n— Château Lezongars, small family estate with an exceptional terroir and a breathtaking setting.\n— Château de Lagorce, very small estate, which was transformed from an ancient church, having a long history of winemaking.\n\nOur catalog consists of historic and great value brands which have been developed exclusively in North-East China during last 15 years with our parent company Dashang, where we export 900,000 bottles every year that are sold in more than 350 shops. We have blended French heritage with strategic and patient planning to nurture the Chinese market.\n\nToday, our ambitions are reaching out to other emerging markets and hence, we are searching to build long-term and exclusive partnerships for our wines. We understand the complications of the current global economic situation, and we are ready to provide durable marketing support to build our brands.","bottles":"N/A","pays":"Europe, UK, USA, Asia","filtre":"BORDEAUX","vins":[{"name":"Château Les Roches Blanches 2018","detail":"Bordeaux · AOC Saint Emilion · Red — 2018 · Merlot, Cabernet Franc","awards":""},{"name":"Petit Corbin Despagne 2020","detail":"Bordeaux · AOC Saint Emilion Grand Cru · Red · 2020 · Merlot, Cabernet Franc","awards":"Organic"},{"name":"Château Simard 2019","detail":"Bordeaux · AOC Saint Emilion Grand Cru · Red · 2019 · Merlot, Cabernet Sauvignon, Cabernet Franc","awards":""},{"name":"La Demoiselle de Sociando Mallet 2021","detail":"Bordeaux · AOC Haut Medoc · Red · 2021 · Merlot, Cabernet Sauvignon","awards":"James Suckling 93"},{"name":"Château Ampelia 2022","detail":"Bordeaux · AOC Castillon Côtes de Bordeaux · Red · 2022 · Merlot, Cabernet Franc","awards":"James Suckling 92"},{"name":"Château de La Dauphine 2022","detail":"Bordeaux · AOC Fronsac · Red · 2022 · Merlot, Cabernet Franc","awards":"James Suckling 93"},{"name":"Château Laffitte Carcasset 2018","detail":"Bordeaux · AOC Saint Estèphe · Red · 2018 · Merlot, Cabernet Sauvignon, Cabernet Franc","awards":"James Suckling 93"},{"name":"Moulin de La Lagune 2017","detail":"Bordeaux · AOC Haut Medoc · Red · 2017 · Merlot, Cabernet Sauvignon, Petit Verdot","awards":"James Suckling 92"},{"name":"Château Trois Moulins 2015","detail":"Bordeaux · AOC Haut Medoc · Red · 2015 · Merlot, Cabernet Sauvignon","awards":""},{"name":"Plaisir de Siaurac 2018","detail":"Bordeaux · AOC Lalande de Pomerol · Red · 2018 · Merlot, Cabernet Franc, Malbec","awards":""}],"marketplace":"","ha":"N/A","filtres":["BORDEAUX"],"uid":25},{"id":24,"booth":24,"societe":"CHÂTEAU DE CARLES","region":"Bordeaux","site":"www.hautcarles.com","bio":"Historical Château: Château de Carles is a magnificent building, surrounded by vines planted on the hilly slopes of Fronsac (right bank of Bordeaux). Its construction began at the end of the 14th century. The Château was a center of the regional cultural life, hosting thinkers, poets (Ronsard, Montaigne, La Boetie).\n\nFamily owned wine estate (since 1900), acquired for the great reputation of its terroir and wines. Today, the estate is run by two sisters: Oriane and Eléonore, daughters of the owners, pursuing with passion the work of excellence initiated by their parents. Gourmet enthusiasts, the family approaches wine with conviviality and pleasure!\n\nWhen tradition meets modernity: sustainable principles (HVE 3 label), manual harvesting and densimetric sorting, precise vinification in new vats (expansion stainless steel tanks), aging in French oak barrels and amphoras to ensure balance and finesse.\n\nThe family produces two red wines:\n\n1. Château de Carles, the historical label, is the culmination of the search for a gourmet wine from its youth, with bright fruit, and smooth tannins.\n\n2. Haut-Carles, the flagship of the estate, launched in 1994 with the ambition to compete with the classified grands crus from Saint-Emilion. It was a success from the outset. Haut-Carles is a selection of old vines planted on the limestone plateau surrounding the Château. Merlot dominant, Haut-Carles offers dense fruit, velvety texture, and a length as impressive as its aging capacity. Mentioned twice in the Drops of God (volume 9 and 12), regularly awarded with golden medals and rates over 93, Haut-Carles has the recognition of professionals.","bottles":"80000 btles","pays":"Canada (BC,Alberta)","filtre":"BORDEAUX","vins":[{"name":"Château de Carles 2016","detail":"Bordeaux · AOC Fronsac · Red · 2016 · Merlot 90%, Cabernet Franc 5%, Malbec 5%","awards":"91-92 James Suckling, Gold Medal for Brussels wine Competition"},{"name":"Château de Carles 2019","detail":"Bordeaux · AOC Fronsac · Red · 2019 · Merlot 97,5%, Malbec 2,5%","awards":"93-94 James Suckling, 94 tasting book, 92 Decanter (Jane Anson), 2 ** from Guide Hachette, Gold Medals for Brussels and Macon wine compeition, prix plaisir Or Bettane&Desseauve"},{"name":"Haut-Carles 2016","detail":"Bordeaux · AOC Fronsac · Red · 2016 · Merlot 90%, Cabernet Franc 5%, Malbec 5%","awards":"93 Andreas Larsson, 92 Wine Spectator, 2** and Coup de Cœur from Guide Hachette, Gold Medals at Vinalies Internationales and Lyon international wine competition, Prix Plaisir Or Bettane&Desseauve"},{"name":"Haut-Carles 2019","detail":"Bordeaux · AOC Fronsac · Red · 2019 · Merlot 96%, Malbec 4%","awards":"93-94 James Suckling, 94 Andreas Larsson, 95 Tasting book, 93 Bettane&Desseauve, 2** from Guide Hachette, Gold Medals Brussels, Macon and Terre de Vins wine competitions"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/2495/","ha":"18 ha","filtres":["BORDEAUX"],"uid":26},{"id":25,"booth":25,"societe":"FRANCE FORTRESS","region":"Bordeaux","site":"www.francefortress.fr","bio":"France Fortress is the official representative of 230 hectares of vineyards between two very distinct terroirs of Bordeaux:\n\n2 historic \"Cru Bourgeois\" classified estates in the Médoc region:\n— Vieux Château Landon, small family estate dating back to 1607.\n— Château Bessan Ségur, prestigious ancient estate of the Ségur family (once owners of Château Latour, Château Mouton Rothschild, Château Lafite Rothschild, Château Calon-Ségur) and the Wertheimer family of Chanel.\n\nAnd 2 magnificent terroirs in the Entre-deux-mers region:\n— Château Lezongars, small family estate with an exceptional terroir and a breathtaking setting.\n— Château de Lagorce, very small estate, which was transformed from an ancient church, having a long history of winemaking.\n\nOur catalog consists of historic and great value brands which have been developed exclusively in North-East China during last 15 years with our parent company Dashang, where we export 900,000 bottles every year that are sold in more than 350 shops. We have blended French heritage with strategic and patient planning to nurture the Chinese market.\n\nToday, our ambitions are reaching out to other emerging markets and hence, we are searching to build long-term and exclusive partnerships for our wines. We understand the complications of the current global economic situation, and we are ready to provide durable marketing support to build our brands.","bottles":"1 000 000 bottles","pays":"China, UK","filtre":"BORDEAUX","vins":[{"name":"Vieux Château Landon 2015","detail":"Bordeaux · AOP Médoc Cru Bourgeois Rouge · Red · 2015 · Cabernet Sauvignon, Merlot","awards":"Gold Medal, Concours Général Agricole de Paris, 90 point Wine Enthusiast"},{"name":"Petit Landon 2023","detail":"Bordeaux · AOP Médoc Rouge · Red · 2023 · Cabernet Sauvignon, Merlot","awards":"Gold Medal Concours International de Lyon"},{"name":"Château Bessan Ségur 2012","detail":"Bordeaux · AOP Médoc Cru Bourgeois Rouge · Red · 2012 · Merlot, Cabernet Sauvignon, Petit Verdot","awards":"Conventional"},{"name":"Les Echos 2023 de Bernèdes 2022","detail":"Bordeaux · AOP Médoc Rouge · Red · 2022 · Cabernet Sauvignon, Merlot","awards":"Sustainable"},{"name":"Château Lezongars L'enclos 2023","detail":"Bordeaux · AOP Côtes de Bordeaux Rouge · Red · 2023 · Merlot, Cabernet Sauvignon, Petit Verdot","awards":"Conventional"},{"name":"Château Lezongars Blanc 2024","detail":"Bordeaux · AOP Bordeaux Blanc · White · 2024 · Sauvignon Blanc","awards":"Silver Medal Concours de Bordeaux"}],"marketplace":"","ha":"230 ha","filtres":["BORDEAUX"],"uid":27},{"id":26,"booth":26,"societe":"HOREAU-BEYLOT","region":"Bordeaux","site":"www.horeau-beylot.fr","bio":"Horeau-Beylot was founded in 1740 and owns twenty properties in the heart of the prestigious Grands Crus of Saint Emilion and Pomerol. It is one of the oldest wine merchant companies in Bordeaux. We are specialized in the distribution of small properties of Bordeaux as well as the creation of our own brands. Horeau-Beylot also distributes the wines of the family-owned estates and is a historical distributor of Grands Crus Classés.","bottles":"500 000 bottles","pays":"China, Vietnam, Thailand, Singapore, Japan, South Korea, Belgium,Switzerland,USA,Germany,Denmark,Netherlands,England,Ireland","filtre":"BORDEAUX","vins":[{"name":"Marquis du Pradel 2023","detail":"Bordeaux · AOC Bordeaux Rouge · Red · 2023 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"Vieux Château Renaissance 2022","detail":"Bordeaux · AOC Bordeaux Rouge · Red · 2022 · Merlot, Cabernet Sauvignon, Cabernet Franc","awards":"Gold Medal Lyon 2024, Gold Medal G&G 2023"},{"name":"Château Haut Bessac 2024","detail":"Bordeaux · AOC Entre-Deux-Mers · White · 2024 · Sauvignon, Muscadelle, Sémillon","awards":"Conventional"},{"name":"Château Grand Sorillon 2022","detail":"Bordeaux · AOC Bordeaux Supérieur Rouge · Red · 2022 · Merlot, Cabernet Franc","awards":"Gold Medal Lyon 2025"},{"name":"Château Fombrion Cuvée la Grivière 2020","detail":"Bordeaux · AOC Blaye Côtes de Bordeaux Rouge · Red · 2020 · Merlot, Cabernet Sauvignon","awards":"Gold Medal G&G 2022"},{"name":"La Croix Beylot 2022","detail":"Bordeaux · AOC Pomerol Rouge · Red · 2022 · Merlot, Cabernet Franc","awards":"Conventional"},{"name":"Château Castaing 2022","detail":"Bordeaux · AOC Graves Rouge · Red · 2022 · Merlot, Cabernet Franc","awards":"Gold Medal G&G 2024"},{"name":"Duchesse de Pauillac 2020","detail":"Bordeaux · AOC Pauillac Rouge · Red · 2020 · Merlot, Cabernet Sauvignon, Cabernet Franc","awards":"Conventional"},{"name":"Château la Fleur Poitou 2021","detail":"Bordeaux · AOC Lussac Saint-Emilion Rouge · Red · 2021 · Merlot, Cabernet Sauvignon","awards":"Gold Medal Lyon 2023"},{"name":"Château les Tours de Bayard 2019","detail":"Bordeaux · AOC Montagne Saint-Emilion Rouge · Red · 2019 · Merlot, Cabernet Franc","awards":"Gold Medal Lyon 2024, Gold Medal G&G 2021"},{"name":"Clos des Galevesses 2020","detail":"Bordeaux · AOC Lalande-de-Pomerol Rouge · Red · 2020 · Merlot, Cabernet Franc","awards":"Gold Medal Féminalise 2023 — Conventional"},{"name":"Château Grand Martinet 2023","detail":"Bordeaux · AOC Saint-Emilion Grand Cru Rouge · Red · 2023 · Merlot, Cabernet Franc","awards":"Conventional"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/3908/","ha":"100 ha","filtres":["BORDEAUX"],"uid":28},{"id":27,"booth":27,"societe":"PRODUCTA VIGNOBLES","region":"Bordeaux","site":"www.producta-vignobles.com","bio":"Founded in 1949, Producta Vignobles is a union of cooperatives that markets branded and château wines from the 4 terroirs of the Bordeaux region and from Bergerac-Duras. Our wines are the reflection of the history of a terroir and the expression of its generosity. Every winegrower has an intimate knowledge of each plot and pays particular attention to the vine, giving an inimitable taste to the grapes. The diversity of soils and subsoils combined with unique know-how allow Producta Vignobles to offer a wide range of wines with diverse profiles. With 70 years of experience and know-how, Producta Vignobles is a union of 2,500 winegrowers who want to provide for their regions and members by giving the largest number of people access to high-quality wines, sustainable and representative of our terroirs.","bottles":"15 M btles","pays":"UK, USA, Belgium, Germany, Japan, China, Taiwan","filtre":"BORDEAUX","vins":[{"name":"Fief du Marquis","detail":"Bordeaux · AOC Bordeaux Red · 2023 · Merlot, Cabernet Sauvignon · Conventional","awards":""},{"name":"Mission St Vincent","detail":"Bordeaux · AOC Bordeaux · Red · 2022 · Merlot, Cabernet Sauvignon, Malbec, Cabernet Franc","awards":"Conventional"},{"name":"Mission St Vincent","detail":"Bordeaux · AOC Bordeaux · White · 2024 · Sauvignon Blanc","awards":"Conventional"},{"name":"Château Augère","detail":"Bordeaux · AOC Bordeaux Supérieur · Red · 2022 · Merlot, Cabernet Sauvignon, Cabernet Franc","awards":"Gold Paris, Gold Bordeaux, Gold Macon"},{"name":"Château Lagrange","detail":"Bordeaux · AOC Lussac Saint Emilion · Red · 2022 · Merlot","awards":"Gold Sakura 2022"},{"name":"Château Haut Mirambet","detail":"Bordeaux · AOC Bordeaux · Red · 2023 · Merlot, Cabernet Sauvignon, Cabernet Franc","awards":"Conventional"},{"name":"Château Léo de Prades","detail":"Bordeaux · AOC Saint-Estèphe · Red · 2023 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"La Vie en Low 9°","detail":"Bordeaux · IGP Atlantique · White · 2024 · Sauvignon Blanc","awards":"Conventional"},{"name":"L'Horizon Bleu","detail":"Bordeaux · AOC Puisseguin Saint Emilion · Red · 2022 · Merlot","awards":"Conventional"},{"name":"L'Éclat Minéral","detail":"South-West · AOC Montravel · White · 2024 · Sauvignon Gris, Semillon, Sauvignon Blanc","awards":"Conventional"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/4120/","ha":"20000 ha","filtres":["BORDEAUX"],"uid":29},{"id":28,"booth":28,"societe":"THE WINE MERCHANT","region":"Bordeaux","site":"www.the-wine-merchant.com","bio":"For more than 25 years of activity, The Wine Merchant is proposing you a great selection of wines from family estates to Grands Crus Classés of Bordeaux. Such as great wines have no boundaries, we apply the same expertise to offer you the finest wines of the world. This is a wine merchant ability. The Wine Merchant maintains faithful relationships and counts today more than 1,000 active customers. To be very closely to your needs, we have expanded our activity and opened a new office in Hong Kong, in addition to our office located at the crossroads of the Bordeaux appellations. Thanks to both support of the shareholders, Dona Bertarelli and Yann Guichard, and a close relationship with the estates, The Wine Merchant owns plenty of references with large choice of vintages and formats.","bottles":"N/A","pays":"","filtre":"BORDEAUX","vins":[{"name":"Instant Bécot","detail":"Bordeaux · AOC Bordeaux · Red · 2022 · Merlot, Cabernet Franc","awards":"Conventional"},{"name":"Mosaique","detail":"Bordeaux · AOC Margaux · Red · 2021 · Merlot, Cabernet Franc","awards":"90 James Suckling, 91 Colin Hay"},{"name":"Château Bonneau","detail":"Bordeaux · AOC Montagne Saint Emilion · Red · 2022 · Merlot, Cabernet Franc","awards":"Conventional"},{"name":"L'Abeille de Fieuzal Rouge","detail":"Bordeaux · AOC Pessac Leognan · Red · 2020 · Merlot, Cabernet Sauvignon, Petit Verdot, Cabernet Franc","awards":"91 James Suckling, 90 Wine Advocate"},{"name":"L'Abeille de Fieuzal Blanc","detail":"Bordeaux · AOC Pessac Leognan · White · 2023 · Sauvignon Blanc, Semillon","awards":"91 Wine Enthusiast"},{"name":"Inspirations","detail":"Loire Valley · AOC Vouvray · White · 2023 · Chenin","awards":"Conventional"},{"name":"Château Bournac","detail":"Bordeaux · AOC Médoc · Red · 2016 · Cabernet Sauvignon, Merlot","awards":"91 James Suckling"},{"name":"Château Saint-Pierre de Corbian","detail":"Bordeaux · AOC Saint-Estephe · Red · 2022 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"Château Bel-Air","detail":"Bordeaux · AOC Pomerol · Red · 2018 · Merlot","awards":"92 Wine Spectator, 92 J Suckling, 91 Galloni"},{"name":"Château Marotte","detail":"Bordeaux · AOC Entre-deux-Mers · White · 2025 · Sauvignon Blanc, Sémillon, Muscadelle, Colombard","awards":"Conventional"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/4767/","ha":"N/A","filtres":["BORDEAUX"],"uid":30},{"id":29,"booth":29,"societe":"VIGNOBLES BOUILLAC","region":"Bordeaux","site":"www.vignoblesbouillac.com","bio":"Jean-Pierre Bouillac, winegrower since 35 years, totally began the wine production. Thanks to his work of nurserymen, he planted the vines he created himself in the greatest terroir of AOC Blaye Côte de Bordeaux. With 85 ha of vineyard we offer a large range mainly of red wines; from the most soft to the most complex. Each one for different events, different palates and dishes.","bottles":"400 000 btles","pays":"USA, UK, China, Brazil, Uruguay, Europe…","filtre":"BORDEAUX","vins":[{"name":"Le Prince de Réaud 2016","detail":"Bordeaux · VDF · Red · 2016 · Merlot","awards":"Conventional"},{"name":"French Red 2019","detail":"Bordeaux · AOC Bordeaux · Red · 2019 · Merlot","awards":"Conventional"},{"name":"French White 2023","detail":"Bordeaux · VDF · White · 2023 · Sauvignon Blanc","awards":"Conventional"},{"name":"French Rosé 2023","detail":"Bordeaux · AOC Bordeaux- Rosé · 2023 · Merlot · Silver Concours Vins de Bruxelles","awards":"Conventional"},{"name":"Mélodie du Château Semi-Sweet","detail":"2024 · Bordeaux · VDF · Red · 2024","awards":"Merlot"},{"name":"Château Vieux Puit 2016","detail":"Bordeaux · AOC Blaye Côtes de Bordeaux · Red · 2016 · Merlot, Cabernet Sauvignon","awards":"Gold Paris 2019"},{"name":"Château Haut Perdrias 2019","detail":"Bordeaux · AOC Blaye Côtes de Bordeaux · Red · 2019 · Merlot, Cabernet Sauvignon","awards":"Gold Bruxelles 2021"},{"name":"Château Clos du Loup Cuvée Tradition 2015","detail":"Bordeaux · AOC Blaye Côtes de Bordeaux · Red · 2015 · Merlot, Cabernet Sauvignon","awards":"Conventional"},{"name":"Château Clos du Loup Cuvée Prestige 2014","detail":"Bordeaux · AOC Blaye Côtes de Bordeaux · Red · 2014 · Merlot, Cabernet Sauvignon","awards":"Gold Challenge Internationale 2016"},{"name":"Les Mains Sales 100% Petit Verdot 2012","detail":"Bordeaux · AOC Bordeaux · Red · 2012 · Petit Verdot","awards":"Conventional"},{"name":"Les Mains Sales 100% Malbec 2011","detail":"Bordeaux · AOC Bordeaux · Red · 2011 · Malbec","awards":"Conventional"}],"marketplace":"https://www.marketplace.businessfrance.fr/seller/view/index/id/2562/","ha":"90 ha","filtres":["BORDEAUX"],"uid":31},{"id":30,"booth":30,"societe":"ABK6 FAMILY ESTATE","region":"Bordeaux/ Spirits","site":"www.abk6-family-estate.com","bio":"\"A visionary pioneer,\" producer of distinctive, modern, and premium accessible wines: This is how to sum up the philosophy of Francis Abécassis and his ABK6 vineyards! The Abécassis family is driven by a deep appreciation for the land and a genuine passion for exploring flavors. This dedication led Francis Abécassis and his daughters to the Charente region at the end of the 20th century, where they gradually built a collection of outstanding vineyards. Motivated by strong convictions, a commitment to quality, and a profound respect for French terroir, Francis created Domaines Francis Abécassis based on a distinctive philosophy: Single Estate Cognac. With the success of spirits brands such as ABK6, Réviseur, and Leyrat, he expanded the family legacy. In 2024, he chose to return to his original passion — wine — opening a new chapter that blends tradition, terroir, and modern ambition. His goal is clear: to build a powerful wine brand under the name ABK6. In Bordeaux, the estate covers 320 hectares of vineyards. Each plot is carefully managed to express its unique character, allowing the team to produce a wide range of acclaimed wines, including Bordeaux White, Bordeaux Red, Blanc de Noirs, Sparkling Wines, and more.","bottles":"N/A","pays":"","filtre":"BORDEAUX","vins":[{"name":"ABK6 Family Estate Bordeaux Blanc","detail":"Bordeaux · AOC Bordeaux Blanc · White · 2024 · Sauvignon, Semillon, Muscadel, Sauvignon Blanc, Sauvignon Gris, Colombard","awards":"Sustainable"},{"name":"ABK6 Family Estate Melot Bordeaux","detail":"Bordeaux · AOC Bordeaux Rouge · Red · 2024 · Merlot","awards":"Sustainable"},{"name":"ABK6 Family Estate Red Edition","detail":"Bordeaux · VDF Vin de France · Red · 2024 · Merlot, Blanc de Noirs","awards":"Sustainable"},{"name":"ABK6 Family Estate Blue Edition","detail":"Bordeaux · VDF Vin de France · White · 2024 · Blanc de Noirs","awards":"90 points BTI"},{"name":"ABK6 Single Estate Les Bulles","detail":"Charente · VDF Vin de France Méthode Traditionnelle Brute · White · NV · Ugni blanc","awards":"Gold World Sparkling Wine Awards"},{"name":"ABK6 Family Estate Château Finet","detail":"Bordeaux · AOC Bordeaux Blanc · White · 2025 · Sauvignon Blanc, Sémillon, Muscadelle","awards":"Sustainable"},{"name":"ABK6 Family Estate Château Finet","detail":"Bordeaux · AOC Bordeaux Rouge · Red · 2025 · Merlot, Cabernet Sauvignon, Cabernet Franc","awards":"Sustainable"},{"name":"ABK6 Family Estate Orange Spritz","detail":"VDF Vin de France · White · NV · Sustainable","awards":""},{"name":"ABK6 VSOP","detail":"AOC Cognac · Amber · NV","awards":""},{"name":"ABK6 XO Renaissance","detail":"AOC Cognac · Amber · NV","awards":""}],"marketplace":"","ha":"320 ha","filtres":["BORDEAUX","SPIRITS"],"uid":32},{"id":31,"booth":31,"societe":"LE DOMAINE DU CHÊNE","region":"Spirits","site":"www.ledomaineduchene.fr","bio":"Creating spirits for over 150 years, Domaine du Chêne is a family estate that has been producing Pineaux des Charentes and Cognacs since 1865. The grape varieties grown in our vineyards are unique, as we now have seven different grape varieties, including several rare ones (Merlot Blanc, Folle Blanche) dedicated to the production of our Pineaux des Charentes and Cognacs. Backed by generations of know-how, since 2014 we've been making single-varietal and rare-varietal Pineaux des Charentes, enabling us to reduce the sugar aspect to reveal a new way of tasting and pairing our Pineaux. Our Cognacs are elaborated with the same typicity with Single Cask, 100% folle blanche or generational blends. Our aim is to create contemporary appellation products that stand the test of time.","bottles":"N/A","pays":"Japan / Belgium / Germany /","filtre":"SPIRITS","vins":[{"name":"Pineau des Charentes Merlot Blanc","detail":"Charente · AOC Pineau des Charentes · Blond · 2014 · Merlot Blanc","awards":"IWSC Silver Medal 2022"},{"name":"Pineau des Charentes Vieux Rouge","detail":"Charente · AOC Pineau des Charentes · Red · 2013 · Merlot Noir","awards":""},{"name":"Pineau des Charentes Folle Blanche 100%","detail":"Charente · AOC Pineau des Charentes · Blond · 2017 · Folle Blanche","awards":""},{"name":"Pineau des Charentes Blanc","detail":"Charente · AOC Pineau des Charentes · Orange · 2013 · Ugni Blanc, Colombard","awards":""},{"name":"Cognac VSOP Ugni Blanc","detail":"Charente · AOC Cognac · Amber · 2018 · Ugni Blanc","awards":""},{"name":"Cognac VSOP Folle Blanche","detail":"Charente · AOC Cognac · Amber · 2016 · Folle Blanche","awards":""},{"name":"Cognac XO N20","detail":"Charente · AOC Cognac · Amber · 1995 · Ugni Blanc","awards":"IWSC Gold Medal 2021"},{"name":"Cognac XO Héritage","detail":"Charente · AOC Cognac · Amber · 1960 · Ugni Blanc","awards":"World Drinks Award London Gold Medal 2022"},{"name":"Eau de Vie Folle Blanche","detail":"Charente · AOC Wine Spirit · White · 2024 · Folle Blanche","awards":""}],"marketplace":"","ha":"98 ha","filtres":["SPIRITS"],"uid":33}];
+
+/* ─── NAVIGATION ─── */
+function goTo(pageId, uid) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0, 0);
+  if (pageId === 'page-winery' && uid) {
+    history.pushState(null, '', '#/exposant/' + uid);
+  } else if (pageId === 'page-list') {
+    history.pushState(null, '', '#/exposants');
+  } else if (pageId === 'page-marketplace') {
+    history.pushState(null, '', '#/marketplace');
+  } else if (pageId === 'page-occitanie') {
+    history.pushState(null, '', '#/occitanie');
+  } else if (pageId === 'page-contact') {
+    history.pushState(null, '', '#/contact');
+  } else if (pageId === 'page-galerie') {
+    history.pushState(null, '', '#/galerie');
+  } else if (pageId === 'page-home') {
+    history.pushState(null, '', '#');
+  }
+}
+
+function navTo(pageId, btn) {
+  goTo(pageId);
+  if (btn) {
+    btn.closest('.nav-tabs').querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+}
+
+/* ─── LOGOS BASE64 ─── */
+const LOGOS_DATA = {
+  1: "logos/logo_1.png",
+  2: "logos/logo_2.png",
+  3: "logos/logo_3.png",
+  4: "logos/logo_4.png",
+  5: "logos/logo_5.jpg",
+  6: "logos/logo_6.jpg",
+  8: "logos/logo_8.jpg",
+  9: "logos/logo_9.jpg",
+  10: "logos/logo_10.jpg",
+  11: "logos/logo_cave_sancerre.jpg",
+  12: "logos/logo_11.jpg",
+  13: "logos/logo_chateau_grezan.jpg",
+  14: "logos/logo_famille_exea.jpg",
+  15: "logos/logo_13.png",
+  16: "logos/logo_14.png",
+  17: "logos/logo_15.png",
+  18: "logos/logo_16.png",
+  19: "logos/logo_17.png",
+  20: "logos/logo_18.png",
+  21: "logos/logo_19.jpg",
+  22: "logos/logo_20.png",
+  23: "logos/logo_21.png",
+  24: "logos/logo_22.jpg",
+  25: "logos/logo_23.jpg",
+  26: "logos/logo_24.jpg",
+  27: "logos/logo_25.png",
+  28: "logos/logo_26.png",
+  29: "logos/logo_27.jpg",
+  30: "logos/logo_28.png",
+  31: "logos/logo_29.png",
+  32: "logos/logo_30.jpg",
+  33: "logos/logo_31.png"
+};
+
+/* ─── LOGOS : génération du chemin ─── */
+function slugify(text) {
+  const map = {
+    'À':'a','Â':'a','Ä':'a','É':'e','È':'e','Ê':'e','Ë':'e',
+    'Î':'i','Ï':'i','Ô':'o','Ö':'o','Ù':'u','Û':'u','Ü':'u',
+    'Ç':'c','Ñ':'n','Æ':'ae','Œ':'oe',
+    'à':'a','â':'a','ä':'a','é':'e','è':'e','ê':'e','ë':'e',
+    'î':'i','ï':'i','ô':'o','ö':'o','ù':'u','û':'u','ü':'u',
+    'ç':'c','ñ':'n','æ':'ae','œ':'oe'
+  };
+  return text
+    .split('').map(c => map[c] || c).join('')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+function logoPath(uid) {
+  return LOGOS_DATA[uid] || null;
+}
+
+/* ─── GRILLE EXPOSANTS ─── */
+function renderGrid(filtre) {
+  const grid = document.getElementById('exposantsGrid');
+  const liste = filtre === 'ALL' ? exposants : exposants.filter(e => (e.filtres || [e.filtre]).includes(filtre));
+  grid.innerHTML = liste.map(e => `
+    <div class="expo-card" onclick="showWinery(${e.uid})">
+      <div class="expo-card-img">
+        ${logoPath(e.uid) ? `<img class="expo-logo" src="${logoPath(e.uid)}" alt="${e.societe}" loading="lazy">` : `<div class="expo-logo-placeholder">${e.societe}</div>`}
+      </div>
+      <div class="expo-card-body">
+        <div class="expo-card-name">${e.societe}</div>
+        <div class="expo-card-region">${e.region}</div>
+        <div class="expo-card-booth">攤位 ${e.booth}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterExpo(filtre, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderGrid(filtre);
+}
+
+/* ─── FICHE EXPOSANT ─── */
+function showWinery(uid) {
+  const e = exposants.find(x => x.uid === uid);
+  if (!e) return;
+  const vinsHtml = e.vins.length ? e.vins.map((v, i) => `
+    <div class="wine-card">
+      <div class="wine-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="wine-name">${v.name}</div>
+      <div class="wine-detail">${v.detail.split(' · ').map(s => `<span>${s}</span>`).join('')}</div>
+      ${v.awards ? `<div class="wine-awards">${v.awards}</div>` : ''}
+    </div>
+  `).join('') : '<p style="color:var(--gold);font-size:13px;padding:1rem 0;">Liste des vins à venir.</p>';
+
+  const siteUrl = e.site ? (e.site.startsWith('http') ? e.site : 'https://' + e.site) : '';
+
+  document.getElementById('wineryContent').innerHTML = `
+    <div class="winery-header">
+      <div class="winery-name">${e.societe}</div>
+      <div class="winery-regions">${e.region}</div>
+      ${siteUrl ? `<a href="${siteUrl}" target="_blank" style="font-size:11px;color:var(--terracotta);letter-spacing:0.5px;font-weight:500;">${e.site} ↗</a>` : ''}
+      <div class="winery-logo-box">
+        ${logoPath(e.uid) ? `<img class="winery-logo-img" src="${logoPath(e.uid)}" alt="${e.societe}">` : `<div><div class="winery-logo-text">${e.societe}</div><div class="winery-logo-sub">攤位 n° ${e.booth}</div></div>`}
+      </div>
+    </div>
+    <div class="winery-meta-row">
+      <div class="winery-meta-chip">攤位 <span>n° ${e.booth}</span></div>
+      ${e.ha && e.ha !== 'N/A' ? `<div class="winery-meta-chip">莊園面積 <span>${e.ha}</span></div>` : ''}
+      ${e.bottles ? `<div class="winery-meta-chip">生產量（瓶數） <span>${e.bottles}</span></div>` : ''}
+      ${e.pays ? `<div class="winery-meta-chip" style="white-space:normal;word-break:break-word;" title="${e.pays}">出口國 <span>${e.pays}</span></div>` : ''}
+    </div>
+    ${e.marketplace ? `
+    <a href="${e.marketplace}" target="_blank" rel="noopener" class="winery-marketplace-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      藉由 Marketplace 聯繫廠商 (免費註冊)
+    </a>` : ''}
+    <div class="winery-bio">
+      ${(e.bio || '').split('\n\n').map(para => para.trim()).filter(Boolean).map(para => '<p>' + para.replace(/\n/g, '<br>') + '</p>').join('')}
+    </div>
+    <div class="wines-section">
+      <div class="wines-header">
+        <div class="wines-label">WINE LIST / 酒單</div>
+        <div class="wines-line"></div>
+      </div>
+      ${vinsHtml}
+    </div>
+  `;
+  goTo('page-winery', e.uid);
+}
+
+/* ─── INIT ─── */
+renderGrid('ALL');
+
+/* ─── HASH ROUTING ─── */
+function handleHash() {
+  const hash = window.location.hash;
+  const matchExposant = hash.match(/^#\/exposant\/(\d+)$/);
+  if (matchExposant) {
+    const uid = parseInt(matchExposant[1]);
+    showWinery(uid);
+  } else if (hash === '#/exposants') {
+    goTo('page-list');
+  } else if (hash === '#/marketplace') {
+    goTo('page-marketplace');
+  } else if (hash === '#/occitanie') {
+    goTo('page-occitanie');
+  } else if (hash === '#/contact') {
+    goTo('page-contact');
+  } else if (hash === '#/galerie') {
+    goTo('page-galerie');
+  } else {
+    goTo('page-home');
+  }
+}
+
+function copyWineryLink() {
+  const url = window.location.href.split('#')[0] + window.location.hash;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('shareLinkBtn');
+    btn.textContent = '✓ COPIED';
+    setTimeout(() => { btn.textContent = '🔗 SHARE'; }, 2000);
+  });
+}
+
+window.addEventListener('popstate', handleHash);
+handleHash();
+</script>
+<!-- ══════════════════════════════════════
+     COOKIE CONSENT BANNER
+══════════════════════════════════════ -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-banner-content">
+    <div class="cookie-banner-text">
+      本網站使用 <strong>Google Analytics</strong> 分析流量，以改善使用者體驗。繼續瀏覽即表示您同意我們使用 cookies。
+    </div>
+    <div class="cookie-banner-actions">
+      <button class="cookie-btn cookie-btn-refuse" onclick="refuseCookies()">拒絕</button>
+      <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">接受</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     GOOGLE ANALYTICS 4 (GA4)
+══════════════════════════════════════ -->
+<script>
+// Cookie consent management
+function getCookieConsent() {
+  return localStorage.getItem('cookieConsent');
+}
+
+function setCookieConsent(value) {
+  localStorage.setItem('cookieConsent', value);
+}
+
+function acceptCookies() {
+  setCookieConsent('accepted');
+  document.getElementById('cookieBanner').classList.remove('show');
+  loadGA4();
+}
+
+function refuseCookies() {
+  setCookieConsent('refused');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+
+function loadGA4() {
+  // Google Analytics 4 script
+  const script1 = document.createElement('script');
+  script1.async = true;
+  script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-KZ4XW4CSRF';
+  document.head.appendChild(script1);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KZ4XW4CSRF', {
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+  
+  console.log('Google Analytics 4 loaded');
+}
+
+// Check consent on page load
+window.addEventListener('DOMContentLoaded', function() {
+  const consent = getCookieConsent();
+  
+  if (consent === 'accepted') {
+    // User previously accepted - load GA4 silently
+    loadGA4();
+  } else if (consent === 'refused') {
+    // User previously refused - do nothing
+  } else {
+    // First visit - show banner
+    setTimeout(function() {
+      document.getElementById('cookieBanner').classList.add('show');
+    }, 1000);
+  }
+});
+</script>
+
+</body>
+</html>
