@@ -35,7 +35,7 @@ window.TF_CONFIG = {
   supabaseUrl: "",
   supabaseAnonKey: "",
   supabaseTable: "registrations",
-  formEndpoint: "",
+  formEndpoint: "https://formspree.io/f/mdeaypnq",
 
   /* Ordre des exposants : "name" = alphabétique (raison sociale), "table" = par n° de stand.
      Passer à "table" une fois les numéros de stands attribués. */
