@@ -35,11 +35,11 @@ window.TF_CONFIG = {
   supabaseUrl: "",
   supabaseAnonKey: "",
   supabaseTable: "registrations",
-  formEndpoint: "https://formspree.io/f/mdeaypnq",
+  formEndpoint: "",
 
   /* Ordre des exposants : "name" = alphabétique (raison sociale), "table" = par n° de stand.
      Passer à "table" une fois les numéros de stands attribués. */
-  sortBy: "name",
+  sortBy: "table",
 
   gaId: "",   // ID Google Analytics (G-XXXXXXX) ; vide = pas de suivi
 
@@ -48,7 +48,7 @@ window.TF_CONFIG = {
 };
 
 /* -------------------------------------------------------------------------
-   EXPOSANTS — source : Catalogue_Site_V1.xlsx (16/10/2026), 23 sociétés sur 21 stands.
+   EXPOSANTS — source : Catalogue_Site_TF_nov26.xlsx (06/11/2026), 25 sociétés sur 23 stands.
    Champs :
      id            identifiant court (lien de partage)      name        raison sociale affichée
      region        région (filtres)                         table       n° de stand ("TBC" en attendant)
@@ -65,13 +65,13 @@ window.TF_EXHIBITORS = [
   "id": "cave-de-sancerre",
   "name": "Cave de Sancerre",
   "region": "LOIRE VALLEY",
-  "table": "TBC",
+  "table": "8",
   "sharedWith": "Domaine de Petit Roubié",
   "type": "Cooperative Winery",
   "size": "270 ha",
   "production": "1 800 000 bottles",
   "exportShare": "70%",
-  "exportMarkets": "USA, Canada, Belgium, UK, Italy, Japan…",
+  "exportMarkets": "USA, Canada, Belgium, United Kingdom, Italy, Japan…",
   "website": "https://www.vins-sancerre.com",
   "marketplace": "https://www.marketplace.businessfrance.fr/seller/view/index/id/5060/",
   "descEn": "Our cooperative was created in 1963. Today nearly 76 winegrowers who represent 270 ha of vines are partners of the company. These vines are growing in all the villagesand in the most beautiful terroirs of the area : stony slopes of the hills which overlook the Loire River (Longest river of France). This vineyard is a real unique palette, rich in potential and diversity where the Sauvignon Blanc and Pinot Noir grape varieties find the best elements to grow. The wines produced in our perfectly equipped cellars, with the passion and know-how of our winemakers, show the best and the variety of the Sancerre appellation : richness, aromatic intensity, finesse and balance. Leading producer of the AOC, nearly 1.6 million bottles leave our cellars every year for the happiness of our customers around the world.",
@@ -92,13 +92,14 @@ window.TF_EXHIBITORS = [
     "name": "Bio",
     "meta": "Loire Valley · AOP Sancerre · White · 2024 · Sauvignon Blanc · Organic"
    }
-  ]
+  ],
+  "shareOrder": 1
  },
  {
   "id": "chateau-de-lastours",
   "name": "Château de Lastours",
   "region": "LANGUEDOC",
-  "table": "TBC",
+  "table": "15",
   "type": "Independent Winegrower and Wine Merchant",
   "size": "1000 ha",
   "production": "400 000 bottles",
@@ -142,7 +143,7 @@ window.TF_EXHIBITORS = [
   "id": "chateau-de-malleret",
   "name": "Château de Malleret",
   "region": "BORDEAUX",
-  "table": "TBC",
+  "table": "19",
   "type": "Producer",
   "size": "60 ha",
   "production": "350 000 bottles",
@@ -202,7 +203,7 @@ window.TF_EXHIBITORS = [
   "id": "chateau-de-parnay",
   "name": "Château de Parnay",
   "region": "LOIRE VALLEY",
-  "table": "TBC",
+  "table": "6",
   "type": "Winegrower",
   "size": "35 ha",
   "production": "160 000 bottles",
@@ -250,7 +251,7 @@ window.TF_EXHIBITORS = [
   "id": "chateau-des-ravatys",
   "name": "Château des Ravatys",
   "region": "BEAUJOLAIS",
-  "table": "TBC",
+  "table": "11",
   "type": "Grower-Producer",
   "size": "36 ha",
   "production": "120 000 bottles",
@@ -286,12 +287,12 @@ window.TF_EXHIBITORS = [
   "id": "chateau-toulouse-lautrec",
   "name": "Château Toulouse-Lautrec",
   "region": "BORDEAUX",
-  "table": "TBC",
+  "table": "20",
   "type": "Estate Grower-Producer (SCEA)",
   "size": "45 ha",
   "production": "150 000 bottles/year",
   "exportShare": "80%",
-  "exportMarkets": "Germany, Canada, UK",
+  "exportMarkets": "Germany, Canada, United Kingdom",
   "website": "https://www.chateautoulouselautrec.com",
   "marketplace": "https://www.marketplace.businessfrance.fr/seller/view/index/id/10347/",
   "descEn": "Located in Saint-André-du-Bois on Bordeaux's right bank, Château Toulouse-Lautrec is a 45-hectare Bordeaux Supérieur estate. The château was the maternal family home of painter Henri de Toulouse-Lautrec, who died there in 1901; the site has held the French heritage label \"Maison des Illustres\" since 2016. The vineyard, planted on clay-gravel alluvial soils from the Pyrenean trench, is run by winegrower Charles Estager alongside oenologist Bruno Lacoste. The estate is HVE-certified, with one white cuvée certified organic. The range spans three tiers: Couleurs de Toulouse-Lautrec (entry level), Château Toulouse-Lautrec (core range, whose 2020 vintage scored 88 points from Wine Enthusiast's Roger Voss), and Moulin Rouge Grand Vin, an official collaboration cuvée created in 2025 for the cabaret's 135th anniversary, made in both red and white. The estate exports 80% of production to around fifteen markets, mainly Germany, Canada and the UK, and is currently building its commercial presence in Asia. [placeholder — pairing notes, per-cuvée volumes, further accolades to confirm with Charlotte]",
@@ -322,7 +323,7 @@ window.TF_EXHIBITORS = [
   "id": "clos-sainte-magdeleine",
   "name": "Clos Sainte Magdeleine",
   "region": "PROVENCE",
-  "table": "TBC",
+  "table": "13",
   "type": "Independent Winegrower",
   "size": "15 ha",
   "production": "90 000 bottles",
@@ -362,7 +363,7 @@ window.TF_EXHIBITORS = [
   "id": "dauvergne-ranvier",
   "name": "Dauvergne & Ranvier",
   "region": "RHÔNE VALLEY",
-  "table": "TBC",
+  "table": "12",
   "type": "Wine Merchant and Producer",
   "size": "",
   "production": "1 500 000 bottles",
@@ -418,7 +419,7 @@ window.TF_EXHIBITORS = [
   "id": "domaine-daurion",
   "name": "Domaine Daurion",
   "region": "LANGUEDOC",
-  "table": "TBC",
+  "table": "16",
   "type": "Independent Winegrower",
   "size": "54 ha",
   "production": "3 000 hL",
@@ -458,7 +459,7 @@ window.TF_EXHIBITORS = [
   "id": "domaine-de-petit-roubie",
   "name": "Domaine de Petit Roubié",
   "region": "LANGUEDOC",
-  "table": "TBC",
+  "table": "8",
   "sharedWith": "Cave de Sancerre",
   "type": "Independent Wine Estate",
   "size": "80 ha",
@@ -489,13 +490,14 @@ window.TF_EXHIBITORS = [
     "name": "Sauvignon",
     "meta": "Languedoc · IGP Pays d'Hérault · White · 2024 · Sauvignon Blanc · Organic"
    }
-  ]
+  ],
+  "shareOrder": 2
  },
  {
   "id": "domaine-saint-antoine",
   "name": "Domaine Saint Antoine",
   "region": "LANGUEDOC",
-  "table": "TBC",
+  "table": "17",
   "type": "Independent Winegrower",
   "size": "24 ha",
   "production": "1 000 hL",
@@ -543,7 +545,7 @@ window.TF_EXHIBITORS = [
   "id": "domaine-yannick-amirault",
   "name": "Domaine Yannick Amirault",
   "region": "LOIRE VALLEY",
-  "table": "TBC",
+  "table": "9",
   "type": "Wine Estate",
   "size": "19,5 ha",
   "production": "90 000 bottles",
@@ -583,7 +585,7 @@ window.TF_EXHIBITORS = [
   "id": "eurovins",
   "name": "Eurovins",
   "region": "MULTI-REGIONS",
-  "table": "TBC",
+  "table": "4",
   "type": "Wine & Spirits Merchant-Bottler",
   "size": "",
   "production": "3 500 000 bottles",
@@ -635,12 +637,12 @@ window.TF_EXHIBITORS = [
   "id": "fournier-pere-et-fils",
   "name": "Fournier Père et Fils",
   "region": "LOIRE VALLEY",
-  "table": "TBC",
+  "table": "10",
   "type": "Estate Grower-Producer",
   "size": "39 ha",
   "production": "700 000 bottles",
   "exportShare": "80%",
-  "exportMarkets": "USA, UK, Netherlands, Belgium, Switzerland, Denmark, Germany, South Korea, Australia, China, Thailand, Malaysia, Vietnam, Singapore",
+  "exportMarkets": "United States, Great Britain, Netherlands, Belgium, Switzerland, Denmark, Germany, South Korea, Australia, China, Thailand, Malaysia, Vietnam, Singapore",
   "website": "https://www.fournier-pere-fils.com",
   "marketplace": "https://www.marketplace.businessfrance.fr/seller/view/index/id/2383/",
   "descEn": "Selected consecutively as a Top 100 Winery in 2021 and 2022, Fournier Père et Fils is a pioneering Sancerre producer who contributed to bringing Sancerre to prominence across the French gastronomic scene and international markets.\n\nThe story of Fournier Père et Fils began in 1926 when the Fournier family started cultivating a modest 0.2-hectare plot of vines. Across three generations of unceasing dedication, the family created the Fournier legend in Verdigny, a celebrated winemaking village in Sancerre. Through their persistent efforts and vision, they successfully expanded the winery's global reach, exporting wines to over 65 countries by the 2000s. Today, as the winery celebrates its 100th anniversary in 2026, it stands proud of a century-long winemaking heritage built on passion and expertise.\n\nSince its foundation, Fournier Père et Fils has grown into a benchmark name of Sancerre encompassing 39 hectares of vineyards located in iconic appellations throughout the Centre-Loire region—the prestigious home of world-class Sauvignon Blanc and Pinot Noir, including AOP Sancerre, AOP Pouilly-Fumé, and AOP Menetou-Salon.",
@@ -691,7 +693,7 @@ window.TF_EXHIBITORS = [
   "id": "hesiode",
   "name": "Hesiode",
   "region": "MULTI-REGIONS",
-  "table": "TBC",
+  "table": "2",
   "type": "French Wine Exporter",
   "size": "",
   "production": "",
@@ -747,12 +749,12 @@ window.TF_EXHIBITORS = [
   "id": "jean-baptiste-audy",
   "name": "Jean-Baptiste Audy",
   "region": "BORDEAUX",
-  "table": "TBC",
+  "table": "21",
   "type": "Wine Merchant",
   "size": "",
   "production": "",
   "exportShare": "",
-  "exportMarkets": "Europe (Switzerland, Germany, UK, Belgium), USA, Japan",
+  "exportMarkets": "Europe (Switzerland, Germany, GB, Belgium), United States, Japan",
   "website": "https://www.jbaudy.fr/en",
   "marketplace": "https://www.marketplace.businessfrance.fr/seller/view/index/id/2358/",
   "descEn": "Family company created in 1906 by Jean Baptiste Audy. It has become essential for the distribution of wines from the right bank with a selection of very high quality exclusives. In addition to distributing wines from family vineyards, which are regularly rated among the greatest successes of their appellations, JB AUDY is also a privileged player in the distribution of Bordeaux Grands Crus Classés.",
@@ -803,7 +805,7 @@ window.TF_EXHIBITORS = [
   "id": "les-domaines-montaud",
   "name": "Les Domaines Montaud",
   "region": "PROVENCE",
-  "table": "TBC",
+  "table": "14",
   "type": "Independent Winegrower",
   "size": "250 ha",
   "production": "500 000 bottles",
@@ -839,7 +841,7 @@ window.TF_EXHIBITORS = [
   "id": "les-grappes",
   "name": "Les Grappes",
   "region": "MULTI-REGIONS",
-  "table": "TBC",
+  "table": "3",
   "type": "Wine Distributor / Wine Merchant",
   "size": "1200 ha",
   "production": "",
@@ -903,7 +905,7 @@ window.TF_EXHIBITORS = [
   "id": "mahler-besse",
   "name": "Mähler-Besse",
   "region": "BORDEAUX",
-  "table": "TBC",
+  "table": "18",
   "sharedWith": "Vinovalie",
   "type": "Wine Merchant",
   "size": "",
@@ -958,13 +960,14 @@ window.TF_EXHIBITORS = [
     "name": "Château Lynch Moussas Pauillac 2018",
     "meta": "Bordeaux · AOC Pauillac 5ème Grand Cru Classé 1855 · Red · 2018 · Cabernet Sauvignon, Merlot, Cabernet Franc, Petit Verdot"
    }
-  ]
+  ],
+  "shareOrder": 2
  },
  {
   "id": "maison-tanase",
   "name": "Maison Tanase",
   "region": "MULTI-REGIONS",
-  "table": "TBC",
+  "table": "5",
   "type": "Wine Merchant",
   "size": "",
   "production": "",
@@ -1020,7 +1023,7 @@ window.TF_EXHIBITORS = [
   "id": "tutiac",
   "name": "Tutiac",
   "region": "BORDEAUX",
-  "table": "TBC",
+  "table": "22",
   "type": "Cooperative Winery",
   "size": "4500 ha",
   "production": "20 000 000 bottles",
@@ -1068,7 +1071,7 @@ window.TF_EXHIBITORS = [
   "id": "union-des-caves-du-medoc",
   "name": "Union des Caves du Médoc",
   "region": "BORDEAUX",
-  "table": "TBC",
+  "table": "23",
   "type": "Union of Cooperatives",
   "size": "350 ha",
   "production": "2 500 000 bottles",
@@ -1124,13 +1127,13 @@ window.TF_EXHIBITORS = [
   "id": "vinovalie",
   "name": "Vinovalie",
   "region": "SOUTH WEST",
-  "table": "TBC",
+  "table": "18",
   "sharedWith": "Mähler-Besse",
   "type": "Cooperative",
   "size": "3 758 ha",
   "production": "~230 000 hL/year",
   "exportShare": "25%",
-  "exportMarkets": "Japan, UK, Netherlands, Belgium, Brazil, Denmark, China, Russia, USA",
+  "exportMarkets": "Japan, United Kingdom, Netherlands, Belgium, Brazil, Denmark, China, Russia, United States",
   "website": "https://www.vinovalie.com",
   "marketplace": "https://www.marketplace.businessfrance.fr/seller/view/index/id/2599/",
   "descEn": "VINOVALIE is a union of cooperative wineries from South-West France, formed by 5 historic cellars across 3 iconic terroirs: Cahors (Malbec AOP), Fronton (Négrette AOP) and Gaillac (8 grape varieties including Braucol, Duras and Mauzac). The group brings together 354 winegrowers, 3,758 hectares of vineyards and 23 châteaux and estates, producing around 230,000 hl of red, rosé and white wines per year (AOP, IGP, VSIG). Strongly committed to sustainability (88% of the vineyard HVE3 certified, 889 ha farmed organically, ISO 22000 and FSSC 22000 certifications), Vinovalie won 87 medals in 2025 (48 gold, 33 silver, 3 bronze) at major French wine competitions. The group generates about EUR 50 million in turnover, 25% of which from exports, with an established presence in Japan, the UK, the Netherlands, Belgium, Brazil, Denmark, China, Russia and the USA. Headquartered in Saint-Sulpice-la-Pointe (20 minutes north of Toulouse), in modern, green-energy-powered premises. Group brands include Tarani, Gamay Le Traditionnel, Rosé Piscine, Apesanteur, Pause Bulles and Démon Noir.",
@@ -1151,6 +1154,75 @@ window.TF_EXHIBITORS = [
     "name": "Le Loin de l'Œil",
     "meta": "South West · AOP Gaillac Blanc Sec · White · Loin de l'Œil"
    }
+  ],
+  "shareOrder": 1
+ },
+ {
+  "id": "domaine-lucas-salmon",
+  "name": "Domaine Lucas Salmon",
+  "region": "LOIRE VALLEY",
+  "table": "7",
+  "type": "Independent Winegrower",
+  "size": "10 ha",
+  "production": "60 000 bottles",
+  "exportShare": "15%",
+  "exportMarkets": "Canada, Sweden, South Korea, Germany, Italy, Belgium, Netherlands",
+  "website": "https://www.domainelucassalmon.com",
+  "marketplace": "N/A",
+  "descEn": "After completing his studies in 2012, Mickaël Salmon worked at another domain for two years before returning to the family domain in 2014, where he began integrating into every level.\n\nIn February 2015, he traveled to New Zealand to work for several months at a winery in the Marlborough Valley. He subsequently visited vineyards around the world (including in Italy, South Africa, Portugal, and Switzerland).\n\nHe returned home in July 2019 to join his father at the family domain, Domaine Salmon. At the same time, Mickaël decided to establish his own domain—currently in organic conversion—to bring a fresh approach to both the vineyard and the chai. He selected specific terroirs to produce exclusively single-plot white and red wines. Today, Domaine Lucas Salmon spans 10 hectares planted with Melon Blanc, Folle Blanche, Pinot Gris, Gamay, Pinot Noir, and Merlot.\n\nThe wines are aged in underground tanks, ceramic jars, concrete eggs, or clay amphorae. The influence of oak barrels—always carefully controlled—is also utilized for certain cuvées. Vineyard management is meticulous: the soils are fully plowed, and every spring the team performs severe green harvest ; and if necessary also in July to balance the crop load. During the harvest, the grapes undergo a two-stage sorting process: first in the vineyard and then on a sorting table. Mickaël also enjoys experimenting with new practices; for instance, he has planted mass selections of Pinot Noir using high-density stake training to observe the impact of vine stress on fruit concentration, and has begun braiding the vines in certain plots. Today, the wines are distributed throughout France—to fine restaurants and wine merchants—as well as internationally. Alongside Mickaël, three employees and a team of seasonal workers tend the vines, while his wife works with him on the commercial and administrative side. The name Lucas, paired with Salmon, pays tribute to Mickaël’s great-grandparents, who were also winemakers at Les Landes Devin.",
+  "wines": [
+   {
+    "name": "Muscadet \"Mise de Printemps\" 2025",
+    "meta": "Loire Valley · AOP Muscadet AC · White · 2025 · Melon de Bourgogne · Organic"
+   },
+   {
+    "name": "Muscadet \"Les Brosses\" 2024",
+    "meta": "Loire Valley · AOP Muscadet AC · White · 2024 · Melon de Bourgogne · La Revue du Vin de France 91/100 · Organic"
+   },
+   {
+    "name": "Muscadet \"Les Enfermures\" 2025",
+    "meta": "Loire Valley · AOP Muscadet AC · White · 2025 · Melon de Bourgogne · Bettane+Desseauve 94/100 · Organic"
+   },
+   {
+    "name": "VDF Pinot Gris \"Château-Bordin\" 2025",
+    "meta": "Loire Valley · VDF · White · 2025 · Pinot Gris · Bettane+Desseauve 91/100 · Organic conversion"
+   },
+   {
+    "name": "VDF Folle Blanche \"Le Fief Cognard\" 2025",
+    "meta": "Loire Valley · VDF · White · 2025 · Folle Blanche · Bettane+Desseauve 91/100, La Revue du Vin de France 92/100 · Organic conversion"
+   },
+   {
+    "name": "VDF Folle Blanche \"Follera\"",
+    "meta": "Loire Valley · VDF · White · perpetual reserve started in 2022 · Folle Blanche · Bettane+Desseauve 92/100 · Organic conversion"
+   },
+   {
+    "name": "VDF Gamay \"Vendange Intégrale\" 2025",
+    "meta": "Loire Valley · VDF · Red · 2025 · Gamay · Bettane+Desseauve 92/100 · Organic conversion"
+   },
+   {
+    "name": "VDF Pinot Noir \"La Bareille\" 2025",
+    "meta": "Loire Valley · VDF · Red · 2025 · Pinot Noir · Bettane+Desseauve 94/100 · Organic"
+   },
+   {
+    "name": "VDF Merlot \"La Pièce du Châtaignier\" 2023",
+    "meta": "Loire Valley · VDF · Red · 2023 · Merlot · Organic conversion"
+   }
   ]
+ },
+ {
+  "id": "champagne-la-comtesse-a",
+  "name": "Champagne La Comtesse A.",
+  "region": "CHAMPAGNE",
+  "table": "1",
+  "pending": true,
+  "type": "",
+  "size": "",
+  "production": "",
+  "exportShare": "",
+  "exportMarkets": "",
+  "website": "https://www.la-comtesse-a.com",
+  "marketplace": "",
+  "descEn": "",
+  "wines": []
  }
 ];
