@@ -12,13 +12,14 @@
 | `img_02.png` | logo Business France ✅ inclus |
 | `tastin-dark.png` / `tastin-light.png` | logo Tastin' France recoloré (fond sombre / fond clair) ✅ inclus |
 | `img_06.jpg` … `img_10.jpg` | photos de la page Event photos (remplacer par celles de mai 2026) |
-| `plan_de_salle_2026.png` | plan de salle Regent 3F Ballroom |
+| `plan_de_salle_2026.png` | plan de salle Regent 3F Ballroom ✅ inclus |
 | `og-tastin-2026.jpg` | visuel central 1920×1080 (aperçu pour LINE / Facebook) |
 | `exposants/*.png` | logos des exposants (facultatif) |
 
-## Ajouter les exposants
-Les 23 exposants (21 stands) du Catalogue_Site_V1.xlsx sont intégrés dans `data.js`, par ordre alphabétique.
-Une fois les stands attribués : remplacer chaque `"table": "TBC"` par le numéro, puis passer `sortBy: "name"` à `sortBy: "table"` dans la configuration. Les filtres par région se créent automatiquement.
+## Exposants
+23 stands (Catalogue_Site_TF_nov26.xlsx), classés par n° de stand (`sortBy: "table"`).
+Les stands partagés (8 et 18) s'affichent en une seule carte et une seule page : il suffit que les deux sociétés aient le même `table` et un champ `sharedWith`. `shareOrder` (1, 2) fixe l'ordre des deux sociétés sur la carte.
+Champagne La Comtesse A. (stand 1) est marqué `"pending": true` : sa fiche affiche « informations à venir ». Une fois ses informations reçues, compléter sa fiche et supprimer la ligne `"pending": true`.
 
 ## Mise en ligne
 Remplacer le contenu du dossier publié actuellement sur tastinfrancetw.com par ce dossier (même hébergeur, même domaine).

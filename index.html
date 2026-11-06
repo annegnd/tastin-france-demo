@@ -149,6 +149,19 @@ section.block{padding:84px 0}
 .ex .shared{color:var(--bordeaux);font-weight:600}
 .ex .tb.tbc{background:transparent;border:1px dashed var(--filet);color:var(--gris)}
 .ex .nm{padding-right:70px}
+.ex .reg{padding-right:64px;line-height:1.5}
+.ex .amp{font-size:13px;font-weight:700;color:var(--ambre-d);margin:-4px 0}
+.ex-shared{background:linear-gradient(180deg,#fff 0,#fff 70%,#FBF6EE 100%);border-color:var(--ambre)}
+.amp-h{color:var(--ambre-d)}
+.jump{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.jump a{font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--filet);border-radius:30px;padding:8px 14px 6px;background:#fff}
+.jump a:hover{border-color:var(--bordeaux)}
+.member{padding-top:36px;margin-top:30px;border-top:3px solid var(--creme)}
+.member h3{font-size:clamp(24px,2.6vw,30px);margin:6px 0 2px;color:var(--prune);line-height:1.15}
+.minfo{margin-top:24px;background:var(--creme);border-radius:12px;padding:20px 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 24px}
+.minfo .row{margin-bottom:12px}
+.minfo .k{font-size:11px;letter-spacing:.2em;font-weight:700;color:var(--ambre-d)}
+
 .side{background:var(--creme);border-radius:12px;padding:24px;align-self:start}
 .side .row{margin-bottom:16px}
 .side .k{font-size:11px;letter-spacing:.2em;font-weight:700;color:var(--ambre-d)}
@@ -159,7 +172,7 @@ section.block{padding:84px 0}
 /* ---------- Modal ---------- */
 .modal{position:fixed;inset:0;background:rgba(30,10,15,.78);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
 .modal.open{display:flex}
-.modal .box{background:#fff;border-radius:12px;max-width:1100px;width:100%;max-height:90vh;overflow:auto;position:relative;padding:20px}
+.modal .box{background:#fff;border-radius:12px;max-width:1100px;width:100%;max-height:90vh;overflow:auto;position:relative;padding:44px 20px 20px}
 .modal .x{position:absolute;top:8px;right:12px;background:none;border:0;font-size:26px;cursor:pointer;color:var(--prune)}
 
 /* ---------- Marketplace ---------- */
@@ -251,7 +264,6 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
       <span class="sep" aria-hidden="true"></span>
       <img src="images/img_02.png" alt="Business France" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'Business France'}))">
     </div>
-    <a class="top-cta" href="#contact">REGISTER · 報名</a>
   </div>
 </div>
 
@@ -298,8 +310,7 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
         </div>
       </div>
       <div class="ctas">
-        <a class="btn" href="#contact">REGISTER NOW / 立即報名 <span aria-hidden="true">›</span></a>
-        <a class="btn ghost" href="#exhibitors">參展酒莊 · EXHIBITORS</a>
+        <a class="btn" href="#exhibitors">參展酒莊 · EXHIBITORS <span aria-hidden="true">›</span></a>
         <a class="ical" id="ical" href="#" download="tastin-france-2026.ics">+ 加入行事曆 / Add to calendar</a>
       </div>
     </div>
@@ -526,72 +537,104 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
     });
   });
 
-  /* Exhibitors */
+  /* Exhibitors — one card and one page per stand (shared stands grouped) */
   const norm=t=>String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
   const tableNum=t=>{const n=parseInt(t,10);return isNaN(n)?Infinity:n;};
-  EX.sort(C.sortBy==='table'
+  const groups={}, STANDS=[];
+  EX.forEach(e=>{
+    const key=e.sharedWith&&e.table&&!/^tbc$/i.test(e.table)?'t'+e.table:'id'+e.id;
+    if(!groups[key]){groups[key]={members:[],table:e.table};STANDS.push(groups[key]);}
+    groups[key].members.push(e);
+  });
+  STANDS.forEach(g=>{
+    g.members.sort((x,y)=>(x.shareOrder||9)-(y.shareOrder||9)||norm(x.name).localeCompare(norm(y.name)));
+    g.id=g.members.map(m=>m.id).join('+');
+    g.name=g.members.map(m=>m.name).join(' & ');
+    g.regions=[...new Set(g.members.map(m=>m.region).filter(Boolean))];
+    g.shared=g.members.length>1;
+  });
+  STANDS.sort(C.sortBy==='table'
     ? (a,b)=>tableNum(a.table)-tableNum(b.table)||norm(a.name).localeCompare(norm(b.name))
     : (a,b)=>norm(a.name).localeCompare(norm(b.name)));
-  const regions = [...new Set(EX.map(e=>e.region).filter(Boolean))].sort();
+  const regions=[...new Set(EX.map(e=>e.region).filter(Boolean))].sort();
   let cur='ALL', q='';
   const chips=document.getElementById('chips'), grid=document.getElementById('grid');
   const stand=t=>(!t||/^tbc$/i.test(t))?'Stand TBC':'N° '+t;
+  const hay=g=>norm(g.members.map(e=>[e.name,e.region,e.type,(e.wines||[]).map(w=>w.name+' '+w.meta).join(' ')].join(' ')).join(' '));
   function renderChips(){
-    const all=[['ALL',EX.length],...regions.map(r=>[r,EX.filter(e=>e.region===r).length])];
+    const all=[['ALL',STANDS.length],...regions.map(r=>[r,STANDS.filter(g=>g.regions.includes(r)).length])];
     chips.innerHTML=all.map(([r,n])=>`<button class="chip${r===cur?' on':''}" data-r="${esc(r)}">${esc(r)}<em>${n}</em></button>`).join('');
   }
   function renderGrid(){
-    const list=EX.filter(e=>(cur==='ALL'||e.region===cur)&&(!q||norm([e.name,e.region,e.type,(e.wines||[]).map(w=>w.name+' '+w.meta).join(' ')].join(' ')).includes(norm(q))));
-    if(!EX.length){grid.innerHTML='<div class="empty zh" style="grid-column:1/-1">酒莊名單即將公布 · List coming soon</div>';return;}
+    const list=STANDS.filter(g=>(cur==='ALL'||g.regions.includes(cur))&&(!q||hay(g).includes(norm(q))));
+    if(!STANDS.length){grid.innerHTML='<div class="empty zh" style="grid-column:1/-1">酒莊名單即將公布 · List coming soon</div>';return;}
     if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1">— 0 —</div>';return;}
-    grid.innerHTML=list.map(e=>`<a class="ex" href="#exhibitors/${encodeURIComponent(e.id)}">
-      <span class="tb${/^tbc$/i.test(e.table||'TBC')?' tbc':''}">${esc(stand(e.table))}</span>
-      ${e.logo?`<div class="logo"><img src="${esc(e.logo)}" alt="" loading="lazy"></div>`:''}
-      <span class="reg">${esc(e.region)}</span><span class="nm">${esc(e.name)}</span>
-      ${e.type?`<span class="ct">${esc(e.type)}</span>`:''}
-      <span class="foot">${(e.wines||[]).length} wines 款${e.sharedWith?` · <span class="shared">共用攤位 Shared</span>`:''}</span>
-    </a>`).join('');
+    grid.innerHTML=list.map(g=>{
+      const e=g.members[0], nw=g.members.reduce((n,m)=>n+(m.wines||[]).length,0);
+      return `<a class="ex${g.shared?' ex-shared':''}" href="#exhibitors/${encodeURIComponent(g.id)}">
+      <span class="tb${/^tbc$/i.test(g.table||'TBC')?' tbc':''}">${esc(stand(g.table))}</span>
+      ${!g.shared&&e.logo?`<div class="logo"><img src="${esc(e.logo)}" alt="" loading="lazy"></div>`:''}
+      <span class="reg">${g.regions.map(esc).join(' · ')}</span>
+      ${g.shared
+        ? g.members.map(m=>`<span class="nm">${esc(m.name)}</span>${m.type?`<span class="ct">${esc(m.type)}</span>`:''}`).join('<span class="amp">&amp;</span>')
+        : `<span class="nm">${esc(e.name)}</span>${e.type?`<span class="ct">${esc(e.type)}</span>`:''}`}
+      <span class="foot">${g.members.every(m=>m.pending)?'資料即將公布 · Info coming soon':`${nw} wines 款`}${g.shared?` · <span class="shared">共用攤位 Shared stand</span>`:''}</span>
+    </a>`;}).join('');
   }
   chips.addEventListener('click',ev=>{const b=ev.target.closest('.chip'); if(!b)return; cur=b.dataset.r; renderChips(); renderGrid();});
   document.getElementById('q').addEventListener('input',ev=>{q=ev.target.value.trim(); renderGrid();});
   renderChips(); renderGrid();
 
+  const para=t=>t?t.split(/\n+/).map(p=>p.trim()).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join(''):'';
+  const fact=(k,v)=>v?`<div class="fact-i"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`:'';
+  const webRow=e=>e.website?`<div class="row"><div class="k">WEBSITE · 官網</div><a href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}</a></div>`:'';
+  const mpRow=e=>/^https?:/.test(e.marketplace||'')?`<div class="row"><a class="btn dark" style="font-size:13px;padding:11px 16px 9px 20px" href="${esc(e.marketplace)}" target="_blank" rel="noopener">Marketplace ↗</a></div>`:(e.marketplace?`<div class="row"><div class="k">MARKETPLACE</div><div>${esc(e.marketplace)}</div></div>`:'');
+  const expRow=e=>e.exportMarkets?`<div class="row"><div class="k">EXPORT MARKETS · 出口國</div><div style="font-size:15px">${esc(e.exportMarkets)}</div></div>`:'';
+  function body(e){
+    return `<div class="facts-g">${fact('VINEYARD · 葡萄園面積',e.size)}${fact('PRODUCTION · 年產量',e.production)}${fact('EXPORT · 外銷比例',e.exportShare)}</div>
+      <div class="desc"><div class="zh">${para(e.descZh)}</div>${para(e.descEn)}</div>
+      ${e.pending?`<div class="empty zh" style="text-align:left;padding:28px">酒莊介紹與參展酒款即將公布。<br><span style="font-family:var(--f)">Presentation and wines coming soon.</span></div>`:''}
+      ${(e.wines&&e.wines.length)?`<div class="eyebrow" style="margin-top:34px">Wines presented · 參展酒款（${e.wines.length}）</div><ol class="wines">${e.wines.map(w=>`<li><span class="wn">${esc(w.name)}</span>${w.meta?`<span class="wm">${esc(w.meta)}</span>`:''}</li>`).join('')}</ol>`:''}`;
+  }
   function renderDetail(id){
-    const e=EX.find(x=>x.id===id), box=document.getElementById('ex-detail');
-    if(!e){location.hash='#exhibitors';return;}
-    const para=t=>t?t.split(/\n+/).map(p=>p.trim()).filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join(''):'';
-    const partner=e.sharedWith&&EX.find(x=>x.name===e.sharedWith);
-    const fact=(k,v)=>v?`<div class="fact-i"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`:'';
+    const g=STANDS.find(x=>x.id===id||x.members.some(m=>m.id===id)), box=document.getElementById('ex-detail');
+    if(!g){location.hash='#exhibitors';return;}
+    const e=g.members[0];
+    let main, side;
+    if(!g.shared){
+      main=`<div class="eyebrow">${esc(e.region)}</div><h2>${esc(e.name)}</h2>
+        ${e.type?`<div style="color:var(--gris);font-size:17px">${esc(e.type)}</div>`:''}<hr class="rule">${body(e)}`;
+      side=`${e.logo?`<img src="${esc(e.logo)}" alt="${esc(e.name)}" style="max-height:90px;width:auto;margin-bottom:18px">`:''}
+        <div class="row"><div class="k">STAND · 攤位</div><div style="font-size:26px;font-weight:700;color:var(--prune)">${esc(stand(g.table))}</div></div>
+        <div class="row"><div class="k">REGION · 產區</div><div>${esc(e.region)}</div></div>${expRow(e)}${webRow(e)}${mpRow(e)}`;
+    } else {
+      main=`<div class="eyebrow">${g.regions.map(esc).join(' · ')}</div><h2>${g.members.map(m=>esc(m.name)).join(' <span class="amp-h">&amp;</span> ')}</h2>
+        <div style="color:var(--gris);font-size:17px">共用攤位 · Shared stand</div><hr class="rule">
+        <nav class="jump">${g.members.map(m=>`<a href="#" data-jump="sec-${esc(m.id)}">${esc(m.name)} ↓</a>`).join('')}</nav>
+        ${g.members.map(m=>`<section class="member" id="sec-${esc(m.id)}">
+          <div class="eyebrow">${esc(m.region)}</div><h3>${esc(m.name)}</h3>
+          ${m.type?`<div style="color:var(--gris);font-size:16px;margin-bottom:18px">${esc(m.type)}</div>`:''}
+          ${body(m)}
+          <div class="minfo">${expRow(m)}${webRow(m)}${mpRow(m)}</div>
+        </section>`).join('')}`;
+      side=`<div class="row"><div class="k">STAND · 攤位</div><div style="font-size:26px;font-weight:700;color:var(--prune)">${esc(stand(g.table))}</div>
+          <div style="font-size:14px;margin-top:4px">共用攤位 · Shared stand</div></div>
+        <div class="row"><div class="k">EXHIBITORS · 參展商</div>${g.members.map(m=>`<div><a href="#" data-jump="sec-${esc(m.id)}">${esc(m.name)}</a></div>`).join('')}</div>
+        <div class="row"><div class="k">REGIONS · 產區</div><div>${g.regions.map(esc).join(' · ')}</div></div>`;
+    }
     box.innerHTML=`<a class="back" href="#exhibitors">← 返回名單 / Retour</a>
-      <div class="detail"><div>
-        <div class="eyebrow">${esc(e.region)}</div><h2>${esc(e.name)}</h2>
-        ${e.type?`<div style="color:var(--gris);font-size:17px">${esc(e.type)}</div>`:''}
-        <hr class="rule">
-        <div class="facts-g">
-          ${fact('VINEYARD · 葡萄園面積',e.size)}${fact('PRODUCTION · 年產量',e.production)}${fact('EXPORT · 外銷比例',e.exportShare)}
-        </div>
-        <div class="desc"><div class="zh">${para(e.descZh)}</div>${para(e.descEn)}</div>
-        ${(e.wines&&e.wines.length)?`<div class="eyebrow" style="margin-top:34px">Wines presented · 參展酒款（${e.wines.length}）</div><ol class="wines">${e.wines.map(w=>`<li><span class="wn">${esc(w.name)}</span>${w.meta?`<span class="wm">${esc(w.meta)}</span>`:''}</li>`).join('')}</ol>`:''}
-      </div><aside class="side">
-        ${e.logo?`<img src="${esc(e.logo)}" alt="${esc(e.name)}" style="max-height:90px;width:auto;margin-bottom:18px">`:''}
-        <div class="row"><div class="k">STAND · 攤位</div><div style="font-size:26px;font-weight:700;color:var(--prune)">${esc(stand(e.table))}</div>
-          ${partner?`<div style="font-size:14px;margin-top:4px">Shared with · 共用攤位：<a href="#exhibitors/${encodeURIComponent(partner.id)}">${esc(partner.name)}</a></div>`:''}</div>
-        <div class="row"><div class="k">REGION · 產區</div><div>${esc(e.region)}</div></div>
-        ${e.exportMarkets?`<div class="row"><div class="k">EXPORT MARKETS · 出口國</div><div style="font-size:15px">${esc(e.exportMarkets)}</div></div>`:''}
-        ${e.website?`<div class="row"><div class="k">WEBSITE · 官網</div><a href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}</a></div>`:''}
-        ${/^https?:/.test(e.marketplace||'')?`<div class="row"><a class="btn dark" style="font-size:13px;padding:11px 16px 9px 20px" href="${esc(e.marketplace)}" target="_blank" rel="noopener">Marketplace ↗</a></div>`:(e.marketplace?`<div class="row"><div class="k">MARKETPLACE</div><div>${esc(e.marketplace)}</div></div>`:'')}
-        <button class="linkbtn" id="share">🔗 SHARE</button>
-      </aside></div>`;
+      <div class="detail"><div>${main}</div><aside class="side">${side}<button class="linkbtn" id="share">🔗 SHARE</button></aside></div>`;
+    box.querySelectorAll('[data-jump]').forEach(a=>a.onclick=ev=>{ev.preventDefault();const t=document.getElementById(a.dataset.jump);if(t)window.scrollTo({top:t.getBoundingClientRect().top+scrollY-80,behavior:'smooth'});});
     document.getElementById('share').onclick=async()=>{
       const url=location.href;
-      try{ if(navigator.share){await navigator.share({title:e.name+' — Tastin\' France',url});} else {await navigator.clipboard.writeText(url); document.getElementById('share').textContent='✓ Link copied';} }catch(_){}
+      try{ if(navigator.share){await navigator.share({title:g.name+' — Tastin\' France',url});} else {await navigator.clipboard.writeText(url); document.getElementById('share').textContent='✓ Link copied';} }catch(_){}
     };
   }
 
   /* Floor plan */
   const modal=document.getElementById('plan-modal');
   document.getElementById('plan-btn').onclick=()=>{
-    document.getElementById('plan-body').innerHTML=C.floorPlan?`<img src="${esc(C.floorPlan)}" alt="Plan de salle" onerror="this.outerHTML='<p class=&quot;zh&quot; style=&quot;padding:30px;text-align:center&quot;>展場地圖即將公布 · Floor plan coming soon</p>'">`:'<p class="zh" style="padding:30px;text-align:center">展場地圖即將公布 · Floor plan coming soon</p>';
+    document.getElementById('plan-body').innerHTML=C.floorPlan?`<a href="${esc(C.floorPlan)}" target="_blank" rel="noopener" title="Open full size"><img src="${esc(C.floorPlan)}" alt="Plan de salle · Floor plan 會場平面圖" onerror="this.outerHTML='<p class=&quot;zh&quot; style=&quot;padding:30px;text-align:center&quot;>展場地圖即將公布 · Floor plan coming soon</p>'"></a><p style="text-align:center;font-size:13px;color:var(--gris);margin:10px 0 0">點擊放大 · Click to enlarge</p>`:'<p class="zh" style="padding:30px;text-align:center">展場地圖即將公布 · Floor plan coming soon</p>';
     modal.classList.add('open');
   };
   modal.addEventListener('click',ev=>{if(ev.target===modal||ev.target.classList.contains('x'))modal.classList.remove('open');});
