@@ -43,6 +43,7 @@ window.TF_CONFIG = {
     name: "Vinexpo Asia",
     stand: "S",
     logo: "images/exposants/sponsor-vinexpo-asia.png",
+    logoFooter: "images/exposants/sponsor-vinexpo-asia-white.png",   // version blanche pour le pied de page
     website: "https://vinexpoasia.com/",
     labelEn: "Sponsor", labelZh: "贊助商"
   },

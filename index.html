@@ -159,7 +159,11 @@ section.block{padding:84px 0}
 .ex-sponsor{border-color:var(--sapin);background:linear-gradient(180deg,#fff 0,#fff 60%,#EEF2EE 100%)}
 .ex-sponsor .tb{background:var(--sapin);color:var(--creme)}
 .ex-sponsor .reg{color:var(--sapin)}
-footer .sp-f{margin-top:16px;font-size:14px;opacity:.85}
+footer .sp-f{margin-top:18px}
+footer .sp-f-k{font-size:12px;font-weight:700;letter-spacing:.2em;opacity:.75;margin-bottom:8px}
+footer .sp-f-logo{display:inline-flex;align-items:center;padding:4px 0;opacity:.9}
+footer .sp-f-logo img{height:36px;width:auto;display:block;margin-left:-6px}
+footer .sp-f-logo:hover{opacity:1}
 .ex .reg{padding-right:64px;line-height:1.5}
 .ex .amp{font-size:13px;font-weight:700;color:var(--ambre-d);margin:-4px 0}
 .ex-shared{background:linear-gradient(180deg,#fff 0,#fff 70%,#FBF6EE 100%);border-color:var(--ambre)}
@@ -553,7 +557,8 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
   const SP=C.sponsor;
   if(SP){
     const f=document.getElementById('sp-foot'); f.hidden=false;
-    f.innerHTML=`${esc(SP.labelZh)} · ${esc(SP.labelEn)} : <a href="${esc(SP.website||'#')}" target="_blank" rel="noopener">${esc(SP.name)}</a>`;
+    f.innerHTML=`<div class="sp-f-k">${esc(SP.labelZh)} · ${esc(SP.labelEn)}</div>
+      <a class="sp-f-logo" href="${esc(SP.website||'#')}" target="_blank" rel="noopener" aria-label="${esc(SP.name)}">${(SP.logoFooter||SP.logo)?`<img src="${esc(SP.logoFooter||SP.logo)}" alt="${esc(SP.name)}">`:esc(SP.name)}</a>`;
   }
   const spCard=()=>`<a class="ex ex-sponsor" href="${esc(SP.website||'#')}" target="_blank" rel="noopener">
       <span class="tb">${esc(SP.stand||'S')}</span>
