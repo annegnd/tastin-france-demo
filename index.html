@@ -126,8 +126,6 @@ section.block{padding:84px 0}
 .ex .nm{font-size:19px;font-weight:700;line-height:1.25;color:var(--prune)}
 .ex .ct{font-size:14px;color:var(--gris)}
 .ex .tb{position:absolute;top:16px;right:16px;font-size:12px;font-weight:700;background:var(--creme);color:var(--prune);padding:4px 9px 2px;border-radius:20px}
-.ex .logo{height:54px;display:flex;align-items:center}
-.ex .logo img{max-height:54px;width:auto}
 .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;background:var(--sapin);color:var(--creme);padding:4px 9px 2px;border-radius:4px;align-self:flex-start}
 .tag.sample{background:var(--ambre);color:var(--prune)}
 .empty{padding:48px;text-align:center;background:#fff;border:1px dashed var(--filet);border-radius:12px;color:var(--gris)}
@@ -149,6 +147,19 @@ section.block{padding:84px 0}
 .ex .shared{color:var(--bordeaux);font-weight:600}
 .ex .tb.tbc{background:transparent;border:1px dashed var(--filet);color:var(--gris)}
 .ex .nm{padding-right:70px}
+.ex .logo{height:64px;display:flex;align-items:center;gap:14px;margin:-2px 0 4px;padding-right:64px}
+.ex .logo img{max-height:64px;max-width:150px;width:auto;height:auto;object-fit:contain}
+.ex .logo.pair img{max-width:105px;max-height:56px}
+.side-logo{background:#fff;border-radius:10px;padding:16px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:16px;min-height:110px}
+.side-logo img{max-height:120px;max-width:100%;width:auto;object-fit:contain}
+.side-logo.pair img{max-width:46%;max-height:90px}
+.m-logo{display:inline-block;background:#fff;border-radius:10px;padding:10px 16px;margin-bottom:14px}
+.m-logo img{max-height:80px;max-width:220px;width:auto}
+
+.ex-sponsor{border-color:var(--sapin);background:linear-gradient(180deg,#fff 0,#fff 60%,#EEF2EE 100%)}
+.ex-sponsor .tb{background:var(--sapin);color:var(--creme)}
+.ex-sponsor .reg{color:var(--sapin)}
+footer .sp-f{margin-top:16px;font-size:14px;opacity:.85}
 .ex .reg{padding-right:64px;line-height:1.5}
 .ex .amp{font-size:13px;font-weight:700;color:var(--ambre-d);margin:-4px 0}
 .ex-shared{background:linear-gradient(180deg,#fff 0,#fff 70%,#FBF6EE 100%);border-color:var(--ambre)}
@@ -474,6 +485,7 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
       <div>
         <div style="font-weight:700;font-size:18px">Business France Taiwan</div>
         <div class="zh" style="opacity:.8">法國在台協會商務處</div>
+        <div class="sp-f" id="sp-foot" hidden></div>
         <div class="soc">
           <a data-href="instagram" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EDE4D6" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#EDE4D6"/></svg></a>
           <a data-href="facebook" target="_blank" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="#EDE4D6"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.7-.6z"/></svg></a>
@@ -537,6 +549,20 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
     });
   });
 
+  /* Sponsor — footer mention + card "S" at the end of the exhibitors list (external link, no dedicated page) */
+  const SP=C.sponsor;
+  if(SP){
+    const f=document.getElementById('sp-foot'); f.hidden=false;
+    f.innerHTML=`${esc(SP.labelZh)} · ${esc(SP.labelEn)} : <a href="${esc(SP.website||'#')}" target="_blank" rel="noopener">${esc(SP.name)}</a>`;
+  }
+  const spCard=()=>`<a class="ex ex-sponsor" href="${esc(SP.website||'#')}" target="_blank" rel="noopener">
+      <span class="tb">${esc(SP.stand||'S')}</span>
+      ${SP.logo?`<div class="logo"><img src="${esc(SP.logo)}" alt="" loading="lazy"></div>`:''}
+      <span class="reg">${esc((SP.labelEn||'').toUpperCase())} · ${esc(SP.labelZh)}</span>
+      <span class="nm">${esc(SP.name)}</span>
+      <span class="foot">${esc((SP.website||'').replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))} ↗</span>
+    </a>`;
+
   /* Exhibitors — one card and one page per stand (shared stands grouped) */
   const norm=t=>String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
   const tableNum=t=>{const n=parseInt(t,10);return isNaN(n)?Infinity:n;};
@@ -569,17 +595,18 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
     const list=STANDS.filter(g=>(cur==='ALL'||g.regions.includes(cur))&&(!q||hay(g).includes(norm(q))));
     if(!STANDS.length){grid.innerHTML='<div class="empty zh" style="grid-column:1/-1">酒莊名單即將公布 · List coming soon</div>';return;}
     if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1">— 0 —</div>';return;}
+    const showSp=SP&&cur==='ALL'&&(!q||norm(SP.name+' sponsor 贊助商').includes(norm(q)));
     grid.innerHTML=list.map(g=>{
       const e=g.members[0], nw=g.members.reduce((n,m)=>n+(m.wines||[]).length,0);
       return `<a class="ex${g.shared?' ex-shared':''}" href="#exhibitors/${encodeURIComponent(g.id)}">
       <span class="tb${/^tbc$/i.test(g.table||'TBC')?' tbc':''}">${esc(stand(g.table))}</span>
-      ${!g.shared&&e.logo?`<div class="logo"><img src="${esc(e.logo)}" alt="" loading="lazy"></div>`:''}
+      ${g.members.some(m=>m.logo)?`<div class="logo${g.shared?' pair':''}">${g.members.filter(m=>m.logo).map(m=>`<img src="${esc(m.logo)}" alt="${esc(m.name)}" loading="lazy">`).join('')}</div>`:''}
       <span class="reg">${g.regions.map(esc).join(' · ')}</span>
       ${g.shared
         ? g.members.map(m=>`<span class="nm">${esc(m.name)}</span>${m.type?`<span class="ct">${esc(m.type)}</span>`:''}`).join('<span class="amp">&amp;</span>')
         : `<span class="nm">${esc(e.name)}</span>${e.type?`<span class="ct">${esc(e.type)}</span>`:''}`}
       <span class="foot">${g.members.every(m=>m.pending)?'資料即將公布 · Info coming soon':`${nw} wines 款`}${g.shared?` · <span class="shared">共用攤位 Shared stand</span>`:''}</span>
-    </a>`;}).join('');
+    </a>`;}).join('')+(showSp?spCard():'');
   }
   chips.addEventListener('click',ev=>{const b=ev.target.closest('.chip'); if(!b)return; cur=b.dataset.r; renderChips(); renderGrid();});
   document.getElementById('q').addEventListener('input',ev=>{q=ev.target.value.trim(); renderGrid();});
@@ -592,6 +619,7 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
   const expRow=e=>e.exportMarkets?`<div class="row"><div class="k">EXPORT MARKETS · 出口國</div><div style="font-size:15px">${esc(e.exportMarkets)}</div></div>`:'';
   function body(e){
     return `<div class="facts-g">${fact('VINEYARD · 葡萄園面積',e.size)}${fact('PRODUCTION · 年產量',e.production)}${fact('EXPORT · 外銷比例',e.exportShare)}</div>
+      ${e.sourcing?`<p style="margin:-10px 0 22px;font-size:14px;color:var(--gris)"><b style="color:var(--ambre-d);letter-spacing:.1em;font-size:11px">SOURCING · 葡萄來源</b><br>${esc(e.sourcing)}</p>`:''}
       <div class="desc"><div class="zh">${para(e.descZh)}</div>${para(e.descEn)}</div>
       ${e.pending?`<div class="empty zh" style="text-align:left;padding:28px">酒莊介紹與參展酒款即將公布。<br><span style="font-family:var(--f)">Presentation and wines coming soon.</span></div>`:''}
       ${(e.wines&&e.wines.length)?`<div class="eyebrow" style="margin-top:34px">Wines presented · 參展酒款（${e.wines.length}）</div><ol class="wines">${e.wines.map(w=>`<li><span class="wn">${esc(w.name)}</span>${w.meta?`<span class="wm">${esc(w.meta)}</span>`:''}</li>`).join('')}</ol>`:''}`;
@@ -604,7 +632,7 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
     if(!g.shared){
       main=`<div class="eyebrow">${esc(e.region)}</div><h2>${esc(e.name)}</h2>
         ${e.type?`<div style="color:var(--gris);font-size:17px">${esc(e.type)}</div>`:''}<hr class="rule">${body(e)}`;
-      side=`${e.logo?`<img src="${esc(e.logo)}" alt="${esc(e.name)}" style="max-height:90px;width:auto;margin-bottom:18px">`:''}
+      side=`${e.logo?`<div class="side-logo"><img src="${esc(e.logo)}" alt="${esc(e.name)}"></div>`:''}
         <div class="row"><div class="k">STAND · 攤位</div><div style="font-size:26px;font-weight:700;color:var(--prune)">${esc(stand(g.table))}</div></div>
         <div class="row"><div class="k">REGION · 產區</div><div>${esc(e.region)}</div></div>${expRow(e)}${webRow(e)}${mpRow(e)}`;
     } else {
@@ -612,12 +640,14 @@ footer .legal{border-top:1px solid rgba(237,228,214,.15);margin-top:36px;padding
         <div style="color:var(--gris);font-size:17px">共用攤位 · Shared stand</div><hr class="rule">
         <nav class="jump">${g.members.map(m=>`<a href="#" data-jump="sec-${esc(m.id)}">${esc(m.name)} ↓</a>`).join('')}</nav>
         ${g.members.map(m=>`<section class="member" id="sec-${esc(m.id)}">
+          ${m.logo?`<div class="m-logo"><img src="${esc(m.logo)}" alt="${esc(m.name)}"></div>`:''}
           <div class="eyebrow">${esc(m.region)}</div><h3>${esc(m.name)}</h3>
           ${m.type?`<div style="color:var(--gris);font-size:16px;margin-bottom:18px">${esc(m.type)}</div>`:''}
           ${body(m)}
           <div class="minfo">${expRow(m)}${webRow(m)}${mpRow(m)}</div>
         </section>`).join('')}`;
-      side=`<div class="row"><div class="k">STAND · 攤位</div><div style="font-size:26px;font-weight:700;color:var(--prune)">${esc(stand(g.table))}</div>
+      side=`${g.members.some(m=>m.logo)?`<div class="side-logo pair">${g.members.filter(m=>m.logo).map(m=>`<img src="${esc(m.logo)}" alt="${esc(m.name)}">`).join('')}</div>`:''}
+        <div class="row"><div class="k">STAND · 攤位</div><div style="font-size:26px;font-weight:700;color:var(--prune)">${esc(stand(g.table))}</div>
           <div style="font-size:14px;margin-top:4px">共用攤位 · Shared stand</div></div>
         <div class="row"><div class="k">EXHIBITORS · 參展商</div>${g.members.map(m=>`<div><a href="#" data-jump="sec-${esc(m.id)}">${esc(m.name)}</a></div>`).join('')}</div>
         <div class="row"><div class="k">REGIONS · 產區</div><div>${g.regions.map(esc).join(' · ')}</div></div>`;

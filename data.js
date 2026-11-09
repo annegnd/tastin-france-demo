@@ -37,6 +37,16 @@ window.TF_CONFIG = {
   supabaseTable: "registrations",
   formEndpoint: "",
 
+  /* SPONSOR — carte « S » en fin de liste des exposants + mention dans le pied de page.
+     Logo : déposer le fichier dans images/ et indiquer son nom (laisser "" = nom en texte). */
+  sponsor: {
+    name: "Vinexpo Asia",
+    stand: "S",
+    logo: "images/exposants/sponsor-vinexpo-asia.png",
+    website: "https://vinexpoasia.com/",
+    labelEn: "Sponsor", labelZh: "贊助商"
+  },
+
   /* Ordre des exposants : "name" = alphabétique (raison sociale), "table" = par n° de stand.
      Passer à "table" une fois les numéros de stands attribués. */
   sortBy: "table",
@@ -93,7 +103,8 @@ window.TF_EXHIBITORS = [
     "meta": "Loire Valley · AOP Sancerre · White · 2024 · Sauvignon Blanc · Organic"
    }
   ],
-  "shareOrder": 1
+  "shareOrder": 1,
+  "logo": "images/exposants/cave-de-sancerre.png"
  },
  {
   "id": "chateau-de-lastours",
@@ -137,7 +148,8 @@ window.TF_EXHIBITORS = [
     "name": "Bergerie de Lastours Blanc",
     "meta": "Languedoc · AOP Corbières · White · 2025 · Vermentino, Roussanne · Organic"
    }
-  ]
+  ],
+  "logo": "images/exposants/chateau-de-lastours.png"
  },
  {
   "id": "chateau-de-malleret",
@@ -197,7 +209,8 @@ window.TF_EXHIBITORS = [
     "name": "Margaux de Malleret",
     "meta": "Bordeaux · AOC Margaux · Red · 2021 · Merlot 100% · Sustainable"
    }
-  ]
+  ],
+  "logo": "images/exposants/chateau-de-malleret.png"
  },
  {
   "id": "chateau-de-parnay",
@@ -245,7 +258,8 @@ window.TF_EXHIBITORS = [
     "name": "Saumur Champigny Château de Parnay \"Le Clos des Meuniers\" 2019",
     "meta": "Loire Valley · AOP Saumur Champigny · Red · 2019 · Cabernet Franc · Organic"
    }
-  ]
+  ],
+  "logo": "images/exposants/chateau-de-parnay.png"
  },
  {
   "id": "chateau-des-ravatys",
@@ -281,7 +295,8 @@ window.TF_EXHIBITORS = [
     "name": "Château des Ravatys Beaujolais Blanc",
     "meta": "Beaujolais · AOC Beaujolais Blanc · White · 2025 · Chardonnay · Organic Conversion"
    }
-  ]
+  ],
+  "logo": "images/exposants/chateau-des-ravatys.png"
  },
  {
   "id": "chateau-toulouse-lautrec",
@@ -317,7 +332,8 @@ window.TF_EXHIBITORS = [
     "name": "Moulin Rouge Grand Vin Blanc",
     "meta": "Bordeaux · AOC Bordeaux Blanc · White · 2021 · Sémillon 90%, Sauvignon Blanc 10% · HVE"
    }
-  ]
+  ],
+  "logo": "images/exposants/chateau-toulouse-lautrec.png"
  },
  {
   "id": "clos-sainte-magdeleine",
@@ -357,7 +373,8 @@ window.TF_EXHIBITORS = [
     "name": "Blanc Méditerranée by Sainte Magdeleine",
     "meta": "Provence · IGP Méditerranée · White · 2025 · Rolle, Ugni blanc, Clairette · 95 points Gold Medal Decanter WWA 2026 · Organic"
    }
-  ]
+  ],
+  "logo": "images/exposants/clos-sainte-magdeleine.png"
  },
  {
   "id": "dauvergne-ranvier",
@@ -413,7 +430,8 @@ window.TF_EXHIBITORS = [
     "name": "Du Soleil à La Terre (\"from Sun to Earth\")",
     "meta": "Rhône Valley · AOP Châteauneuf-du-Pape · Red · 2024 · Grenache, Syrah, Mourvèdre, Counoise · Organic"
    }
-  ]
+  ],
+  "logo": "images/exposants/dauvergne-ranvier.png"
  },
  {
   "id": "domaine-daurion",
@@ -453,7 +471,8 @@ window.TF_EXHIBITORS = [
     "name": "AOP Languedoc Pézenas 2025",
     "meta": "Languedoc · AOP Languedoc · Red · 2025 · Syrah, Grenache Noir · Biodynamic"
    }
-  ]
+  ],
+  "logo": "images/exposants/domaine-daurion.png"
  },
  {
   "id": "domaine-de-petit-roubie",
@@ -491,7 +510,8 @@ window.TF_EXHIBITORS = [
     "meta": "Languedoc · IGP Pays d'Hérault · White · 2024 · Sauvignon Blanc · Organic"
    }
   ],
-  "shareOrder": 2
+  "shareOrder": 2,
+  "logo": "images/exposants/domaine-de-petit-roubie.png"
  },
  {
   "id": "domaine-saint-antoine",
@@ -539,7 +559,8 @@ window.TF_EXHIBITORS = [
     "name": "Domaine Saint Antoine, Révélation 2019",
     "meta": "Languedoc · AOP Minervois · Red · 2019 · Syrah, Grenache · Concours Mondial de Bruxelles Gold, Vinalises Internationales Gold · Organic conversion"
    }
-  ]
+  ],
+  "logo": "images/exposants/domaine-saint-antoine.png"
  },
  {
   "id": "domaine-yannick-amirault",
@@ -579,7 +600,8 @@ window.TF_EXHIBITORS = [
     "name": "Domaine Y. Amirault Cuvée « La Mine » 2025",
     "meta": "Loire Valley · AOP Saint-Nicolas-de-Bourgueil · Red · 2025 · Cabernet Franc · Organic"
    }
-  ]
+  ],
+  "logo": "images/exposants/domaine-yannick-amirault.png"
  },
  {
   "id": "eurovins",
@@ -631,7 +653,8 @@ window.TF_EXHIBITORS = [
     "name": "Château L'Ecrin de Couley AOP Medoc 2022",
     "meta": "Bordeaux · AOC Medoc · Red · 2022 · Cabernet Sauvignon, Merlot · Conventional"
    }
-  ]
+  ],
+  "logo": "images/exposants/eurovins.png"
  },
  {
   "id": "fournier-pere-et-fils",
@@ -687,7 +710,8 @@ window.TF_EXHIBITORS = [
     "name": "Fournier Père & Fils Pinot Noir France ‘F. de Fournier’",
     "meta": "Loire Valley · VDF Vin de France · Red · 2025 · Pinot Noir · 92 pt Best Buy Wine & Spirits, 91 pt Wine & Spirits, 90 pt James Suckling, Gold Anivin de France, Gold Concours Mondial de Bruxelles · Sustainable"
    }
-  ]
+  ],
+  "logo": "images/exposants/fournier-pere-et-fils.png"
  },
  {
   "id": "hesiode",
@@ -743,7 +767,8 @@ window.TF_EXHIBITORS = [
     "name": "AOC Saint-Emilion Grand Cru Château Patris",
     "meta": "Bordeaux · AOC Saint-Emilion Grand Cru · Red · 2023 · Merlot Noir 75%, Cabernet Sauvignon 15%, Cabernet Franc 10%"
    }
-  ]
+  ],
+  "logo": "images/exposants/hesiode.png"
  },
  {
   "id": "jean-baptiste-audy",
@@ -799,7 +824,8 @@ window.TF_EXHIBITORS = [
     "name": "Château Haut Pauillac",
     "meta": "Bordeaux · AOC Pauillac · Red · 2019 · Cabernet Sauvignon 60%, Merlot 40% · Sustainable"
    }
-  ]
+  ],
+  "logo": "images/exposants/jean-baptiste-audy.png"
  },
  {
   "id": "les-domaines-montaud",
@@ -835,7 +861,8 @@ window.TF_EXHIBITORS = [
     "name": "Ikon",
     "meta": "Provence · AOP Côtes de Provence · Rosé · 2025 · Silver Medal Brussels Concours · Organic Conversion"
    }
-  ]
+  ],
+  "logo": "images/exposants/les-domaines-montaud.png"
  },
  {
   "id": "les-grappes",
@@ -899,7 +926,8 @@ window.TF_EXHIBITORS = [
     "name": "Domaine du Pavillon Crozes-Hermitage",
     "meta": "Rhône Valley · AOC Crozes-Hermitage Rouge · Red · 2025"
    }
-  ]
+  ],
+  "logo": "images/exposants/les-grappes.png"
  },
  {
   "id": "mahler-besse",
@@ -961,7 +989,8 @@ window.TF_EXHIBITORS = [
     "meta": "Bordeaux · AOC Pauillac 5ème Grand Cru Classé 1855 · Red · 2018 · Cabernet Sauvignon, Merlot, Cabernet Franc, Petit Verdot"
    }
   ],
-  "shareOrder": 2
+  "shareOrder": 2,
+  "logo": "images/exposants/mahler-besse.png"
  },
  {
   "id": "maison-tanase",
@@ -1017,7 +1046,8 @@ window.TF_EXHIBITORS = [
     "name": "Domaine de la Chaise \"Originelle, AOP Touraine Rouge, Cot (Malbec) 2023",
     "meta": "Loire Valley · AOP Touraine Rouge · Red · 2023 · 100% Malbec · Gold Medal Awarded · Sustainable"
    }
-  ]
+  ],
+  "logo": "images/exposants/maison-tanase.png"
  },
  {
   "id": "tutiac",
@@ -1065,7 +1095,8 @@ window.TF_EXHIBITORS = [
     "name": "Origines Fond Renard",
     "meta": "Bordeaux · AOP Blaye · White · 2023 · Sauvignon Blanc · 4,3 Vivino · Sustainable"
    }
-  ]
+  ],
+  "logo": "images/exposants/tutiac.png"
  },
  {
   "id": "union-des-caves-du-medoc",
@@ -1121,7 +1152,8 @@ window.TF_EXHIBITORS = [
     "name": "Blanc Pirate",
     "meta": "Bordeaux · Vin de France · White · 2025 · Merlot · Sustainable"
    }
-  ]
+  ],
+  "logo": "images/exposants/union-des-caves-du-medoc.png"
  },
  {
   "id": "vinovalie",
@@ -1155,7 +1187,8 @@ window.TF_EXHIBITORS = [
     "meta": "South West · AOP Gaillac Blanc Sec · White · Loin de l'Œil"
    }
   ],
-  "shareOrder": 1
+  "shareOrder": 1,
+  "logo": "images/exposants/vinovalie.png"
  },
  {
   "id": "domaine-lucas-salmon",
@@ -1168,7 +1201,7 @@ window.TF_EXHIBITORS = [
   "exportShare": "15%",
   "exportMarkets": "Canada, Sweden, South Korea, Germany, Italy, Belgium, Netherlands",
   "website": "https://www.domainelucassalmon.com",
-  "marketplace": "N/A",
+  "marketplace": "https://www.marketplace.businessfrance.fr/seller/view/index/id/2263/",
   "descEn": "After completing his studies in 2012, Mickaël Salmon worked at another domain for two years before returning to the family domain in 2014, where he began integrating into every level.\n\nIn February 2015, he traveled to New Zealand to work for several months at a winery in the Marlborough Valley. He subsequently visited vineyards around the world (including in Italy, South Africa, Portugal, and Switzerland).\n\nHe returned home in July 2019 to join his father at the family domain, Domaine Salmon. At the same time, Mickaël decided to establish his own domain—currently in organic conversion—to bring a fresh approach to both the vineyard and the chai. He selected specific terroirs to produce exclusively single-plot white and red wines. Today, Domaine Lucas Salmon spans 10 hectares planted with Melon Blanc, Folle Blanche, Pinot Gris, Gamay, Pinot Noir, and Merlot.\n\nThe wines are aged in underground tanks, ceramic jars, concrete eggs, or clay amphorae. The influence of oak barrels—always carefully controlled—is also utilized for certain cuvées. Vineyard management is meticulous: the soils are fully plowed, and every spring the team performs severe green harvest ; and if necessary also in July to balance the crop load. During the harvest, the grapes undergo a two-stage sorting process: first in the vineyard and then on a sorting table. Mickaël also enjoys experimenting with new practices; for instance, he has planted mass selections of Pinot Noir using high-density stake training to observe the impact of vine stress on fruit concentration, and has begun braiding the vines in certain plots. Today, the wines are distributed throughout France—to fine restaurants and wine merchants—as well as internationally. Alongside Mickaël, three employees and a team of seasonal workers tend the vines, while his wife works with him on the commercial and administrative side. The name Lucas, paired with Salmon, pays tribute to Mickaël’s great-grandparents, who were also winemakers at Les Landes Devin.",
   "wines": [
    {
@@ -1207,22 +1240,37 @@ window.TF_EXHIBITORS = [
     "name": "VDF Merlot \"La Pièce du Châtaignier\" 2023",
     "meta": "Loire Valley · VDF · Red · 2023 · Merlot · Organic conversion"
    }
-  ]
+  ],
+  "logo": "images/exposants/domaine-lucas-salmon.png"
  },
  {
   "id": "champagne-la-comtesse-a",
   "name": "Champagne La Comtesse A.",
   "region": "CHAMPAGNE",
   "table": "1",
-  "pending": true,
-  "type": "",
-  "size": "",
-  "production": "",
-  "exportShare": "",
-  "exportMarkets": "",
+  "type": "Négociant-Manipulant",
+  "size": "No own vineyards",
+  "production": "approx. 10,000–12,000 bottles / year",
+  "exportShare": "55%",
+  "exportMarkets": "Switzerland",
   "website": "https://www.la-comtesse-a.com",
-  "marketplace": "",
-  "descEn": "",
-  "wines": []
+  "marketplace": "TBC",
+  "descEn": "Anaïs Leconte, founder of LA COMTESSE A., is the 6th generation of a family of Champagne winegrowers. Based in Troissy, in the heart of the Marne Valley, her independent Champagne house is Anaïs's tribute to this family heritage.\n\nBlending family tradition with a resolutely modern outlook, the house crafts Champagnes with strong personalities: each cuvée tells a story and conveys an emotion, with an elegance that is both classic and resolutely contemporary.\n\nWith \"Le Jardin Secret de La Comtesse\" (The Countess's Secret Garden), Anaïs returns to her roots in an ode to Nature: an intimate, family range, faithful to know-how passed down from generation to generation and reinterpreted with a modern touch. The two cuvées pay tribute to her family:\n• Les Sources de Gabriel, Blanc de Blancs Brut: the house's first 100% Chardonnay cuvée, an emblem of purity and rarity. It is dedicated to Gabriel, Anaïs's son, her source of light and inspiration – a Champagne that is both fresh and full of character.\n• Les Terres d'Anaïs, Blanc de Noirs Brut Nature vintage: 100% Meunier from the lands of her ancestors, fermented in terracotta jars and oak barrels, with zero dosage – a pure and precise expression of terroir and vintage.\n\nAt LA COMTESSE A., everything is first and foremost a family affair. The grapes come from the family vineyards – those of Anaïs, her father and her brother – farmed under HVE certification or organically. They are pressed in the family press, and Anaïs vinifies each of her cuvées herself. Looking ahead, the house has chosen the status of négociant-manipulant: it will give it the freedom to select, in the future, grapes from complementary plots and terroirs across Champagne, to support its international growth without ever compromising on quality.\n\nDeliberately limited production, meticulous care at every stage (winemaking, disgorgement, dressing), refined packaging and wooden gift boxes: LA COMTESSE A. is made for wine merchants, fine dining and connoisseurs looking for a signature Champagne.\n\nAlready present in Switzerland, the house now wishes to build a lasting presence in Asia – Japan, South Korea and Taiwan – with importers and partners who share its taste for authenticity, art and gastronomy.",
+  "wines": [
+   {
+    "name": "Champagne LA COMTESSE A. – Les Terres d'Anaïs 2021 Blanc de Noirs Brut Nature",
+    "meta": "Champagne · AOP Champagne · White · 2021 · Meunier · Sustainable"
+   },
+   {
+    "name": "Champagne LA COMTESSE A. – Les Sources de Gabriel Blanc de Blancs Brut",
+    "meta": "Champagne · AOP Champagne · White · NV · Chardonnay · Sustainable"
+   },
+   {
+    "name": "Champagne LA COMTESSE A. – Madame Ladybird Brut Rosé",
+    "meta": "Champagne · AOP Champagne · Rosé · NV · Meunier, Pinot Noir, Chardonnay · Sustainable"
+   }
+  ],
+  "sourcing": "Grapes sourced exclusively from the Leconte family vineyards (Marne Valley), HVE-certified or organic",
+  "logo": "images/exposants/champagne-la-comtesse-a.png"
  }
 ];
